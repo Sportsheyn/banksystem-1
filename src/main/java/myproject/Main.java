@@ -29,6 +29,16 @@ public class Main {
                 System.out.println(account.getAmount());
             }
 
+            if(input.equals("deposit")) {
+
+                Account account = Command.deposit();
+                System.out.println(account.getAmount());
+            }
+
+            if(input.equals("transfer")) {
+
+                boolean transfer = Command.transfer();
+            }
 
         }
 
