@@ -1,5 +1,4 @@
-/*
-package myproject.general;
+package myproject.basic.general;
 
 import org.junit.Test;
 
@@ -66,4 +65,3 @@ public class AccountTest {
     public void setAmount() {
     }
 }
-*/

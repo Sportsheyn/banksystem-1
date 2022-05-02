@@ -1,0 +1,12 @@
+-classpath 'C:\\Users\\marvi\\IdeaProjects\\banksystem\\build\\classes\\java\\main;C:\\Users\\marvi\\IdeaProjects\\banksystem\\build\\resources\\main;C:\\Users\\marvi\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.commons\\commons-lang3\\3.9\\122c7cee69b53ed4a7681c03d4ee4c0e2765da5\\commons-lang3-3.9.jar'
+-d 'C:\\Users\\marvi\\IdeaProjects\\banksystem\\build\\docs\\javadoc'
+-doctitle 'banksystem API'
+-notimestamp 
+-quiet 
+-windowtitle 'banksystem API'
+'C:\\Users\\marvi\\IdeaProjects\\banksystem\\src\\main\\java\\myproject\\commands\\CreateAccount.java'
+'C:\\Users\\marvi\\IdeaProjects\\banksystem\\src\\main\\java\\myproject\\commands\\Deposit.java'
+'C:\\Users\\marvi\\IdeaProjects\\banksystem\\src\\main\\java\\myproject\\commands\\Transfer.java'
+'C:\\Users\\marvi\\IdeaProjects\\banksystem\\src\\main\\java\\myproject\\commands\\Withdraw.java'
+'C:\\Users\\marvi\\IdeaProjects\\banksystem\\src\\main\\java\\myproject\\general\\Account.java'
+'C:\\Users\\marvi\\IdeaProjects\\banksystem\\src\\main\\java\\myproject\\Main.java'
