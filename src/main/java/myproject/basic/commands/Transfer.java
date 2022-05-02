@@ -1,6 +1,6 @@
-package myproject.commands;
+package myproject.basic.commands;
 
-import myproject.general.Account;
+import myproject.basic.general.Account;
 
 import java.util.Scanner;
 

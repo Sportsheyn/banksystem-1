@@ -1,7 +1,11 @@
-package myproject;
+package myproject.basic;
 
-import myproject.commands.*;
-import myproject.general.Account;
+import myproject.basic.commands.CreateAccount;
+import myproject.basic.commands.Deposit;
+import myproject.basic.commands.Transfer;
+import myproject.basic.commands.Withdraw;
+import myproject.basic.commands.*;
+import myproject.basic.general.Account;
 
 import java.util.Scanner;
 
