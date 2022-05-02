@@ -1,10 +1,11 @@
 package myproject;
 
+import myproject.commands.*;
+import myproject.general.Account;
+
 import java.util.Scanner;
 
 public class Main {
-
-    //Test123
 
     public static void main(String[] args) {
 
@@ -19,26 +20,26 @@ public class Main {
 
 
             if(input.equals("createaccount")) {
-                Account account = Command.createaccount();
+                Account account = CreateAccount.createaccount();
                 System.out.println(account.getAccount_number());
             }
 
 
             if(input.equals("withdraw")) {
 
-                Account account = Command.withdraw();
+                Account account = Withdraw.withdraw();
                 System.out.println(account.getAmount());
             }
 
             if(input.equals("deposit")) {
 
-                Account account = Command.deposit();
+                Account account = Deposit.deposit();
                 System.out.println(account.getAmount());
             }
 
             if(input.equals("transfer")) {
 
-                boolean transfer = Command.transfer();
+                boolean transfer = Transfer.transfer();
             }
 
         }
