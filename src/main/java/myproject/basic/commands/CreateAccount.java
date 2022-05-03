@@ -1,11 +1,12 @@
 package myproject.basic.commands;
 
 import myproject.basic.general.Account;
+import myproject.basic.general.Bank;
 
 import java.util.Scanner;
 
 public class CreateAccount {
-    public static Account createaccount() {
+    public static Account createaccount(Bank bank) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your forename and lastname.");
@@ -15,7 +16,7 @@ public class CreateAccount {
         String forename = text_split[0];
         String lastname = text_split[1];
 
-        Account account = new Account(forename, lastname);
+        Account account = bank.createAccount(forename, lastname);
 
         return account;
     }
