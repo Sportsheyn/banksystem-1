@@ -25,3 +25,17 @@ jar {
  configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
  }
 }
+
+task myZip(type: Zip) {
+
+    //Project directory
+    from './build'
+
+    //Directory to output ZIP file
+    destinationDirectory = file('C:\\Users\\chris\\Desktop\\Tutorial')
+
+    //File name to archive
+    archiveFileName = "testZip4.zip"
+    //excludes  ['*/shop/product/data/' ]
+    //includes = ['build\\docs']
+}

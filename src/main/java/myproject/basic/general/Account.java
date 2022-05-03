@@ -29,13 +29,6 @@ public class Account {
         return account_list;
     }
 
-    /**
-     * SetterMethode für account_list
-     * @param account_list
-     */
-    public static void setAccount_list(ArrayList<Account> account_list) {
-        Account.account_list = account_list;
-    }
 
     /**
      * Durchsucht die Liste account_list nach dem angefragtem Konto
