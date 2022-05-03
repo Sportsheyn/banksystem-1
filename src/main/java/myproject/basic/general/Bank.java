@@ -11,6 +11,7 @@ public class Bank {
     private static int next_account_number = 1;
 
     private Map<Integer, Account> account_map = new HashMap<>();
+    private Map<Integer, Double> credit_overview = new HashMap<>();
 
     public Bank() {
 
@@ -40,6 +41,24 @@ public class Bank {
 
             sourceaccount_object.withdraw(amount);
             targetaccount_object.deposit(amount);
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public boolean grantCredit(int sourceaccount, double amount) {
+
+        Account sourceaccount_object = account_map.get(sourceaccount);
+
+        if(sourceaccount_object != null) {
+
+            sourceaccount_object.deposit(amount);
+
+            // Gute Lösung?
+            credit_overview.put(sourceaccount, amount);
 
             return true;
         }

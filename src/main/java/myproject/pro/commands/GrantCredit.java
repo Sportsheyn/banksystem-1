@@ -1,6 +1,31 @@
 package myproject.pro.commands;
 
-//public class GrantCredit {
-//    public void grantcredit
-//
-//}
+
+import myproject.basic.general.Account;
+import myproject.basic.general.Bank;
+
+import java.util.Scanner;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
+
+/**
+ * Gewährt einen Kredit vom Umfang <amount> und merkt sich, dass ein solcher Kredit für das Konto besteht.
+ * Dem Konto wird der Betrag <amount> gutgeschrieben.
+ */
+public class GrantCredit {
+
+    public void grantcredit(Bank bank) {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter the amount and the accountnumber.");
+        String input = scanner.nextLine();
+        String[] text_split = input.split("\\s");
+
+        double amount = parseDouble(text_split[0]);
+        int accountnumber = parseInt(text_split[1]);
+
+        bank.grantCredit(accountnumber, amount);
+    }
+
+}
