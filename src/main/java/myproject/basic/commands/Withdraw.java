@@ -8,10 +8,15 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class Withdraw {
+public class Withdraw implements ICommand {
 
-    public static Account withdraw(Bank bank) {
+    @Override
+    public String getCommandName() {
+        return "withdraw";
+    }
 
+    @Override
+    public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");
         String input = scanner.nextLine();
@@ -24,7 +29,5 @@ public class Withdraw {
 
 
         find_account.withdraw(amount);
-
-        return find_account;
     }
 }

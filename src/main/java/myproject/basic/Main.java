@@ -8,6 +8,8 @@ import myproject.basic.commands.*;
 import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -15,6 +17,11 @@ public class Main {
     public static void main(String[] args) {
 
         Bank bank = new Bank();
+        Map<String, ICommand> commands = new HashMap<>();
+        commands.put("createaccount", new CreateAccount());
+        commands.put("withdraw", new Withdraw());
+
+
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
@@ -27,17 +34,15 @@ public class Main {
 
 
             if(input.equals("createaccount")) {
-
-                Account account = CreateAccount.createaccount(bank);
-                System.out.println(account.getAccount_number());
+                ICommand command = commands.get("createaccount");
+                command.execute(bank);
             }
-
 
             if(input.equals("withdraw")) {
-
-                Account account = Withdraw.withdraw(bank);
-                System.out.println(account.getAmount());
+                ICommand command = commands.get("withdraw");
+                command.execute(bank);
             }
+
 
             if(input.equals("deposit")) {
 

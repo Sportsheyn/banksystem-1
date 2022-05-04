@@ -5,9 +5,15 @@ import myproject.basic.general.Bank;
 
 import java.util.Scanner;
 
-public class CreateAccount {
-    public static Account createaccount(Bank bank) {
+public class CreateAccount implements ICommand {
 
+    @Override
+    public String getCommandName() {
+        return "createaccount";
+    }
+
+    @Override
+    public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter your forename and lastname.");
         String input = scanner.nextLine();
@@ -17,7 +23,6 @@ public class CreateAccount {
         String lastname = text_split[1];
 
         Account account = bank.createAccount(forename, lastname);
-
-        return account;
+        System.out.println(account.getAccount_number());
     }
 }
