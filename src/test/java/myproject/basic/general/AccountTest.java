@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-
+/*
 public class AccountTest {
 
 
@@ -59,3 +59,4 @@ public class AccountTest {
     public void setAmount() {
     }
 }
+*/
