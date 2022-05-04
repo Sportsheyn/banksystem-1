@@ -1,6 +1,5 @@
 package myproject.basic.commands;
 
-import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 
 import java.util.Scanner;
@@ -8,8 +7,14 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class Transfer {
-    public static boolean transfer(Bank bank) {
+public class Transfer implements ICommand {
+
+    @Override
+    public String getCommandName() {
+        return "transfer";
+    }
+
+    public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");
         String input = scanner.nextLine();
@@ -20,7 +25,5 @@ public class Transfer {
         double amount = parseDouble(text_split[2]);
 
         bank.transfer(sourceaccount, targetaccount, amount);
-
-        return true;
     }
 }

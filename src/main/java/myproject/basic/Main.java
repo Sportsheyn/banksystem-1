@@ -5,7 +5,6 @@ import myproject.basic.commands.Deposit;
 import myproject.basic.commands.Transfer;
 import myproject.basic.commands.Withdraw;
 import myproject.basic.commands.*;
-import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 
 import java.util.HashMap;
@@ -20,6 +19,8 @@ public class Main {
         Map<String, ICommand> commands = new HashMap<>();
         commands.put("createaccount", new CreateAccount());
         commands.put("withdraw", new Withdraw());
+        commands.put("deposit", new Deposit());
+        commands.put("transfer", new Transfer());
 
 
         Scanner scanner = new Scanner(System.in);
@@ -43,16 +44,14 @@ public class Main {
                 command.execute(bank);
             }
 
-
             if(input.equals("deposit")) {
-
-                Account account = Deposit.deposit(bank);
-                System.out.println(account.getAmount());
+                ICommand command = commands.get("deposit");
+                command.execute(bank);
             }
 
             if(input.equals("transfer")) {
-
-                boolean transfer = Transfer.transfer(bank);
+                ICommand command = commands.get("transfer");
+                command.execute(bank);
             }
 
         }

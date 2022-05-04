@@ -8,8 +8,15 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class Deposit {
-    public static Account deposit(Bank bank) {
+public class Deposit implements ICommand {
+
+    @Override
+    public String getCommandName() {
+        return "deposit";
+    }
+
+    @Override
+    public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");
         String input = scanner.nextLine();
@@ -21,7 +28,5 @@ public class Deposit {
         Account find_account = bank.getAccount_map().get(accountnumber);
 
         find_account.deposit(amount);
-
-        return find_account;
     }
 }
