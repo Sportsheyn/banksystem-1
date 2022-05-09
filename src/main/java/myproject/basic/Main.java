@@ -5,6 +5,7 @@ import myproject.basic.commands.Deposit;
 import myproject.basic.commands.Transfer;
 import myproject.basic.commands.Withdraw;
 import myproject.basic.commands.*;
+import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 
 import java.lang.reflect.Constructor;
@@ -15,33 +16,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public Main() {
 
-        try {
-            Class<?> clGrantCredit = Class.forName("pro.commands.GrantCredit");
-            Constructor<?> cGrantCredit = clGrantCredit.getConstructor();
-            Object oGrantCredit = cGrantCredit.newInstance();
-            Method mGrantCredit = clGrantCredit.getMethod("grantcredit");
-            mGrantCredit.invoke(oGrantCredit);
-        } catch (Exception e){}
+    }
 
-        try {
-            Class<?> clPayInterest = Class.forName("pro.commands.PayInterest");
-            Constructor<?> cPayInterest = clPayInterest.getConstructor();
-            Object oPayInterest = cPayInterest.newInstance();
-            Method mPayInterest = clPayInterest.getMethod("payInterest");
-            mPayInterest.invoke(oPayInterest);
-        } catch (Exception e){}
+    public void start() {
 
-        try {
-            Class<?> clRepayCredit = Class.forName("pro.commands.RepayCredit");
-            Constructor<?> cRepayCredit = clRepayCredit.getConstructor();
-            Object oRepayCredit = cRepayCredit.newInstance();
-            Method mRepayCredit = clRepayCredit.getMethod("repayCredit");
-            mRepayCredit.invoke(oRepayCredit);
-        } catch (Exception e){}
-
-
+        Map<String, Account> accounts = new HashMap<>();
         Bank bank = new Bank();
         Map<String, ICommand> commands = new HashMap<>();
         commands.put("createaccount", new CreateAccount());
@@ -49,41 +30,102 @@ public class Main {
         commands.put("deposit", new Deposit());
         commands.put("transfer", new Transfer());
 
+        try {
+            Class<?> clGrantCredit = Class.forName("pro.commands.GrantCredit");
+            Constructor<?> cGrantCredit = clGrantCredit.getConstructor();
+            Object oGrantCredit = cGrantCredit.newInstance();
+            Method mGrantCredit = clGrantCredit.getMethod("grantcredit");
+            mGrantCredit.invoke(oGrantCredit);
+            ICommand cmdGrantCredit = (ICommand) cGrantCredit.newInstance();
+            commands.put(cmdGrantCredit.getCommandName(), cmdGrantCredit);
+        } catch (Exception ignored) {
+        }
+
+        try {
+            Class<?> clPayInterest = Class.forName("pro.commands.PayInterest");
+            Constructor<?> cPayInterest = clPayInterest.getConstructor();
+            Object oPayInterest = cPayInterest.newInstance();
+            Method mPayInterest = clPayInterest.getMethod("payInterest");
+            mPayInterest.invoke(oPayInterest);
+            ICommand cmdPayInterest = (ICommand) cPayInterest.newInstance();
+            commands.put(cmdPayInterest.getCommandName(), cmdPayInterest);
+        } catch (Exception ignored) {
+        }
+
+        try {
+            Class<?> clRepayCredit = Class.forName("pro.commands.RepayCredit");
+            Constructor<?> cRepayCredit = clRepayCredit.getConstructor();
+            Object oRepayCredit = cRepayCredit.newInstance();
+            Method mRepayCredit = clRepayCredit.getMethod("repayCredit");
+            mRepayCredit.invoke(oRepayCredit);
+            ICommand cmdRepayCredit = (ICommand) cRepayCredit.newInstance();
+            commands.put(cmdRepayCredit.getCommandName(), cmdRepayCredit);
+        } catch (Exception ignored) {
+        }
+
 
         Scanner scanner = new Scanner(System.in);
-
-        while(true) {
-
+        while (true) {
             System.out.println("Please enter a command.");
             String input = scanner.nextLine();
-            String[] string_split = input.split("\\s");
+            String[] words = input.split(" ");
+            if (words.length > 0) {
+                ICommand cmd = commands.get(words[0].toLowerCase());
 
-            if("q".equals(input)) break;
+                if (cmd != null) {
+                    Map<String, Object> params = new HashMap<>();
 
-            if("createaccount".equals(input)) {
-                ICommand command = commands.get("createaccount");
-                command.execute(bank);
+                    params.put("accounts", accounts);
+                    if (words.length > 1) {
+                        for (int i = 1; i < words.length; ++i) {
+                            params.put("userparam" + i, words[i]);
+                        }
+                        try {
+                            cmd.execute((Bank) params); //TODO ???
+                        } catch (Exception ignored) {
+                        }
+
+
+                    } else {
+                        System.out.println("Bad command: " + words[0]);
+                    }
+                }
+
+                if (input.equals("q")) break;
+
+
+                if (input.equals("createaccount")) {
+                    ICommand command = commands.get("createaccount");
+                    command.execute(bank);
+                }
+
+                if (input.equals("withdraw")) {
+                    ICommand command = commands.get("withdraw");
+                    command.execute(bank);
+                }
+
+                if (input.equals("deposit")) {
+                    ICommand command = commands.get("deposit");
+                    command.execute(bank);
+                }
+
+                if (input.equals("transfer")) {
+                    ICommand command = commands.get("transfer");
+                    command.execute(bank);
+                }
+
             }
 
-            if("withdraw".equals(input)) {
-                ICommand command = commands.get("withdraw");
-                command.execute(bank);
-            }
+            System.out.println("Bye...");
+            scanner.close();
 
-            if("deposit".equals(input)) {
-                ICommand command = commands.get("deposit");
-                command.execute(bank);
-            }
+        }
+    }
 
-            if("transfer".equals(input)) {
-                ICommand command = commands.get("transfer");
-                command.execute(bank);
-            }
+    public static void main(String[] args){
+        Main main=new Main();
+        main.start();
 
         }
 
-        System.out.println("Bye...");
-        scanner.close();
-
-    }
 }
