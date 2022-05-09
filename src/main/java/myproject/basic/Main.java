@@ -69,6 +69,9 @@ public class Main {
             System.out.println("Please enter a command.");
             String input = scanner.nextLine();
             String[] words = input.split(" ");
+
+
+
             if (words.length > 0) {
                 ICommand cmd = commands.get(words[0].toLowerCase());
 
@@ -76,51 +79,28 @@ public class Main {
                     Map<String, Object> params = new HashMap<>();
 
                     params.put("accounts", accounts);
+                    params.put("bank", bank);
 
                     if (words.length > 1) {
                         for (int i = 1; i < words.length; ++i) {
                             params.put("userparam" + i, words[i]);
                         }
-                        try {
-                            cmd.execute((Bank) params); //TODO ???
-                        } catch (Exception ignored) {
-                        }
-
-
-                    } else {
-                        System.out.println("Bad command: " + words[0]);
                     }
+
+                    try {
+                        cmd.execute((Bank) params.get(bank));
+                    } catch (Exception ignored) {
+                    }
+
+                } else {
+                    if ("q".equals(input)) break;
+                    else System.out.println("Bad command: " + words[0]);
                 }
-
-                if ("q".equals(input)) break;
-
-
-                if ("createaccount".equals(input)) {
-                    ICommand command = commands.get("createaccount");
-                    command.execute(bank);
-                }
-
-                if ("withdraw".equals(input)) {
-                    ICommand command = commands.get("withdraw");
-                    command.execute(bank);
-                }
-
-                if ("deposit".equals(input)) {
-                    ICommand command = commands.get("deposit");
-                    command.execute(bank);
-                }
-
-                if ("transfer".equals(input)) {
-                    ICommand command = commands.get("transfer");
-                    command.execute(bank);
-                }
-
             }
-
-            System.out.println("Bye...");
-            scanner.close();
-
         }
+
+        System.out.println("Bye...");
+        scanner.close();
     }
 
     public static void main(String[] args){
