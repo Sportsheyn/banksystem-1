@@ -76,6 +76,7 @@ public class Main {
                     Map<String, Object> params = new HashMap<>();
 
                     params.put("accounts", accounts);
+
                     if (words.length > 1) {
                         for (int i = 1; i < words.length; ++i) {
                             params.put("userparam" + i, words[i]);
@@ -91,25 +92,25 @@ public class Main {
                     }
                 }
 
-                if (input.equals("q")) break;
+                if ("q".equals(input)) break;
 
 
-                if (input.equals("createaccount")) {
+                if ("createaccount".equals(input)) {
                     ICommand command = commands.get("createaccount");
                     command.execute(bank);
                 }
 
-                if (input.equals("withdraw")) {
+                if ("withdraw".equals(input)) {
                     ICommand command = commands.get("withdraw");
                     command.execute(bank);
                 }
 
-                if (input.equals("deposit")) {
+                if ("deposit".equals(input)) {
                     ICommand command = commands.get("deposit");
                     command.execute(bank);
                 }
 
-                if (input.equals("transfer")) {
+                if ("transfer".equals(input)) {
                     ICommand command = commands.get("transfer");
                     command.execute(bank);
                 }
