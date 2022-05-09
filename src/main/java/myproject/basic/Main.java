@@ -5,7 +5,6 @@ import myproject.basic.commands.Deposit;
 import myproject.basic.commands.Transfer;
 import myproject.basic.commands.Withdraw;
 import myproject.basic.commands.*;
-import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 
 import java.lang.reflect.Constructor;
@@ -16,19 +15,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public Main() {
-
-    }
-
-    public void start() {
-
-        Map<String, Account> accounts = new HashMap<>();
-        Bank bank = new Bank();
-        Map<String, ICommand> commands = new HashMap<>();
-        commands.put("createaccount", new CreateAccount());
-        commands.put("withdraw", new Withdraw());
-        commands.put("deposit", new Deposit());
-        commands.put("transfer", new Transfer());
+    public static void main(String[] args) {
 
         try {
             Class<?> clGrantCredit = Class.forName("pro.commands.GrantCredit");
@@ -36,10 +23,7 @@ public class Main {
             Object oGrantCredit = cGrantCredit.newInstance();
             Method mGrantCredit = clGrantCredit.getMethod("grantcredit");
             mGrantCredit.invoke(oGrantCredit);
-            ICommand cmdGrantCredit = (ICommand) cGrantCredit.newInstance();
-            commands.put(cmdGrantCredit.getCommandName(), cmdGrantCredit);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception e){}
 
         try {
             Class<?> clPayInterest = Class.forName("pro.commands.PayInterest");
@@ -47,10 +31,7 @@ public class Main {
             Object oPayInterest = cPayInterest.newInstance();
             Method mPayInterest = clPayInterest.getMethod("payInterest");
             mPayInterest.invoke(oPayInterest);
-            ICommand cmdPayInterest = (ICommand) cPayInterest.newInstance();
-            commands.put(cmdPayInterest.getCommandName(), cmdPayInterest);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception e){}
 
         try {
             Class<?> clRepayCredit = Class.forName("pro.commands.RepayCredit");
@@ -58,74 +39,51 @@ public class Main {
             Object oRepayCredit = cRepayCredit.newInstance();
             Method mRepayCredit = clRepayCredit.getMethod("repayCredit");
             mRepayCredit.invoke(oRepayCredit);
-            ICommand cmdRepayCredit = (ICommand) cRepayCredit.newInstance();
-            commands.put(cmdRepayCredit.getCommandName(), cmdRepayCredit);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception e){}
+
+
+        Bank bank = new Bank();
+        Map<String, ICommand> commands = new HashMap<>();
+        commands.put("createaccount", new CreateAccount());
+        commands.put("withdraw", new Withdraw());
+        commands.put("deposit", new Deposit());
+        commands.put("transfer", new Transfer());
 
 
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+
+        while(true) {
+
             System.out.println("Please enter a command.");
             String input = scanner.nextLine();
-            String[] words = input.split(" ");
-            if (words.length > 0) {
-                ICommand cmd = commands.get(words[0].toLowerCase());
+            String[] string_split = input.split("\\s");
 
-                if (cmd != null) {
-                    Map<String, Object> params = new HashMap<>();
+            if("q".equals(input)) break;
 
-                    params.put("accounts", accounts);
-                    if (words.length > 1) {
-                        for (int i = 1; i < words.length; ++i) {
-                            params.put("userparam" + i, words[i]);
-                        }
-                        try {
-                            cmd.execute((Bank) params); //TODO ???
-                        } catch (Exception ignored) {
-                        }
-
-
-                    } else {
-                        System.out.println("Bad command: " + words[0]);
-                    }
-                }
-
-                if (input.equals("q")) break;
-
-
-                if (input.equals("createaccount")) {
-                    ICommand command = commands.get("createaccount");
-                    command.execute(bank);
-                }
-
-                if (input.equals("withdraw")) {
-                    ICommand command = commands.get("withdraw");
-                    command.execute(bank);
-                }
-
-                if (input.equals("deposit")) {
-                    ICommand command = commands.get("deposit");
-                    command.execute(bank);
-                }
-
-                if (input.equals("transfer")) {
-                    ICommand command = commands.get("transfer");
-                    command.execute(bank);
-                }
-
+            if("createaccount".equals(input)) {
+                ICommand command = commands.get("createaccount");
+                command.execute(bank);
             }
 
-            System.out.println("Bye...");
-            scanner.close();
+            if("withdraw".equals(input)) {
+                ICommand command = commands.get("withdraw");
+                command.execute(bank);
+            }
+
+            if("deposit".equals(input)) {
+                ICommand command = commands.get("deposit");
+                command.execute(bank);
+            }
+
+            if("transfer".equals(input)) {
+                ICommand command = commands.get("transfer");
+                command.execute(bank);
+            }
 
         }
+
+        System.out.println("Bye...");
+        scanner.close();
+
     }
-
-    public static void main(String[] args){
-        Main main=new Main();
-        main.start();
-
-        }
-
 }
