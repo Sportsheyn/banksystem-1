@@ -1,6 +1,7 @@
 package myproject.pro.commands;
 
 
+import myproject.basic.commands.ICommand;
 import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 
@@ -13,7 +14,7 @@ import static java.lang.Integer.parseInt;
  * Gewährt einen Kredit vom Umfang <amount> und merkt sich, dass ein solcher Kredit für das Konto besteht.
  * Dem Konto wird der Betrag <amount> gutgeschrieben.
  */
-public class GrantCredit {
+public class GrantCredit implements ICommand {
 
     public void grantcredit(Bank bank) {
 
@@ -28,4 +29,13 @@ public class GrantCredit {
         bank.grantCredit(accountnumber, amount);
     }
 
+    @Override
+    public String getCommandName() {
+        return null;
+    }
+
+    @Override
+    public void execute(Bank bank) {
+
+    }
 }

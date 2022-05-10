@@ -22,8 +22,8 @@ public class Main {
 
     public void start() {
 
-        Map<String, Account> accounts = new HashMap<>();
         Bank bank = new Bank();
+
         Map<String, ICommand> commands = new HashMap<>();
         commands.put("createaccount", new CreateAccount());
         commands.put("withdraw", new Withdraw());
@@ -31,36 +31,31 @@ public class Main {
         commands.put("transfer", new Transfer());
 
         try {
-            Class<?> clGrantCredit = Class.forName("pro.commands.GrantCredit");
+            Class<?> clGrantCredit = Class.forName("myproject.pro.commands.GrantCredit");
             Constructor<?> cGrantCredit = clGrantCredit.getConstructor();
-            Object oGrantCredit = cGrantCredit.newInstance();
-            Method mGrantCredit = clGrantCredit.getMethod("grantcredit");
-            mGrantCredit.invoke(oGrantCredit);
-            ICommand cmdGrantCredit = (ICommand) cGrantCredit.newInstance();
-            commands.put(cmdGrantCredit.getCommandName(), cmdGrantCredit);
+            ICommand oGrantCredit = (ICommand) cGrantCredit.newInstance();
+            commands.put(oGrantCredit.getCommandName(), oGrantCredit);
         } catch (Exception ignored) {
+            System.out.println(ignored);
         }
 
+
         try {
-            Class<?> clPayInterest = Class.forName("pro.commands.PayInterest");
+            Class<?> clPayInterest = Class.forName("myproject.pro.commands.PayInterest");
             Constructor<?> cPayInterest = clPayInterest.getConstructor();
-            Object oPayInterest = cPayInterest.newInstance();
-            Method mPayInterest = clPayInterest.getMethod("payInterest");
-            mPayInterest.invoke(oPayInterest);
             ICommand cmdPayInterest = (ICommand) cPayInterest.newInstance();
             commands.put(cmdPayInterest.getCommandName(), cmdPayInterest);
         } catch (Exception ignored) {
+            System.out.println(ignored);
         }
 
         try {
-            Class<?> clRepayCredit = Class.forName("pro.commands.RepayCredit");
+            Class<?> clRepayCredit = Class.forName("myproject.pro.commands.RepayCredit");
             Constructor<?> cRepayCredit = clRepayCredit.getConstructor();
-            Object oRepayCredit = cRepayCredit.newInstance();
-            Method mRepayCredit = clRepayCredit.getMethod("repayCredit");
-            mRepayCredit.invoke(oRepayCredit);
             ICommand cmdRepayCredit = (ICommand) cRepayCredit.newInstance();
             commands.put(cmdRepayCredit.getCommandName(), cmdRepayCredit);
         } catch (Exception ignored) {
+            System.out.println(ignored);
         }
 
 
@@ -78,7 +73,6 @@ public class Main {
                 if (cmd != null) {
                     Map<String, Object> params = new HashMap<>();
 
-                    params.put("accounts", accounts);
                     params.put("bank", bank);
 
                     if (words.length > 1) {
@@ -104,9 +98,8 @@ public class Main {
     }
 
     public static void main(String[] args){
-        Main main=new Main();
+        Main main = new Main();
         main.start();
-
         }
 
 }
