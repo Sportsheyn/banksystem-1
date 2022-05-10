@@ -16,7 +16,13 @@ import static java.lang.Integer.parseInt;
  */
 public class GrantCredit implements ICommand {
 
-    public void grantcredit(Bank bank) {
+    @Override
+    public String getCommandName() {
+        return "grantcredit";
+    }
+
+    @Override
+    public void execute(Bank bank) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");
@@ -27,15 +33,5 @@ public class GrantCredit implements ICommand {
         int accountnumber = parseInt(text_split[1]);
 
         bank.grantCredit(accountnumber, amount);
-    }
-
-    @Override
-    public String getCommandName() {
-        return null;
-    }
-
-    @Override
-    public void execute(Bank bank) {
-
     }
 }

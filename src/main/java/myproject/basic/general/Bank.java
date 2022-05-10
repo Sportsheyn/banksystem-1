@@ -3,15 +3,33 @@ package myproject.basic.general;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * The bank class managed the accounts.
+ */
 public class Bank {
 
     /**
-     * consecutive account_number
+     * A constant holding the interest rate (Zinssatz).
+     */
+    private final int INTEREST_RATE = 4;
+
+    /**
+     * A variable that holds the next account number of a new created account.
      */
     private static int next_account_number = 1;
 
+    /**
+     * A map holding the created accounts. The key is the account number, the value is the account object.
+     */
     private Map<Integer, Account> account_map = new HashMap<>();
+
+    /**
+     * The map holding the accounts with a open credit.
+     */
     private Map<Integer, Double> credit_overview = new HashMap<>();
+
+
 
     public Bank() {
 
@@ -56,8 +74,6 @@ public class Bank {
         if(sourceaccount_object != null) {
 
             sourceaccount_object.deposit(amount);
-
-            // Gute Lösung?
             credit_overview.put(sourceaccount, amount);
 
             return true;
@@ -67,12 +83,43 @@ public class Bank {
     }
 
 
+    public boolean repayCredit(int sourceaccount) {
+
+        Account sourceaccount_object = account_map.get(sourceaccount);
+
+        Double amount = credit_overview.get(sourceaccount);
+
+        if(sourceaccount_object != null && amount != null) {
+
+            sourceaccount_object.withdraw(amount);
+            credit_overview.remove(sourceaccount);
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public void payinterest() {
+
+        for (Integer key : credit_overview.keySet()) {
+
+            Double creditAmount = credit_overview.get(key);
+            Double creditAmountWithInterest = creditAmount + (creditAmount * INTEREST_RATE / 100);
+
+            credit_overview.put(key, creditAmountWithInterest);
+        }
+
+    }
+
+
+
+
     // ---------------------- Getter and Setter -----------------------------------------------------------------------
 
     public Map<Integer, Account> getAccount_map() {
         return account_map;
     }
-
-
 
 }
