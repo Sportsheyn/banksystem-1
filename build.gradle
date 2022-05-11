@@ -40,4 +40,6 @@ task myZip(type: Zip) {
     include "build/docs/**"
     include "build/libs/**" //$projectDir/build/libs/** ging nicht
     include "src/main/**"
+
+    println "$projectDir"
 }
