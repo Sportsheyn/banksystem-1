@@ -19,5 +19,11 @@ pipeline {
                 sh './gradlew javadoc'
             }
         }
+        stage('Zip') {
+            steps {
+                sh 'echo "myZip.."'
+                sh './gradlew myZip'
+            }
+        }
     }
 }
