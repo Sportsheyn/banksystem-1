@@ -7,35 +7,37 @@ application {
      mainClass = 'myproject.Main'
 }
 
-
 repositories {
-     mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
- implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
- testImplementation group: 'junit', name: 'junit', version: '4.12'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 jar {
- manifest {
- attributes "Main-Class": "myproject.Main"
+    manifest {
+        attributes "Main-Class": "myproject.Main"
  }
- from {
- configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
- }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 task myZip(type: Zip) {
 
     //Project directory
-    from './build'
+    from "$projectDir" //./build
 
     //Directory to output ZIP file
-    destinationDirectory = file('C:\\Users\\chris\\Desktop\\Tutorial')
+    destinationDirectory = file("$projectDir/build/zip")
 
     //File name to archive
-    archiveFileName = "testZip4.zip"
-    //excludes  ['*/shop/product/data/' ]
-    //includes = ['build\\docs']
+    archiveFileName = "content.zip"
+
+    //first star -all files in /docs; second star -all files of the files in /docs
+    include "build/docs/**"
+    include "build/libs/**" //$projectDir/build/libs/** ging nicht
+    include "src/main/**"
 }

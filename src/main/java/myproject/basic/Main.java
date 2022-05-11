@@ -4,8 +4,6 @@ package myproject.basic;
 import myproject.basic.commands.*;
 import myproject.basic.general.Bank;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
