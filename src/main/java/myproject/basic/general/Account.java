@@ -5,7 +5,7 @@ import java.util.List;
 
 
 /**
- * Repräsentation eines Bankaccounts
+ * Representation of an account
  * @author Christopher
  * @version 03.05.2022
  */

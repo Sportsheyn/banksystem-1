@@ -13,5 +13,10 @@ pipeline {
                 sh './gradlew test'
             }
         }
+        stage('Javadocs') {
+        steps {
+        sh 'echo "Javadocs.."'
+        sh './gradlew javadoc'
+        }
     }
 }

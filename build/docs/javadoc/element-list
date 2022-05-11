@@ -1,3 +1,4 @@
-myproject
-myproject.commands
-myproject.general
+myproject.basic
+myproject.basic.commands
+myproject.basic.general
+myproject.pro.commands

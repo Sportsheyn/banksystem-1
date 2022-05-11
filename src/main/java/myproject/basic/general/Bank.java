@@ -30,7 +30,9 @@ public class Bank {
     private Map<Integer, Double> credit_overview = new HashMap<>();
 
 
-
+    /**
+     * The class bank contains methods to create and manage accounts
+     */
     public Bank() {
 
     }
@@ -43,13 +45,6 @@ public class Bank {
         return new_account;
     }
 
-    /**
-     * Überweist einen Betrag von einem Ausgagngskonto auf ein Zielkonto
-     * @param sourceaccount Ausgagngskonto, von dem der Betrag abgebucht wird
-     * @param targetaccount Eingangskonto, auf dem der Betrag überwiesen wird.
-     * @param amount Betrag, der überwiesen werden soll
-     * @return
-     */
     public boolean transfer(int sourceaccount, int targetaccount, double amount) {
 
         Account sourceaccount_object = account_map.get(sourceaccount);
