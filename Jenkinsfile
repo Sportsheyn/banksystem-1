@@ -14,9 +14,9 @@ pipeline {
             }
         }
         stage('Javadocs') {
-        steps {
-        sh 'echo "Javadocs.."'
-        sh './gradlew javadoc'
+            steps {
+                sh 'echo "Javadocs.."'
+                sh './gradlew javadoc'
         }
     }
 }
