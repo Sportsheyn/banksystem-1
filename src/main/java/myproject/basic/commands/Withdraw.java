@@ -8,13 +8,24 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * The Withdraw class is a command. It withdraws money from an account.
+ */
 public class Withdraw implements ICommand {
 
+    /**
+     * Returns the name of the command
+     * @return the name of the command
+     */
     @Override
     public String getCommandName() {
         return "withdraw";
     }
 
+    /**
+     * Withdraws money from an account.
+     * @param bank - the bank that manages the accounts
+     */
     @Override
     public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);

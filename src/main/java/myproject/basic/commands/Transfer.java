@@ -7,13 +7,24 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * The Transfer class is a command. It has the task to transfer money from an account to another.
+ */
 public class Transfer implements ICommand {
 
+    /**
+     * Returns the name of the command
+     * @return the name of the command
+     */
     @Override
     public String getCommandName() {
         return "transfer";
     }
 
+    /**
+     * Transfers money from an account to another.
+     * @param bank - the bank that manages the accounts
+     */
     public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");

@@ -8,13 +8,24 @@ import java.util.Scanner;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * The Deposit class is a command. It deposits money on an account.
+ */
 public class Deposit implements ICommand {
 
+    /**
+     * Returns the name of the command
+     * @return the name of the command
+     */
     @Override
     public String getCommandName() {
         return "deposit";
     }
 
+    /**
+     * Deposits money on an account.
+     * @param bank - the bank that manages the accounts
+     */
     @Override
     public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);

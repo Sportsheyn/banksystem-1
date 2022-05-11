@@ -5,13 +5,24 @@ import myproject.basic.general.Bank;
 
 import java.util.Scanner;
 
+/**
+ * The CreateAccount class is a command. It creates new Accounts based on the user input.
+ */
 public class CreateAccount implements ICommand {
 
+    /**
+     * Returns the name of the command
+     * @return the name of the command
+     */
     @Override
     public String getCommandName() {
         return "createaccount";
     }
 
+    /**
+     * Creates a new account
+     * @param bank the bank that manages the accounts
+     */
     @Override
     public void execute(Bank bank) {
         Scanner scanner = new Scanner(System.in);
