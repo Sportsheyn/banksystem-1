@@ -6,7 +6,7 @@ pipeline {
                 sh 'echo "Building.."'
                 sh './gradlew build -x test'
             }
-           }
+        }
         stage('Test') {
             steps {
                 sh 'echo "Testing.."'
@@ -17,6 +17,7 @@ pipeline {
             steps {
                 sh 'echo "Javadocs.."'
                 sh './gradlew javadoc'
+            }
         }
     }
 }
