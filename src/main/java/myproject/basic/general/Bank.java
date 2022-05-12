@@ -104,7 +104,6 @@ public class Bank {
             credit_overview.remove(sourceaccount);
             return true;
         }
-
         return false;
     }
 
