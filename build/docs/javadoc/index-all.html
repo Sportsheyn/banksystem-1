@@ -111,7 +111,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general"><span class="typeNameLink">Bank</span></a> - Class in <a href="myproject/basic/general/package-summary.html">myproject.basic.general</a></dt>
 <dd>
-<div class="block">The bank class managed the accounts.</div>
+<div class="block">The bank class managed the accounts and supports interaction between them.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#%3Cinit%3E()">Bank()</a></span> - Constructor for class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
 <dd>
@@ -128,7 +128,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">C</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#createAccount(java.lang.String,java.lang.String)">createAccount(String, String)</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns a new generated account instance</div>
+</dd>
 <dt><a href="myproject/basic/commands/CreateAccount.html" title="class in myproject.basic.commands"><span class="typeNameLink">CreateAccount</span></a> - Class in <a href="myproject/basic/commands/package-summary.html">myproject.basic.commands</a></dt>
 <dd>
 <div class="block">The CreateAccount class is a command.</div>
@@ -143,6 +145,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">D</h2>
 <dl>
+<dt><a href="myproject/database/DbAdd.html" title="class in myproject.database"><span class="typeNameLink">DbAdd</span></a> - Class in <a href="myproject/database/package-summary.html">myproject.database</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="myproject/database/DbAdd.html#%3Cinit%3E()">DbAdd()</a></span> - Constructor for class myproject.database.<a href="myproject/database/DbAdd.html" title="class in myproject.database">DbAdd</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="myproject/database/DbAdd.html#DbAdd(java.sql.Connection,int,int)">DbAdd(Connection, int, int)</a></span> - Static method in class myproject.database.<a href="myproject/database/DbAdd.html" title="class in myproject.database">DbAdd</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="myproject/database/DbConn.html" title="class in myproject.database"><span class="typeNameLink">DbConn</span></a> - Class in <a href="myproject/database/package-summary.html">myproject.database</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="myproject/database/DbConn.html#%3Cinit%3E()">DbConn()</a></span> - Constructor for class myproject.database.<a href="myproject/database/DbConn.html" title="class in myproject.database">DbConn</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="myproject/database/DbInit.html" title="class in myproject.database"><span class="typeNameLink">DbInit</span></a> - Class in <a href="myproject/database/package-summary.html">myproject.database</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="myproject/database/DbInit.html#%3Cinit%3E()">DbInit()</a></span> - Constructor for class myproject.database.<a href="myproject/database/DbInit.html" title="class in myproject.database">DbInit</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="myproject/database/DbInit.html#DbInit(java.sql.Connection)">DbInit(Connection)</a></span> - Static method in class myproject.database.<a href="myproject/database/DbInit.html" title="class in myproject.database">DbInit</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Account.html#deposit(double)">deposit(double)</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Account.html" title="class in myproject.basic.general">Account</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="myproject/basic/commands/Deposit.html" title="class in myproject.basic.commands"><span class="typeNameLink">Deposit</span></a> - Class in <a href="myproject/basic/commands/package-summary.html">myproject.basic.commands</a></dt>
@@ -190,7 +208,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">G</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#getAccount_map()">getAccount_map()</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Returns the map with the existing accounts from the bank.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Account.html#getAccount_number()">getAccount_number()</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Account.html" title="class in myproject.basic.general">Account</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Account.html#getAmount()">getAmount()</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Account.html" title="class in myproject.basic.general">Account</a></dt>
@@ -221,8 +241,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="myproject/pro/commands/RepayCredit.html#getCommandName()">getCommandName()</a></span> - Method in class myproject.pro.commands.<a href="myproject/pro/commands/RepayCredit.html" title="class in myproject.pro.commands">RepayCredit</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#grantCredit(int,double)">grantCredit(int, double)</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
+<dt><span class="memberNameLink"><a href="myproject/database/DbConn.html#getMyConn()">getMyConn()</a></span> - Method in class myproject.database.<a href="myproject/database/DbConn.html" title="class in myproject.database">DbConn</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#grantCredit(int,double)">grantCredit(int, double)</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
+<dd>
+<div class="block">Tests if a credit was successfully granted from the bank .</div>
+</dd>
 <dt><a href="myproject/pro/commands/GrantCredit.html" title="class in myproject.pro.commands"><span class="typeNameLink">GrantCredit</span></a> - Class in <a href="myproject/pro/commands/package-summary.html">myproject.pro.commands</a></dt>
 <dd>
 <div class="block">Gewährt einen Kredit vom Umfang <amount> und merkt sich, dass ein solcher Kredit für das Konto besteht.</div>
@@ -247,6 +271,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="memberNameLink"><a href="myproject/basic/Main.html#main(java.lang.String%5B%5D)">main(String[])</a></span> - Static method in class myproject.basic.<a href="myproject/basic/Main.html" title="class in myproject.basic">Main</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="myproject/database/DbConn.html#main(java.lang.String%5B%5D)">main(String[])</a></span> - Static method in class myproject.database.<a href="myproject/database/DbConn.html" title="class in myproject.database">DbConn</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="myproject/basic/Main.html" title="class in myproject.basic"><span class="typeNameLink">Main</span></a> - Class in <a href="myproject/basic/package-summary.html">myproject.basic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="myproject/basic/Main.html#%3Cinit%3E()">Main()</a></span> - Constructor for class myproject.basic.<a href="myproject/basic/Main.html" title="class in myproject.basic">Main</a></dt>
@@ -257,6 +283,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><a href="myproject/basic/general/package-summary.html">myproject.basic.general</a> - package myproject.basic.general</dt>
 <dd>&nbsp;</dd>
+<dt><a href="myproject/database/package-summary.html">myproject.database</a> - package myproject.database</dt>
+<dd>&nbsp;</dd>
 <dt><a href="myproject/pro/commands/package-summary.html">myproject.pro.commands</a> - package myproject.pro.commands</dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -266,7 +294,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">P</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#payinterest()">payinterest()</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The method calculates for all assigned credits an interest and adds them to the corresponding account.</div>
+</dd>
 <dt><a href="myproject/pro/commands/PayInterest.html" title="class in myproject.pro.commands"><span class="typeNameLink">PayInterest</span></a> - Class in <a href="myproject/pro/commands/package-summary.html">myproject.pro.commands</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="myproject/pro/commands/PayInterest.html#%3Cinit%3E()">PayInterest()</a></span> - Constructor for class myproject.pro.commands.<a href="myproject/pro/commands/PayInterest.html" title="class in myproject.pro.commands">PayInterest</a></dt>
@@ -278,7 +308,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">R</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#repayCredit(int)">repayCredit(int)</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Tests if a credit was successfully repaid from debtor</div>
+</dd>
 <dt><a href="myproject/pro/commands/RepayCredit.html" title="class in myproject.pro.commands"><span class="typeNameLink">RepayCredit</span></a> - Class in <a href="myproject/pro/commands/package-summary.html">myproject.pro.commands</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="myproject/pro/commands/RepayCredit.html#%3Cinit%3E()">RepayCredit()</a></span> - Constructor for class myproject.pro.commands.<a href="myproject/pro/commands/RepayCredit.html" title="class in myproject.pro.commands">RepayCredit</a></dt>
@@ -300,7 +332,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h2 class="title">T</h2>
 <dl>
 <dt><span class="memberNameLink"><a href="myproject/basic/general/Bank.html#transfer(int,int,double)">transfer(int, int, double)</a></span> - Method in class myproject.basic.general.<a href="myproject/basic/general/Bank.html" title="class in myproject.basic.general">Bank</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Tests if a transaction between two accounts was successful.</div>
+</dd>
 <dt><a href="myproject/basic/commands/Transfer.html" title="class in myproject.basic.commands"><span class="typeNameLink">Transfer</span></a> - Class in <a href="myproject/basic/commands/package-summary.html">myproject.basic.commands</a></dt>
 <dd>
 <div class="block">The Transfer class is a command.</div>

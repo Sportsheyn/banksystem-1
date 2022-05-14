@@ -25,7 +25,7 @@ public class Bank {
     private Map<Integer, Account> account_map = new HashMap<>();
 
     /**
-     * The map holding the accounts with a open credit.
+     * The map holding the accounts with an open credit.
      */
     private Map<Integer, Double> credit_overview = new HashMap<>();
 
@@ -39,7 +39,7 @@ public class Bank {
 
     /**
      * Returns a new generated account instance
-     * @param forename the forname of the account owner
+     * @param forename the forename of the account owner
      * @param lastname the lastname of the account owner
      * @return the new generated account
      */
@@ -63,7 +63,7 @@ public class Bank {
         Account sourceaccount_object = account_map.get(sourceaccount);
         Account targetaccount_object = account_map.get(targetaccount);
 
-        if(sourceaccount_object != null || targetaccount_object != null) {
+        if(sourceaccount_object != null && targetaccount_object != null) {
             sourceaccount_object.withdraw(amount);
             targetaccount_object.deposit(amount);
             return true;
@@ -72,7 +72,7 @@ public class Bank {
     }
 
     /**
-     * Tests if a credit was successfully granted from the bank .
+     * Tests if a credit was successfully granted from the bank.
      * @param sourceaccount account which request for a credit
      * @param amount the amount of the credit
      * @return true if the credit was granted false otherwise
@@ -108,7 +108,7 @@ public class Bank {
     }
 
     /**
-     * The method calculates for all assigned credits an interest and adds them to the corresponding account.
+     *  For all assigned credits the method calculates an interest and adds them to the corresponding account.
      */
     public void payinterest() {
 

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"myproject.basic"},{"l":"myproject.basic.commands"},{"l":"myproject.basic.general"},{"l":"myproject.pro.commands"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"myproject.basic"},{"l":"myproject.basic.commands"},{"l":"myproject.basic.general"},{"l":"myproject.database"},{"l":"myproject.pro.commands"}]
