@@ -3,6 +3,8 @@ package myproject.pro.commands;
 import myproject.basic.commands.ICommand;
 import myproject.basic.general.Bank;
 
+import java.util.Map;
+
 public class RepayCredit implements ICommand {
 
 
@@ -12,7 +14,7 @@ public class RepayCredit implements ICommand {
     }
 
     @Override
-    public void execute(Bank bank) {
+    public void execute(Bank bank, Map<String, Object> params) {
 
     }
 }

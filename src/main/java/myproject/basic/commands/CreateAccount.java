@@ -4,6 +4,7 @@ import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 import myproject.database.DbAccount;
 
+import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -24,29 +25,39 @@ public class CreateAccount implements ICommand {
 
     /**
      * Creates a new account
-     * @param bank the bank that manages the accounts
+     *
+     * @param bank   the bank that manages the accounts
+     * @param params
      */
     @Override
-    public void execute(Bank bank) {
-        if(bank == null) {
-            System.out.println("Fuck");
+    public void execute(Bank bank, Map<String, Object> params) {
+
+        System.out.println(params.size());
+
+        for (var entry : params.entrySet()) {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
         }
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter your forename, lastname and pin.");
-        String input = scanner.nextLine();
-        String[] text_split = input.split("\\s");
+        String forename = (String) params.get("userparam0");
+        String lastname = (String) params.get("userparam1");
+        int pin = parseInt((String) params.get("userparam2"));
 
-        String forename = text_split[0];
-        String lastname = text_split[1];
-        int pin = parseInt(text_split[2]);
 
         Account account = bank.createAccount(forename, lastname, pin);
+
 
         if (account != null) {
             int accountNr = account.getAccount_number();
             double amount = account.getAmount();
             DbAccount.DbAccountAdd(forename, lastname, accountNr, amount, pin);
+            System.out.println("Successfully!");
         }
+    }
+
+    //@Override
+    public String info() {
+        String info = "Please enter your forename, lastname and pin.";
+
+        return null;
     }
 }

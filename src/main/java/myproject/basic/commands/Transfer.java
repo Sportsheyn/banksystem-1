@@ -2,6 +2,7 @@ package myproject.basic.commands;
 
 import myproject.basic.general.Bank;
 
+import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
@@ -23,9 +24,11 @@ public class Transfer implements ICommand {
 
     /**
      * Transfers money from an account to another.
-     * @param bank - the bank that manages the accounts
+     *
+     * @param bank   - the bank that manages the accounts
+     * @param params
      */
-    public void execute(Bank bank) {
+    public void execute(Bank bank, Map<String, Object> params) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");
         String input = scanner.nextLine();

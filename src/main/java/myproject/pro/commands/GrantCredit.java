@@ -2,9 +2,9 @@ package myproject.pro.commands;
 
 
 import myproject.basic.commands.ICommand;
-import myproject.basic.general.Account;
 import myproject.basic.general.Bank;
 
+import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
@@ -22,7 +22,7 @@ public class GrantCredit implements ICommand {
     }
 
     @Override
-    public void execute(Bank bank) {
+    public void execute(Bank bank, Map<String, Object> params) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");

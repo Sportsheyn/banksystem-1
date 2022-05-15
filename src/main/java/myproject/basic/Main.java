@@ -20,39 +20,41 @@ public class Main {
         Map<String, ICommand> commands = bootstrap.createCommandMap();
 
         Bank bank = new Bank();
-        if (bank == null) {
-            System.out.println("Scheiße");
-        }
-
-
 
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
+
             System.out.println("Please enter a command.");
             String input = scanner.nextLine();
             String[] words = input.split(" ");
 
-
             if (words.length > 0) {
+
                 ICommand cmd = commands.get(words[0].toLowerCase());
 
                 if (cmd != null) {
-                    Map<String, Object> params = new HashMap<>();
-
-                    params.put("bank", bank);
-
-                    if (words.length > 1) {
-                        for (int i = 1; i < words.length; ++i) {
-                            params.put("userparam" + i, words[i]);
-                        }
-                    }
 
                     try {
-                        Bank bankparam = (Bank) params.get("bank");
-                        cmd.execute( bankparam );
+                        // System.out.println( cmd.info() );
+                        System.out.println("Please enter the parameters.");
+                        String input2 = scanner.nextLine();
+                        String[] words2 = input2.split(" ");
 
-                    } catch (Exception ignored) {
-                        System.out.println(ignored);
+                        Map<String, Object> params = new HashMap<>();
+                        params.put("bank", bank);
+
+                        if (words2.length > 0) {
+                            for (int i = 0; i < words2.length; i++) {
+                                params.put("userparam" + i, words2[i].toLowerCase());
+                            }
+                        }
+
+                        Bank bankparam = (Bank) params.get("bank");
+                        cmd.execute( bankparam, params );
+
+                    } catch (Exception e) {
+                        System.out.println(e);
                     }
 
 
