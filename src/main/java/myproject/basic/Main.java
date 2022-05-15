@@ -20,6 +20,9 @@ public class Main {
         Map<String, ICommand> commands = bootstrap.createCommandMap();
 
         Bank bank = new Bank();
+        if (bank == null) {
+            System.out.println("Scheiße");
+        }
 
 
 
@@ -45,9 +48,13 @@ public class Main {
                     }
 
                     try {
-                        cmd.execute((Bank) params.get(bank));
+                        Bank bankparam = (Bank) params.get("bank");
+                        cmd.execute( bankparam );
+
                     } catch (Exception ignored) {
+                        System.out.println(ignored);
                     }
+
 
                 } else {
                     if ("q".equals(input)) break;

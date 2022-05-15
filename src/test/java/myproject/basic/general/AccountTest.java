@@ -11,7 +11,7 @@ public class AccountTest {
 
     @Before
     public void setUp() {
-        account = new Account("Tom", "Gregory", 1);
+        account = new Account("Tom", "Gregory", 123, 1);
     }
 
     @Test

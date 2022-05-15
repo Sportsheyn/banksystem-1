@@ -1,9 +1,5 @@
 package myproject.basic.general;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 /**
  * Representation of an account
  * @author Christopher
@@ -18,10 +14,11 @@ public class Account {
     private int pin;
 
 
-    public Account(String vorname, String nachname, int account_number) {
+    public Account(String forename, String lastname, int pin, int account_number) {
+        this.forename = forename;
+        this.lastname = lastname;
+        this.pin = pin;
         this.account_number = account_number;
-        this.forename = vorname;
-        this.lastname = nachname;
     }
 
     public int getAccount_number() {
@@ -35,7 +32,6 @@ public class Account {
     public void withdraw(double amount) {
         this.amount -= amount;
     }
-
 
     public double getAmount() {
         return amount;

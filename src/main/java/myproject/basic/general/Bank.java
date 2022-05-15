@@ -29,7 +29,6 @@ public class Bank {
      */
     private Map<Integer, Double> credit_overview = new HashMap<>();
 
-
     /**
      * The class bank contains methods to create and manage accounts
      */
@@ -43,8 +42,9 @@ public class Bank {
      * @param lastname the lastname of the account owner
      * @return the new generated account
      */
-    public Account createAccount(String forename, String lastname) {
-        Account new_account = new Account(forename, lastname, next_account_number);
+    public Account createAccount(String forename, String lastname, int pin) {
+
+        Account new_account = new Account(forename, lastname, pin, next_account_number);
         account_map.put(next_account_number, new_account);
         next_account_number++;
 

@@ -18,20 +18,4 @@ public class DbConn {
         return myConn;
     }
 
-
-    public static void main(String[] args) throws SQLException {
-
-        try {
-            // 1. Get a connection to database
-            Connection myConn = new DbConn().getMyConn();
-            DbInit.DbInit(myConn);
-
-            DbAdd.DbAdd(myConn, 2, 9876);
-
-
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
 }
