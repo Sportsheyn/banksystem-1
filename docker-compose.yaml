@@ -1,5 +1,3 @@
-## nicht in Verwendung !!
-
 version: '3'
 
 services:
@@ -10,11 +8,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - /var/lib/mysql
-
-
-# volumes dont work ...
-
+      - D:\DockerVolumes:/var/lib/mysql
 
 
 

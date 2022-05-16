@@ -6,8 +6,6 @@
     <persistence-unit name="default">
         <class>myproject.basic.general.Account</class>
         <properties>
-            <!-- Instructions on setting up a MySQL Docker Container:
-            https://daliashea.com/2021/01/06/configuring-a-jpa-application-with-a-mysql-docker-container/ -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/myDB"/>
             <property name="javax.persistence.jdbc.user" value="user"/>
