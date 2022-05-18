@@ -25,16 +25,23 @@ public class CreateAccount implements ICommand {
 
     /**
      * Creates a new account
-     *
-     * @param bank   the bank that manages the accounts
+
      * @param params
      */
     @Override
-    public void execute(Bank bank, Map<String, Object> params) {
+    public void execute(Map<String, Object> params) {
 
+        boolean paramsOk = checkInput(params);
+        if (!paramsOk) {
+            System.out.println("The input was not valid for the command.");
+            return;
+        }
+
+        Bank bank = (Bank) params.get("bank");
         String forename = (String) params.get("userparam0");
         String lastname = (String) params.get("userparam1");
         int pin = parseInt((String) params.get("userparam2"));
+
 
         Account account = bank.createAccount(forename, lastname, pin);
 //        if (account != null) {
@@ -48,6 +55,7 @@ public class CreateAccount implements ICommand {
 
     }
 
+
     @Override
     public String info() { return "Please enter your forename, lastname and pin."; }
 
@@ -55,5 +63,22 @@ public class CreateAccount implements ICommand {
 
         return "You have created a new bank account. Your accountnummber is " + account.getAccount_number() + ".";
     }
+
+
+    public boolean checkInput(Map<String, Object> params) {
+
+        try {
+            String forename = (String) params.get("userparam0");
+            String lastname = (String) params.get("userparam1");
+            int pin = parseInt((String) params.get("userparam2"));
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 }

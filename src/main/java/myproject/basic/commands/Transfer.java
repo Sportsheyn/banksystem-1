@@ -25,24 +25,20 @@ public class Transfer implements ICommand {
     /**
      * Transfers money from an account to another.
      *
-     * @param bank   - the bank that manages the accounts
      * @param params
      */
-    public void execute(Bank bank, Map<String, Object> params) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the amount and the accountnumber.");
-        String input = scanner.nextLine();
-        String[] text_split = input.split("\\s");
+    public void execute(Map<String, Object> params) {
 
-        int sourceaccount = parseInt(text_split[0]);
-        int targetaccount = parseInt(text_split[1]);
-        double amount = parseDouble(text_split[2]);
+        Bank bank = (Bank) params.get("bank");
+        int sourceaccount = parseInt((String) params.get("userparam0"));
+        int targetaccount = parseInt((String) params.get("userparam1"));
+        double amount = parseDouble((String) params.get("userparam2"));
 
         bank.transfer(sourceaccount, targetaccount, amount);
     }
 
     @Override
     public String info() {
-        return null;
+        return "Please enter the sourceaccont, targetaccount and amount.";
     }
 }

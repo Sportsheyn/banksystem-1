@@ -26,12 +26,12 @@ public class Deposit implements ICommand {
     /**
      * Deposits money on an account.
      *
-     * @param bank the bank that manages the accounts
      * @param params
      */
     @Override
-    public void execute(Bank bank, Map<String, Object> params) {
+    public void execute(Map<String, Object> params) {
 
+        Bank bank = (Bank) params.get("bank");
         double amount = parseDouble((String) params.get("userparam0"));
         int accountnumber = parseInt((String)params.get("userparam1"));
 

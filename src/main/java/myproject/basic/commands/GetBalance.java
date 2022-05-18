@@ -15,7 +15,7 @@ public class GetBalance implements ICommand {
     }
 
     @Override
-    public void execute(Bank bank, Map<String, Object> params) {
+    public void execute(Map<String, Object> params) {
 
         int accountnumber = parseInt((String) params.get("userparam0"));
         int pin = parseInt((String) params.get("userparam1"));

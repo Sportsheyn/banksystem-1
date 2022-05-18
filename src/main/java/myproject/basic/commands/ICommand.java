@@ -18,12 +18,12 @@ public interface ICommand {
     /**
      * Contains the logic of the command.
      *
-     * @param bank   - the bank that manages the accounts
      * @param params
      */
-    public void execute(Bank bank, Map<String, Object> params);
-
+    public void execute(Map<String, Object> params);
 
     public String info();
+
+
 
 }

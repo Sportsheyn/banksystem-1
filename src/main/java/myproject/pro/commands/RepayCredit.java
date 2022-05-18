@@ -14,7 +14,7 @@ public class RepayCredit implements ICommand {
     }
 
     @Override
-    public void execute(Bank bank, Map<String, Object> params) {
+    public void execute(Map<String, Object> params) {
 
     }
 

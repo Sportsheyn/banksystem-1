@@ -22,7 +22,9 @@ public class GrantCredit implements ICommand {
     }
 
     @Override
-    public void execute(Bank bank, Map<String, Object> params) {
+    public void execute(Map<String, Object> params) {
+
+        Bank bank = (Bank) params.get("bank");
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the amount and the accountnumber.");
