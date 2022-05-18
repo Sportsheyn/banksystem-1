@@ -32,32 +32,28 @@ public class CreateAccount implements ICommand {
     @Override
     public void execute(Bank bank, Map<String, Object> params) {
 
-        System.out.println(params.size());
-
-        for (var entry : params.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue());
-        }
-
         String forename = (String) params.get("userparam0");
         String lastname = (String) params.get("userparam1");
         int pin = parseInt((String) params.get("userparam2"));
 
-
         Account account = bank.createAccount(forename, lastname, pin);
+//        if (account != null) {
+//            int accountNr = account.getAccount_number();
+//            double amount = account.getAmount();
+//            DbAccount.DbAccountAdd(forename, lastname, accountNr, amount, pin);
+//            System.out.println("Successfully!");
+//        }
 
+        System.out.println(successMessage(account));
 
-        if (account != null) {
-            int accountNr = account.getAccount_number();
-            double amount = account.getAmount();
-            DbAccount.DbAccountAdd(forename, lastname, accountNr, amount, pin);
-            System.out.println("Successfully!");
-        }
     }
 
-    //@Override
-    public String info() {
-        String info = "Please enter your forename, lastname and pin.";
+    @Override
+    public String info() { return "Please enter your forename, lastname and pin."; }
 
-        return null;
+    public String successMessage(Account account) {
+
+        return "You have created a new bank account. Your accountnummber is " + account.getAccount_number() + ".";
     }
+
 }

@@ -26,21 +26,23 @@ public class Deposit implements ICommand {
     /**
      * Deposits money on an account.
      *
-     * @param bank   - the bank that manages the accounts
+     * @param bank the bank that manages the accounts
      * @param params
      */
     @Override
     public void execute(Bank bank, Map<String, Object> params) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter the amount and the accountnumber.");
-        String input = scanner.nextLine();
-        String[] text_split = input.split("\\s");
 
-        double amount = parseDouble(text_split[0]);
-        int accountnumber = parseInt(text_split[1]);
+        double amount = parseDouble((String) params.get("userparam0"));
+        int accountnumber = parseInt((String)params.get("userparam1"));
 
         Account find_account = bank.getAccount_map().get(accountnumber);
 
         find_account.deposit(amount);
     }
+
+    @Override
+    public String info() {
+        return "Please enter the amount and your accountnumber.";
+    }
+
 }

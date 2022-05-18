@@ -40,4 +40,9 @@ public class Transfer implements ICommand {
 
         bank.transfer(sourceaccount, targetaccount, amount);
     }
+
+    @Override
+    public String info() {
+        return null;
+    }
 }

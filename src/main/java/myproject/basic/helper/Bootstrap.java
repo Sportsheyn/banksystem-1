@@ -1,4 +1,4 @@
-package myproject.basic;
+package myproject.basic.helper;
 
 import myproject.basic.commands.*;
 
@@ -16,6 +16,7 @@ public class Bootstrap {
         commands.put("withdraw", new Withdraw());
         commands.put("deposit", new Deposit());
         commands.put("transfer", new Transfer());
+        commands.put("getbalance", new GetBalance());
 
         try {
             Class<?> clGrantCredit = Class.forName("myproject.pro.commands.GrantCredit");
@@ -25,7 +26,6 @@ public class Bootstrap {
         } catch (Exception ignored) {
             System.out.println(ignored);
         }
-
 
         try {
             Class<?> clPayInterest = Class.forName("myproject.pro.commands.PayInterest");

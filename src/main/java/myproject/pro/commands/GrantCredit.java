@@ -34,4 +34,9 @@ public class GrantCredit implements ICommand {
 
         bank.grantCredit(accountnumber, amount);
     }
+
+    @Override
+    public String info() {
+        return null;
+    }
 }

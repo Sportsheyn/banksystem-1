@@ -24,6 +24,6 @@ public interface ICommand {
     public void execute(Bank bank, Map<String, Object> params);
 
 
-    // public String info();
+    public String info();
 
 }

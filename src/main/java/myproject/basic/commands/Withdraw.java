@@ -44,4 +44,9 @@ public class Withdraw implements ICommand {
 
         find_account.withdraw(amount);
     }
+
+    @Override
+    public String info() {
+        return null;
+    }
 }

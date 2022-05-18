@@ -3,8 +3,9 @@ package myproject.basic;
 
 import myproject.basic.commands.*;
 import myproject.basic.general.Bank;
+import myproject.basic.helper.Bootstrap;
+import myproject.basic.helper.Helper;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -26,32 +27,25 @@ public class Main {
         while (true) {
 
             System.out.println("Please enter a command.");
-            String input = scanner.nextLine();
-            String[] words = input.split(" ");
+            String input = scanner.nextLine().trim();
 
-            if (words.length > 0) {
+            if (input != null) {
 
-                ICommand cmd = commands.get(words[0].toLowerCase());
+                if ("q".equals(input)) break;
+
+                ICommand cmd = commands.get(input.toLowerCase());
 
                 if (cmd != null) {
 
+                    System.out.println(cmd.info());
+                    // get the corresponding parameters
+                    Map<String, Object> params = Helper.getParams(bank);
+
+                    // check if the needed params are complete and valid
+
                     try {
-                        // System.out.println( cmd.info() );
-                        System.out.println("Please enter the parameters.");
-                        String input2 = scanner.nextLine();
-                        String[] words2 = input2.split(" ");
-
-                        Map<String, Object> params = new HashMap<>();
-                        params.put("bank", bank);
-
-                        if (words2.length > 0) {
-                            for (int i = 0; i < words2.length; i++) {
-                                params.put("userparam" + i, words2[i].toLowerCase());
-                            }
-                        }
-
                         Bank bankparam = (Bank) params.get("bank");
-                        cmd.execute( bankparam, params );
+                        cmd.execute(bankparam, params );
 
                     } catch (Exception e) {
                         System.out.println(e);
@@ -59,8 +53,7 @@ public class Main {
 
 
                 } else {
-                    if ("q".equals(input)) break;
-                    else System.out.println("Bad command: " + words[0]);
+                    System.out.println("Bad command: " + input);
                 }
             }
         }
