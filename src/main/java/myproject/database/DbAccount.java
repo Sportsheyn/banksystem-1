@@ -1,26 +1,75 @@
 package myproject.database;
 
-import java.sql.Connection;
-import java.sql.Statement;
-import java.util.Locale;
+import myproject.basic.general.Account;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.List;
 
 public class DbAccount {
 
-    public static boolean DbAccountAdd(String forename, String lastname, int accountnr, double amount, int pin) {
+    public static void create(Account account) {
 
-        try {
-            Connection conn = new DbConn().getMyConn();
-            DbInit.DbInit(conn);
-            Statement myStmt = conn.createStatement();
-            String sql = String.format(Locale.US,"INSERT INTO Account (Forename, Lastname, Account_number, Amount, Pin) " +
-                    "VALUES ('%s', '%s', %d, %.2f, %d)", forename, lastname, accountnr, amount, pin);
-            System.out.println(sql);
-            myStmt.execute(sql);
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(account);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
 
-        } catch (Exception e) {
-            System.out.println("Error DbAccount");
-            System.out.println(e);
-        }
-        return true;
+//
+//        // create session factory
+//        SessionFactory factory = new Configuration()
+//                .configure("hibernate.cfg.xml")
+//                .addAnnotatedClass(Account.class)
+//                .buildSessionFactory();
+//
+//        // create session
+//        Session session = factory.getCurrentSession();
+//
+//        try {
+//
+//            // start a transaction
+//            session.beginTransaction();
+//
+//            session.save(account);
+//
+//            // commit transaction
+//            session.getTransaction().commit();
+//
+//            System.out.println("Done!");
+//        }
+//        finally {
+//            factory.close();
+//        }
+
     }
+
+    public static void read() {
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        Query query = entityManager.createQuery("Select a from Account a");
+        List<Account> liste = query.getResultList();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
+
+        System.out.println(liste.size());
+    }
+
+    public static void main(String[] args) {
+        DbAccount.read();
+    }
+
+
 }

@@ -16,7 +16,7 @@ public class AccountTest {
 
     @Test
     public void getAccount_number() {
-        assertEquals(1, account.getAccount_number());
+        assertEquals(1, account.getAccountNumber());
     }
 
     @Test

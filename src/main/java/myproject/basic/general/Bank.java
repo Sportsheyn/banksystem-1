@@ -17,7 +17,7 @@ public class Bank {
     /**
      * A variable that holds the next account number of a new created account.
      */
-    private static int next_account_number = 1;
+    private static int next_account_number = 4;
 
     /**
      * A map holding the created accounts. The key is the account number, the value is the account object.

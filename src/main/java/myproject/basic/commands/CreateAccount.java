@@ -5,7 +5,6 @@ import myproject.basic.general.Bank;
 import myproject.database.DbAccount;
 
 import java.util.Map;
-import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
@@ -42,14 +41,9 @@ public class CreateAccount implements ICommand {
         String lastname = (String) params.get("userparam1");
         int pin = parseInt((String) params.get("userparam2"));
 
-
         Account account = bank.createAccount(forename, lastname, pin);
-//        if (account != null) {
-//            int accountNr = account.getAccount_number();
-//            double amount = account.getAmount();
-//            DbAccount.DbAccountAdd(forename, lastname, accountNr, amount, pin);
-//            System.out.println("Successfully!");
-//        }
+        // save account into database
+        DbAccount.create(account);
 
         System.out.println(successMessage(account));
 
@@ -61,7 +55,7 @@ public class CreateAccount implements ICommand {
 
     public String successMessage(Account account) {
 
-        return "You have created a new bank account. Your accountnummber is " + account.getAccount_number() + ".";
+        return "You have created a new bank account. Your accountnummber is " + account.getAccountNumber() + ".";
     }
 
 

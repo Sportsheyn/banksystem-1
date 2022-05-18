@@ -49,7 +49,6 @@ public class Main {
                         System.out.println(e);
                     }
 
-
                 } else {
                     System.out.println("Bad command: " + input);
                 }

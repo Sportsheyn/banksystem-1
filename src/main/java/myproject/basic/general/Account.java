@@ -12,12 +12,11 @@ import javax.persistence.Id;
 public class Account {
 
     @Id
-    private int account_number;
+    private int accountNumber;
     private String forename;
     private String lastname;
     private double amount;
     private int pin;
-
 
     public Account() {
 
@@ -27,11 +26,11 @@ public class Account {
         this.forename = forename;
         this.lastname = lastname;
         this.pin = pin;
-        this.account_number = account_number;
+        this.accountNumber = account_number;
     }
 
-    public int getAccount_number() {
-        return account_number;
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
     public void deposit(double amount) {
