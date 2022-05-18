@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class Helper {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public static Map<String, Object> getParams(Bank bank) {
+    public static Map<String, Object> requestParams(Bank bank) {
         Map<String, Object> params = new HashMap<>();
         params.put("bank", bank);
 
@@ -23,5 +23,9 @@ public class Helper {
             }
         }
         return params;
+    }
+
+    public static String requestCommand() {
+        return scanner.nextLine().trim();
     }
 }

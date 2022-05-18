@@ -43,7 +43,7 @@ public class GetBalanceTest {
         params.put("userparam1", "123");
 
         GetBalance getBalanceClass = new GetBalance();
-        getBalanceClass.execute(bank, params);
+        getBalanceClass.execute(params);
 
         assertEquals("Account number: 1\nAmount: 500.0", outContent.toString().trim());
 

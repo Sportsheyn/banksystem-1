@@ -11,23 +11,25 @@ import java.util.Scanner;
 
 public class Main {
 
-    public Main() {
+    Bank bank;
+    Map<String, ICommand> commands;
 
+
+    public Main() {
+        this.bank = new Bank();
+        Bootstrap bootstrap = new Bootstrap();
+        this.commands = bootstrap.createCommandMap();
     }
 
+
     public void start() {
-
-        Bootstrap bootstrap = new Bootstrap();
-        Map<String, ICommand> commands = bootstrap.createCommandMap();
-
-        Bank bank = new Bank();
 
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
 
             System.out.println("Please enter a command.");
-            String input = scanner.nextLine().trim();
+            String input = Helper.requestCommand();
 
             if (input != null) {
 
@@ -38,14 +40,10 @@ public class Main {
                 if (cmd != null) {
 
                     System.out.println(cmd.info());
-                    // get the corresponding parameters
-                    Map<String, Object> params = Helper.getParams(bank);
-
-                    // check if the needed params are complete and valid
+                    Map<String, Object> params = Helper.requestParams(bank);
 
                     try {
-                        Bank bankparam = (Bank) params.get("bank");
-                        cmd.execute(bankparam, params );
+                        cmd.execute(params);
 
                     } catch (Exception e) {
                         System.out.println(e);
@@ -61,6 +59,7 @@ public class Main {
         System.out.println("Bye...");
         scanner.close();
     }
+
 
 
     public static void main(String[] args){
