@@ -42,6 +42,7 @@ public class CreateAccount implements ICommand {
         int pin = parseInt((String) params.get("userparam2"));
 
         Account account = bank.createAccount(forename, lastname, pin);
+
         // save account into database
         DbAccount.create(account);
 

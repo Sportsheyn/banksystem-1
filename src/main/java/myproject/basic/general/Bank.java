@@ -1,6 +1,9 @@
 package myproject.basic.general;
 
+import myproject.database.DbAccount;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -17,7 +20,7 @@ public class Bank {
     /**
      * A variable that holds the next account number of a new created account.
      */
-    private static int next_account_number = 4;
+    private static int next_account_number = 1;
 
     /**
      * A map holding the created accounts. The key is the account number, the value is the account object.
@@ -33,7 +36,24 @@ public class Bank {
      * The class bank contains methods to create and manage accounts
      */
     public Bank() {
+        initBank();
+    }
 
+    private void initBank() {
+        List<Account> accountList = DbAccount.findAll();
+        if ( accountList.size() > 0) {
+
+            int highestAccountNumber = 1;
+
+            for(Account account : accountList) {
+                account_map.put(account.getAccountNumber(), account);
+
+                if (account.getAccountNumber() > highestAccountNumber) {
+                    highestAccountNumber = account.getAccountNumber();
+                }
+            }
+            next_account_number = highestAccountNumber + 1;
+        }
     }
 
     /**
