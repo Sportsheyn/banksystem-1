@@ -8,7 +8,6 @@ public class BankTest {
 
     @Test
     public void createAccount() {
-        Bank bank = new Bank();
     }
 
     @Test

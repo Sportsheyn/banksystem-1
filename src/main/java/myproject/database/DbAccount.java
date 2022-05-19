@@ -66,8 +66,11 @@ public class DbAccount {
         return accountList;
     }
 
+
     public static void main(String[] args) {
-        DbAccount.findAll();
+        // für Testzwecke
+        Account account = new Account("Tom", "Bartel", 1234, 7777);
+        DbAccount.create(account);
     }
 
 

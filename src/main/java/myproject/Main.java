@@ -1,4 +1,4 @@
-package myproject.basic;
+package myproject;
 
 
 import myproject.basic.commands.*;
