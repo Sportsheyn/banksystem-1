@@ -1,6 +1,6 @@
 package myproject.basic.commands;
 
-import myproject.basic.general.Account;
+import myproject.basic.general.Bankaccount;
 import myproject.basic.general.Bank;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class WithdrawTest {
     @Test
     public void execute() {
         Bank bank = new Bank();
-        Account account = bank.createAccount("Tom" , "Gregory", 123);
+        Bankaccount account = bank.createAccount("Tom" , "Gregory", 123);
         account.deposit(1000);
 
         Map<String, Object> params = new HashMap<>();

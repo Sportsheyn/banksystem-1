@@ -1,12 +1,10 @@
---does not work ...
 
 CREATE TABLE `account` (
- `accountNumber` int,
- `amount` double DEFAULT NULL,
- `forename` varchar(255) DEFAULT NULL,
- `lastname` varchar(255) DEFAULT NULL,
- `pin` int DEFAULT NULL,
-
-  PRIMARY KEY (`accountNumber`)
+    `accountNumber` int NOT NULL,
+    `amount` double NOT NULL,
+    `forename` varchar(255) DEFAULT NULL,
+    `lastname` varchar(255) DEFAULT NULL,
+    `pin` int NOT NULL,
+    PRIMARY KEY (`accountNumber`)
 )
-ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

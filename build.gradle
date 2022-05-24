@@ -21,8 +21,7 @@ dependencies {
 }
 
 jar {
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
+    duplicatesStrategy = 'exclude'
     manifest {
         attributes "Main-Class": "myproject.Main"
  }
@@ -31,19 +30,25 @@ jar {
     }
 }
 
-//// Doesnt work
-//task myJar(type: Jar) {
-//    manifest {
-//        attributes "Main-Class": "myproject.Main"
-//    }
-//    from {
-//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-//        archiveFileName = "contentWithoutPro.jar"
-//        exclude "myproject.main.pro.commands"
-//        destinationDirectory = file("$projectDir/build/libs")
-//    }
-//
-//}
+// Doesnt work
+task myJar(type: Jar) {
+    duplicatesStrategy = 'exclude'
+    manifest {
+        attributes "Main-Class": "myproject.Main"
+    }
+    from {
+        configurations.runtimeClasspath.collect {{ println it.getAbsolutePath(); it.isDirectory() ? it : zipTree(it)} }
+
+    }
+    from {
+        sourceSets.main.output
+    }
+    exclude "myproject/pro/commands/*"
+
+    archiveFileName = "contentWithoutPro.jar"
+    destinationDirectory = file("$projectDir/build/libs")
+
+}
 
 
 task myZip(type: Zip) {

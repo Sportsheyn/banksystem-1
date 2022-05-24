@@ -1,7 +1,9 @@
 package myproject.basic.general;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Representation of an account
@@ -9,20 +11,22 @@ import javax.persistence.Id;
  * @version 03.05.2022
  */
 @Entity
-public class Account {
+@Table(name="Bankaccount")
+public class Bankaccount {
 
     @Id
+    @Column(name="accountNumber")
     private int accountNumber;
     private String forename;
     private String lastname;
     private double amount;
     private int pin;
 
-    public Account() {
+    public Bankaccount() {
 
     }
 
-    public Account(String forename, String lastname, int pin, int account_number) {
+    public Bankaccount(String forename, String lastname, int pin, int account_number) {
         this.forename = forename;
         this.lastname = lastname;
         this.pin = pin;

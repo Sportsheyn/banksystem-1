@@ -1,6 +1,6 @@
 package myproject.basic.commands;
 
-import myproject.basic.general.Account;
+import myproject.basic.general.Bankaccount;
 import myproject.basic.general.Bank;
 import myproject.database.DbAccount;
 
@@ -41,7 +41,7 @@ public class CreateAccount implements ICommand {
         String lastname = (String) params.get("userparam1");
         int pin = parseInt((String) params.get("userparam2"));
 
-        Account account = bank.createAccount(forename, lastname, pin);
+        Bankaccount account = bank.createAccount(forename, lastname, pin);
 
         // save account into database
         DbAccount.create(account);
@@ -54,7 +54,7 @@ public class CreateAccount implements ICommand {
     @Override
     public String info() { return "Please enter your forename, lastname and pin."; }
 
-    public String successMessage(Account account) {
+    public String successMessage(Bankaccount account) {
 
         return "You have created a new bank account. Your accountnummber is " + account.getAccountNumber() + ".";
     }

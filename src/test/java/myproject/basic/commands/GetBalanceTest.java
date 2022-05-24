@@ -1,6 +1,6 @@
 package myproject.basic.commands;
 
-import myproject.basic.general.Account;
+import myproject.basic.general.Bankaccount;
 import myproject.basic.general.Bank;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class GetBalanceTest {
@@ -34,7 +33,7 @@ public class GetBalanceTest {
     @Test
     public void execute() {
         Bank bank = new Bank();
-        Account account = bank.createAccount("Tom" , "Gregory", 123);
+        Bankaccount account = bank.createAccount("Tom" , "Gregory", 123);
         account.deposit(500);
 
         Map<String, Object> params = new HashMap<>();

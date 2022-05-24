@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 
 public class AccountTest {
 
-    Account account;
+    Bankaccount account;
 
     @Before
     public void setUp() {
-        account = new Account("Tom", "Gregory", 123, 1);
+        account = new Bankaccount("Tom", "Gregory", 123, 1);
     }
 
     @Test

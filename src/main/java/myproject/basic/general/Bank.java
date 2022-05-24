@@ -25,7 +25,7 @@ public class Bank {
     /**
      * A map holding the created accounts. The key is the account number, the value is the account object.
      */
-    private Map<Integer, Account> account_map = new HashMap<>();
+    private Map<Integer, Bankaccount> account_map = new HashMap<>();
 
     /**
      * The map holding the accounts with an open credit.
@@ -40,12 +40,12 @@ public class Bank {
     }
 
     private void initBank() {
-        List<Account> accountList = DbAccount.findAll();
+        List<Bankaccount> accountList = DbAccount.findAll();
         if ( accountList.size() > 0) {
 
             int highestAccountNumber = 1;
 
-            for(Account account : accountList) {
+            for(Bankaccount account : accountList) {
                 account_map.put(account.getAccountNumber(), account);
 
                 if (account.getAccountNumber() > highestAccountNumber) {
@@ -62,9 +62,9 @@ public class Bank {
      * @param lastname the lastname of the account owner
      * @return the new generated account
      */
-    public Account createAccount(String forename, String lastname, int pin) {
+    public Bankaccount createAccount(String forename, String lastname, int pin) {
 
-        Account new_account = new Account(forename, lastname, pin, next_account_number);
+        Bankaccount new_account = new Bankaccount(forename, lastname, pin, next_account_number);
         account_map.put(next_account_number, new_account);
         next_account_number++;
 
@@ -80,8 +80,8 @@ public class Bank {
      */
     public boolean transfer(int sourceaccount, int targetaccount, double amount) {
 
-        Account sourceaccount_object = account_map.get(sourceaccount);
-        Account targetaccount_object = account_map.get(targetaccount);
+        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
+        Bankaccount targetaccount_object = account_map.get(targetaccount);
 
         if(sourceaccount_object != null && targetaccount_object != null) {
             sourceaccount_object.withdraw(amount);
@@ -99,7 +99,7 @@ public class Bank {
      */
     public boolean grantCredit(int sourceaccount, double amount) {
 
-        Account sourceaccount_object = account_map.get(sourceaccount);
+        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
 
         if(sourceaccount_object != null) {
             sourceaccount_object.deposit(amount);
@@ -116,7 +116,7 @@ public class Bank {
      */
     public boolean repayCredit(int sourceaccount) {
 
-        Account sourceaccount_object = account_map.get(sourceaccount);
+        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
         Double amount = credit_overview.get(sourceaccount);
 
         if(sourceaccount_object != null && amount != null) {
@@ -148,7 +148,7 @@ public class Bank {
      * Returns the map with the existing accounts from the bank.
      * @return a map with all the existing accounts
      */
-    public Map<Integer, Account> getAccount_map() {
+    public Map<Integer, Bankaccount> getAccount_map() {
         return account_map;
     }
 
