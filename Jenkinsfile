@@ -32,7 +32,10 @@ pipeline {
 
         stage('Upload') {
              steps {
-                echo "Test"
+                echo "Test" > helloworld.txt
+                def defaultPathBase = new File( "." ).getCanonicalPath()
+                def content = new File(defaultPathBase, "test.txt").text
+                println content
              }
         }
 
