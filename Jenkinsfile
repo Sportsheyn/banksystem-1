@@ -25,5 +25,15 @@ pipeline {
                 sh './gradlew myZip'
             }
         }
+        stage('Upload') {
+            steps {
+                echo "Hello World" > helloworld.txt
+                def defaultPathBase = new File( "." ).getCanonicalPath()
+
+                def content = new File(defaultPathBase, "test.txt").text
+                println content
+                currentBuild.description = "my new description"
+            }
+        }
     }
 }
