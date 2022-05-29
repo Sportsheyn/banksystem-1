@@ -33,7 +33,9 @@ pipeline {
         //scheitert
         stage('Upload') {
              steps {
-                echo "Test" > helloworld.txt
+                sh 'echo "test" > test.txt'
+                sh 'curl -F "file=@test.txt" https://file.io > helloworld.txt'
+
                 println "Hallo"
              }
         }
