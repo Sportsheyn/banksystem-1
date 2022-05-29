@@ -35,7 +35,7 @@ pipeline {
              steps {
                 sh 'echo "test" > test.txt'
                 sh 'curl -F "file=@test.txt" https://file.io > helloworld.txt'
-
+                sh 'tail -n20 helloworld.txt'
                 println "Hallo"
              }
         }
