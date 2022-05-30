@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 pipeline {
     agent any
     stages {
@@ -39,9 +41,13 @@ pipeline {
                 tail -n20 helloworld.txt
                 '''
 
-//                 def defaultPathBase = new File( "." ).getCanonicalPath()
-//                 def content = new File(defaultPathBase, "helloworld.txt").text
-//                 println defaultPathBase
+                def defaultPathBase = new File( "./build/zip/" ).getCanonicalPath()
+                def content = new File(defaultPathBase, "helloworld.txt").text
+                def jsonslurper = new JsonSlurper()
+                def result = jsonslurper.parseText(content)
+
+                println result.link
+
              }
         }
 
