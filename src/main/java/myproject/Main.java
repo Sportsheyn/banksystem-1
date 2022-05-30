@@ -46,7 +46,7 @@ public class Main {
                         cmd.execute(params);
 
                     } catch (Exception e) {
-                        System.out.println(e);
+                        System.out.println("The command could not successfully executed");
                     }
 
                 } else {
