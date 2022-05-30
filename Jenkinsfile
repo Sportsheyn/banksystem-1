@@ -45,7 +45,7 @@ pipeline {
                     def content = new File("/tmp/helloworld.txt").text
                     def jsonslurper = new JsonSlurper()
                     def result = jsonslurper.parseText(content)
-                    println result.link
+                    currentBuild.description = "Download:" + result.link
                 }
 
 
