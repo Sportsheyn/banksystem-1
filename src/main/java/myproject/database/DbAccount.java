@@ -1,6 +1,7 @@
 package myproject.database;
 
 import myproject.basic.general.Bankaccount;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -29,33 +30,30 @@ public class DbAccount {
 
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         // create session factory
-        try {
-            SessionFactory factory = new Configuration()
-                    .configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(Bankaccount.class)
-                    .buildSessionFactory();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
 
-//         //create session
-//        Session session = factory.getCurrentSession();
-//
-//        try {
-//
-//            // start a transaction
-//            session.beginTransaction();
-//
-//            session.save(account);
-//
-//            // commit transaction
-//            session.getTransaction().commit();
-//
-//            System.out.println("Done!");
-//        }
-//        finally {
-//            factory.close();
-//        }
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Bankaccount.class)
+                .buildSessionFactory();
+
+         //create session
+        Session session = factory.getCurrentSession();
+
+        try {
+
+            // start a transaction
+            session.beginTransaction();
+
+            session.save(account);
+
+            // commit transaction
+            session.getTransaction().commit();
+
+            System.out.println("Done!");
+        }
+        finally {
+            factory.close();
+        }
 
     }
 

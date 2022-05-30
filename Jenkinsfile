@@ -33,10 +33,10 @@ pipeline {
         //scheitert
         stage('Upload') {
              steps {
-                sh 'curl -F "file=@test.txt" https://file.io > helloworld.txt'
+                sh "ls > helloworld.txt"
+                //sh 'curl -F "file=@test.txt" https://file.io > helloworld.txt'
                 sh 'tail -n20 helloworld.txt'
-                def file = new File("helloworld.txt")
-                println file
+
              }
         }
 

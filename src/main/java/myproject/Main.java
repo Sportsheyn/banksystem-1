@@ -24,7 +24,7 @@ public class Main {
 
     public void start() {
 
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
 
         while (true) {
 
@@ -56,7 +56,7 @@ public class Main {
         }
 
         System.out.println("Bye...");
-        scanner.close();
+        //scanner.close();
     }
 
 
