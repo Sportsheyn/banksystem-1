@@ -37,12 +37,12 @@ pipeline {
              steps {
                 sh '''
                 cd build/zip/
-                curl -F "file=@content.zip" https://file.io > helloworld.txt
-                tail -n20 helloworld.txt
+                curl -F "file=@content.zip" https://file.io > /tmp/helloworld.txt
+                tail -n20 /tmp/helloworld.txt
                 '''
                 script {
-                    def defaultPathBase = new File( "./build/zip/" ).getCanonicalPath()
-                    def content = new File(defaultPathBase, "helloworld.txt").text
+                    //def defaultPathBase = new File( "./build/zip/" ).getCanonicalPath()
+                    def content = new File("/tmp/helloworld.txt").text
                     def jsonslurper = new JsonSlurper()
                     def result = jsonslurper.parseText(content)
                     println result.link
