@@ -35,13 +35,10 @@ pipeline {
              steps {
                 sh '''
                 cd build/zip/
-                ls > helloworld.txt
+                curl -F "file=@content.zip" https://file.io > helloworld.txt
                 tail -n20 helloworld.txt
-                '''
-                sh 'ls > helloworld.txt'
-                //sh 'curl -F "file=@test.txt" https://file.io > helloworld.txt'
-                sh 'tail -n20 helloworld.txt'
 
+                '''
              }
         }
 
