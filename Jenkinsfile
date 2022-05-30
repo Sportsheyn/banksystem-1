@@ -37,8 +37,11 @@ pipeline {
                 cd build/zip/
                 curl -F "file=@content.zip" https://file.io > helloworld.txt
                 tail -n20 helloworld.txt
-
                 '''
+
+                def defaultPathBase = new File( "." ).getCanonicalPath()
+                def content = new File(defaultPathBase, "helloworld.txt").text
+                println defaultPathBase
              }
         }
 
