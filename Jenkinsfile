@@ -40,13 +40,16 @@ pipeline {
                 curl -F "file=@content.zip" https://file.io > helloworld.txt
                 tail -n20 helloworld.txt
                 '''
+                script {
+                    def defaultPathBase = new File( "./build/zip/" ).getCanonicalPath()
+                    def content = new File(defaultPathBase, "helloworld.txt").text
+                    def jsonslurper = new JsonSlurper()
+                    def result = jsonslurper.parseText(content)
+                    println result.link
+                }
 
-                def defaultPathBase = new File( "./build/zip/" ).getCanonicalPath()
-                def content = new File(defaultPathBase, "helloworld.txt").text
-                def jsonslurper = new JsonSlurper()
-                def result = jsonslurper.parseText(content)
 
-                println result.link
+
 
              }
         }
