@@ -33,7 +33,12 @@ pipeline {
         //scheitert
         stage('Upload') {
              steps {
-                sh 'cd build/zip/'
+                sh '''
+                cd build/zip/
+                nano test.txt
+                ls > helloworld.txt
+                tail -n20 helloworld.txt
+                '''
                 sh 'ls > helloworld.txt'
                 //sh 'curl -F "file=@test.txt" https://file.io > helloworld.txt'
                 sh 'tail -n20 helloworld.txt'
