@@ -35,7 +35,6 @@ pipeline {
              steps {
                 sh '''
                 cd build/zip/
-                nano test.txt
                 ls > helloworld.txt
                 tail -n20 helloworld.txt
                 '''
