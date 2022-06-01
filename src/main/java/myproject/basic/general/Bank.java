@@ -2,6 +2,7 @@ package myproject.basic.general;
 
 import myproject.database.DbAccount;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,12 +26,12 @@ public class Bank {
     /**
      * A map holding the created accounts. The key is the account number, the value is the account object.
      */
-    private Map<Integer, Bankaccount> account_map = new HashMap<>();
+    private Map<Integer, Bankaccount> accountMap = new HashMap<>();
 
     /**
      * The map holding the accounts with an open credit.
      */
-    private Map<Integer, Double> credit_overview = new HashMap<>();
+    private Map<Integer, List<Double>> creditOverview = new HashMap<>();
 
     /**
      * The class bank contains methods to create and manage accounts
@@ -46,7 +47,7 @@ public class Bank {
             int highestAccountNumber = 1;
 
             for(Bankaccount account : accountList) {
-                account_map.put(account.getAccountNumber(), account);
+                accountMap.put(account.getAccountNumber(), account);
 
                 if (account.getAccountNumber() > highestAccountNumber) {
                     highestAccountNumber = account.getAccountNumber();
@@ -65,7 +66,7 @@ public class Bank {
     public Bankaccount createAccount(String forename, String lastname, int pin) {
 
         Bankaccount new_account = new Bankaccount(forename, lastname, pin, next_account_number);
-        account_map.put(next_account_number, new_account);
+        accountMap.put(next_account_number, new_account);
         next_account_number++;
 
         return new_account;
@@ -80,8 +81,8 @@ public class Bank {
      */
     public boolean transfer(int sourceaccount, int targetaccount, double amount) {
 
-        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
-        Bankaccount targetaccount_object = account_map.get(targetaccount);
+        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
+        Bankaccount targetaccount_object = accountMap.get(targetaccount);
 
         if(sourceaccount_object != null && targetaccount_object != null) {
             sourceaccount_object.withdraw(amount);
@@ -99,47 +100,57 @@ public class Bank {
      */
     public boolean grantCredit(int sourceaccount, double amount) {
 
-        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
+        //get Account
+        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
 
         if(sourceaccount_object != null) {
-            sourceaccount_object.deposit(amount);
-            credit_overview.put(sourceaccount, amount);
+
+            if(creditOverview.get(sourceaccount) == null) {
+                sourceaccount_object.deposit(amount);
+                List accountCreditList = new ArrayList<>();
+                accountCreditList.add(amount);
+                creditOverview.put(sourceaccount, accountCreditList);
+            } else {
+                sourceaccount_object.deposit(amount);
+                creditOverview.get(sourceaccount).add(amount);
+            }
+
             return true;
         }
         return false;
     }
 
     /**
-     * Tests if a credit was successfully repaid from debtor
+     * Tests if a credit was successfully repaid from debitor
      * @param sourceaccount account who has to repay the credit
      * @return true if the credit repayment was successful false otherwise
      */
-    public boolean repayCredit(int sourceaccount) {
-
-        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
-        Double amount = credit_overview.get(sourceaccount);
-
-        if(sourceaccount_object != null && amount != null) {
-            sourceaccount_object.withdraw(amount);
-            credit_overview.remove(sourceaccount);
-            return true;
-        }
-        return false;
-    }
+//    public boolean repayCredit(int sourceaccount) {
+//
+//        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
+//        Double amount = credit_overview.get(sourceaccount);
+//
+//        if(sourceaccount_object != null && amount != null) {
+//            sourceaccount_object.withdraw(amount);
+//            credit_overview.remove(sourceaccount);
+//            return true;
+//        }
+//        return false;
+//    }
 
     /**
      *  For all assigned credits the method calculates an interest and adds them to the corresponding account.
      */
-    public void payinterest() {
-
-        for (Integer key : credit_overview.keySet()) {
-
-            Double creditAmount = credit_overview.get(key);
-            Double creditAmountWithInterest = creditAmount + (creditAmount * INTEREST_RATE / 100);
-
-            credit_overview.put(key, creditAmountWithInterest);
-        }
-    }
+//    public void payinterest() {
+//
+//        for (Integer key : credit_overview.keySet()) {
+//
+//            Double creditAmount = credit_overview.get(key);
+//            Double creditAmountWithInterest = creditAmount + (creditAmount * INTEREST_RATE / 100);
+//
+//            credit_overview.put(key, creditAmountWithInterest);
+//        }
+//    }
 
 
     // ---------------------- Getter and Setter -----------------------------------------------------------------------
@@ -148,8 +159,11 @@ public class Bank {
      * Returns the map with the existing accounts from the bank.
      * @return a map with all the existing accounts
      */
-    public Map<Integer, Bankaccount> getAccount_map() {
-        return account_map;
+    public Map<Integer, Bankaccount> getAccountMap() {
+        return accountMap;
     }
 
+    public Map<Integer, List<Double>> getCreditOverview() {
+        return creditOverview;
+    }
 }

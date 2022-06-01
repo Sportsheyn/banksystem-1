@@ -24,8 +24,6 @@ public class Main {
 
     public void start() {
 
-        //Scanner scanner = new Scanner(System.in);
-
         while (true) {
 
             System.out.println("Please enter a command.");
@@ -56,7 +54,7 @@ public class Main {
         }
 
         System.out.println("Bye...");
-        //scanner.close();
+
     }
 
 

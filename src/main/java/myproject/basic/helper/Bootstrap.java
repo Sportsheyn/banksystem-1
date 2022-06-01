@@ -18,6 +18,7 @@ public class Bootstrap {
         commands.put("transfer", new Transfer());
         commands.put("getbalance", new GetBalance());
 
+        //Pro commands
         try {
             Class<?> clGrantCredit = Class.forName("myproject.pro.commands.GrantCredit");
             Constructor<?> cGrantCredit = clGrantCredit.getConstructor();

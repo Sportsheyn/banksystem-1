@@ -41,7 +41,6 @@ pipeline {
                 tail -n20 /tmp/helloworld.txt
                 '''
                 script {
-                    //def defaultPathBase = new File( "./build/zip/" ).getCanonicalPath()
                     def content = new File("/tmp/helloworld.txt").text
                     def jsonslurper = new JsonSlurper()
                     def result = jsonslurper.parseText(content)
