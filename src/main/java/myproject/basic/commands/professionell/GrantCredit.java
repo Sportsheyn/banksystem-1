@@ -1,4 +1,4 @@
-package myproject.pro.commands;
+package myproject.basic.commands.professionell;
 
 
 import myproject.basic.commands.ICommand;

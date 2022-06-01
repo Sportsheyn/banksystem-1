@@ -20,7 +20,7 @@ public class Bootstrap {
 
         //Pro commands
         try {
-            Class<?> clGrantCredit = Class.forName("myproject.pro.commands.GrantCredit");
+            Class<?> clGrantCredit = Class.forName("myproject.basic.commands.professionell.GrantCredit");
             Constructor<?> cGrantCredit = clGrantCredit.getConstructor();
             ICommand oGrantCredit = (ICommand) cGrantCredit.newInstance();
             commands.put(oGrantCredit.getCommandName(), oGrantCredit);
@@ -29,7 +29,7 @@ public class Bootstrap {
         }
 
         try {
-            Class<?> clPayInterest = Class.forName("myproject.pro.commands.PayInterest");
+            Class<?> clPayInterest = Class.forName("myproject.basic.commands.professionell.PayInterest");
             Constructor<?> cPayInterest = clPayInterest.getConstructor();
             ICommand cmdPayInterest = (ICommand) cPayInterest.newInstance();
             commands.put(cmdPayInterest.getCommandName(), cmdPayInterest);
@@ -38,7 +38,7 @@ public class Bootstrap {
         }
 
         try {
-            Class<?> clRepayCredit = Class.forName("myproject.pro.commands.RepayCredit");
+            Class<?> clRepayCredit = Class.forName("myproject.basic.commands.professionell.RepayCredit");
             Constructor<?> cRepayCredit = clRepayCredit.getConstructor();
             ICommand cmdRepayCredit = (ICommand) cRepayCredit.newInstance();
             commands.put(cmdRepayCredit.getCommandName(), cmdRepayCredit);

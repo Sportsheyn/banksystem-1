@@ -43,7 +43,7 @@ task myJar(type: Jar) {
     from {
         sourceSets.main.output
     }
-    exclude "myproject/pro/commands/*"
+    exclude "myproject/basic/commands/professionell/*"
 
     archiveFileName = "contentWithoutPro.jar"
     destinationDirectory = file("$projectDir/build/libs")
