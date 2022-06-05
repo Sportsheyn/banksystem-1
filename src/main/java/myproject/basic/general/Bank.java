@@ -125,32 +125,38 @@ public class Bank {
      * @param sourceaccount account who has to repay the credit
      * @return true if the credit repayment was successful false otherwise
      */
-//    public boolean repayCredit(int sourceaccount) {
-//
-//        Bankaccount sourceaccount_object = account_map.get(sourceaccount);
-//        Double amount = credit_overview.get(sourceaccount);
-//
-//        if(sourceaccount_object != null && amount != null) {
-//            sourceaccount_object.withdraw(amount);
-//            credit_overview.remove(sourceaccount);
-//            return true;
-//        }
-//        return false;
-//    }
+    public boolean repayCredit(int sourceaccount) {
+
+        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
+        List<Double> amount = creditOverview.get(sourceaccount);
+
+        if(sourceaccount_object != null && amount != null) {
+
+            sourceaccount_object.withdraw(amount.get(0));
+            amount.remove(0);
+
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      *  For all assigned credits the method calculates an interest and adds them to the corresponding account.
      */
-//    public void payinterest() {
-//
-//        for (Integer key : credit_overview.keySet()) {
-//
-//            Double creditAmount = credit_overview.get(key);
-//            Double creditAmountWithInterest = creditAmount + (creditAmount * INTEREST_RATE / 100);
-//
-//            credit_overview.put(key, creditAmountWithInterest);
-//        }
-//    }
+    public void payinterest() {
+
+        for (Integer key : creditOverview.keySet()) {
+
+            List<Double> creditList = creditOverview.get(key);
+                for (int i = 0; i < creditList.size(); i++) {
+
+                    Double creditAmountWithInterest = creditList.get(i) + (creditList.get(i) * INTEREST_RATE / 100);
+                    creditList.set(i, creditAmountWithInterest);
+                }
+
+        }
+    }
 
 
     // ---------------------- Getter and Setter -----------------------------------------------------------------------

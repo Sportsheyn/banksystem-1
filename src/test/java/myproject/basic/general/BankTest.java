@@ -42,6 +42,20 @@ public class BankTest {
 
     @Test
     public void repayCredit() {
+        Bank bank = new Bank();
+        Bankaccount account = bank.createAccount("Hans", "Platner", 1234);
+
+        bank.grantCredit(account.getAccountNumber(), 500);
+        bank.grantCredit(account.getAccountNumber(), 1000);
+
+        bank.repayCredit(account.getAccountNumber());
+
+        List<Double> openCredits = bank.getCreditOverview().get(account.getAccountNumber());
+        for(Double credit : openCredits) {
+            System.out.print(credit + ", ");
+        }
+
+        assertEquals(1, bank.getCreditOverview().get(account.getAccountNumber()).size());
 
     }
 
