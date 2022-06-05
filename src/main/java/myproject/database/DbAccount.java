@@ -1,5 +1,6 @@
 package myproject.database;
 
+import myproject.basic.general.Bank;
 import myproject.basic.general.Bankaccount;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +22,7 @@ public class DbAccount {
 
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Bank.class)
                 .addAnnotatedClass(Bankaccount.class)
                 .buildSessionFactory();
 
@@ -31,6 +33,10 @@ public class DbAccount {
 
             // start a transaction
             session.beginTransaction();
+
+            Bank bank = session.get(Bank.class, 1);
+
+            bank.addAccount(account);
 
             session.save(account);
 

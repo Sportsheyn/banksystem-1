@@ -5,6 +5,7 @@ import myproject.basic.commands.*;
 import myproject.basic.general.Bank;
 import myproject.basic.helper.Bootstrap;
 import myproject.basic.helper.Helper;
+import myproject.database.DbBank;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class Main {
 
 
     public Main() {
-        this.bank = new Bank();
+        this.bank = DbBank.create();
         Bootstrap bootstrap = new Bootstrap();
         this.commands = bootstrap.createCommandMap();
     }
@@ -44,6 +45,7 @@ public class Main {
                         cmd.execute(params);
 
                     } catch (Exception e) {
+                        e.printStackTrace();
                         System.out.println("The command could not be executed successfully");
                     }
 

@@ -1,7 +1,6 @@
 package myproject.basic.general;
 
-import myproject.database.DbAccount;
-
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,50 +10,40 @@ import java.util.Map;
 /**
  * The bank class managed the accounts and supports interaction between them.
  */
+@Entity
 public class Bank {
+
+    /**
+     * A variable that holds the next account number of a new created account.
+     */
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+
+    /**
+     * A map holding the created accounts. The key is the account number, the value is the account object.
+     */
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bank", cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Bankaccount> accountList;
+
+    /**
+     * The map holding the accounts with an open credit.
+     */
+    @ElementCollection
+    private Map<Integer, Double> creditOverview = new HashMap<>();
 
     /**
      * A constant holding the interest rate (Zinssatz).
      */
     private final int INTEREST_RATE = 4;
 
-    /**
-     * A variable that holds the next account number of a new created account.
-     */
-    private static int next_account_number = 1;
-
-    /**
-     * A map holding the created accounts. The key is the account number, the value is the account object.
-     */
-    private Map<Integer, Bankaccount> accountMap = new HashMap<>();
-
-    /**
-     * The map holding the accounts with an open credit.
-     */
-    private Map<Integer, List<Double>> creditOverview = new HashMap<>();
 
     /**
      * The class bank contains methods to create and manage accounts
      */
     public Bank() {
-        initBank();
-    }
 
-    private void initBank() {
-        List<Bankaccount> accountList = DbAccount.findAll();
-        if ( accountList.size() > 0) {
-
-            int highestAccountNumber = 1;
-
-            for(Bankaccount account : accountList) {
-                accountMap.put(account.getAccountNumber(), account);
-
-                if (account.getAccountNumber() > highestAccountNumber) {
-                    highestAccountNumber = account.getAccountNumber();
-                }
-            }
-            next_account_number = highestAccountNumber + 1;
-        }
     }
 
     /**
@@ -65,9 +54,8 @@ public class Bank {
      */
     public Bankaccount createAccount(String forename, String lastname, int pin) {
 
-        Bankaccount new_account = new Bankaccount(forename, lastname, pin, next_account_number);
-        accountMap.put(next_account_number, new_account);
-        next_account_number++;
+        Bankaccount new_account = new Bankaccount(forename, lastname, pin);
+        accountList.add(new_account);
 
         return new_account;
     }
@@ -81,8 +69,8 @@ public class Bank {
      */
     public boolean transfer(int sourceaccount, int targetaccount, double amount) {
 
-        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
-        Bankaccount targetaccount_object = accountMap.get(targetaccount);
+        Bankaccount sourceaccount_object = accountList.get(sourceaccount);
+        Bankaccount targetaccount_object = accountList.get(targetaccount);
 
         if(sourceaccount_object != null && targetaccount_object != null) {
             sourceaccount_object.withdraw(amount);
@@ -101,22 +89,22 @@ public class Bank {
     public boolean grantCredit(int sourceaccount, double amount) {
 
         //get Account
-        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
-
-        if(sourceaccount_object != null) {
-
-            if(creditOverview.get(sourceaccount) == null) {
-                sourceaccount_object.deposit(amount);
-                List accountCreditList = new ArrayList<>();
-                accountCreditList.add(amount);
-                creditOverview.put(sourceaccount, accountCreditList);
-            } else {
-                sourceaccount_object.deposit(amount);
-                creditOverview.get(sourceaccount).add(amount);
-            }
-
-            return true;
-        }
+//        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
+//
+//        if(sourceaccount_object != null) {
+//
+//            if(creditOverview.get(sourceaccount) == null) {
+//                sourceaccount_object.deposit(amount);
+//                List accountCreditList = new ArrayList<>();
+//                accountCreditList.add(amount);
+//                creditOverview.put(sourceaccount, accountCreditList);
+//            } else {
+//                sourceaccount_object.deposit(amount);
+//                creditOverview.get(sourceaccount).add(amount);
+//            }
+//
+//            return true;
+//        }
         return false;
     }
 
@@ -127,16 +115,16 @@ public class Bank {
      */
     public boolean repayCredit(int sourceaccount) {
 
-        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
-        List<Double> amount = creditOverview.get(sourceaccount);
-
-        if(sourceaccount_object != null && amount != null) {
-
-            sourceaccount_object.withdraw(amount.get(0));
-            amount.remove(0);
-
-            return true;
-        }
+//        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
+//        List<Double> amount = creditOverview.get(sourceaccount);
+//
+//        if(sourceaccount_object != null && amount != null) {
+//
+//            sourceaccount_object.withdraw(amount.get(0));
+//            amount.remove(0);
+//
+//            return true;
+//        }
 
         return false;
     }
@@ -146,16 +134,24 @@ public class Bank {
      */
     public void payinterest() {
 
-        for (Integer key : creditOverview.keySet()) {
+//        for (Integer key : creditOverview.keySet()) {
+//
+//            List<Double> creditList = creditOverview.get(key);
+//                for (int i = 0; i < creditList.size(); i++) {
+//
+//                    Double creditAmountWithInterest = creditList.get(i) + (creditList.get(i) * INTEREST_RATE / 100);
+//                    creditList.set(i, creditAmountWithInterest);
+//                }
+//
+//        }
+    }
 
-            List<Double> creditList = creditOverview.get(key);
-                for (int i = 0; i < creditList.size(); i++) {
-
-                    Double creditAmountWithInterest = creditList.get(i) + (creditList.get(i) * INTEREST_RATE / 100);
-                    creditList.set(i, creditAmountWithInterest);
-                }
-
+    public void addAccount(Bankaccount account) {
+        if (account == null) {
+            accountList = new ArrayList<>();
         }
+        accountList.add(account);
+        account.setBank(this);
     }
 
 
@@ -165,11 +161,11 @@ public class Bank {
      * Returns the map with the existing accounts from the bank.
      * @return a map with all the existing accounts
      */
-    public Map<Integer, Bankaccount> getAccountMap() {
-        return accountMap;
+    public List<Bankaccount> getAccountList() {
+        return accountList;
     }
 
-    public Map<Integer, List<Double>> getCreditOverview() {
+    public Map<Integer, Double> getCreditOverview() {
         return creditOverview;
     }
 }

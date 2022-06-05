@@ -1,9 +1,6 @@
 package myproject.basic.general;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Representation of an account
@@ -11,26 +8,30 @@ import javax.persistence.Table;
  * @version 03.05.2022
  */
 @Entity
-@Table(name="Bankaccount")
 public class Bankaccount {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="accountNumber")
     private int accountNumber;
+
     private String forename;
     private String lastname;
     private double amount;
     private int pin;
 
+    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name="bank_id")
+    private Bank bank;
+
     public Bankaccount() {
 
     }
 
-    public Bankaccount(String forename, String lastname, int pin, int account_number) {
+    public Bankaccount(String forename, String lastname, int pin) {
         this.forename = forename;
         this.lastname = lastname;
         this.pin = pin;
-        this.accountNumber = account_number;
     }
 
     public int getAccountNumber() {
@@ -51,6 +52,14 @@ public class Bankaccount {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     @Override

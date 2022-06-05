@@ -34,7 +34,7 @@ public class Deposit implements ICommand {
         double amount = parseDouble((String) params.get("userparam0"));
         int accountnumber = parseInt((String)params.get("userparam1"));
 
-        Bankaccount find_account = bank.getAccountMap().get(accountnumber);
+        Bankaccount find_account = bank.getAccountList().get(accountnumber);
 
         find_account.deposit(amount);
     }
