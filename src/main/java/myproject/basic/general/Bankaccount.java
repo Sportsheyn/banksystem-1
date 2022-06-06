@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Representation of an account
  * @author Christopher
- * @version 03.05.2022
+ * @version 05.06.2022
  */
 @Entity
 public class Bankaccount {
@@ -54,13 +54,9 @@ public class Bankaccount {
         this.amount = amount;
     }
 
-    public Bank getBank() {
-        return bank;
-    }
+    public Bank getBank() { return bank; }
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
+    public void setBank(Bank bank) { this.bank = bank; }
 
     @Override
     public String toString() {

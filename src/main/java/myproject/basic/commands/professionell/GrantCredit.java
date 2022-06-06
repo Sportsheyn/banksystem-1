@@ -28,7 +28,11 @@ public class GrantCredit implements ICommand {
         double amount = parseDouble((String) params.get("userparam0"));
         int accountnumber = parseInt((String) params.get("userparam1"));
 
-        bank.grantCredit(accountnumber, amount);
+        boolean successfull = bank.grantCredit(accountnumber, amount);
+
+        if (successfull) {
+            System.out.println("You successfully get granted a credit.");
+        }
     }
 
     @Override

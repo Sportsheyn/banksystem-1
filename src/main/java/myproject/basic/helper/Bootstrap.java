@@ -24,8 +24,8 @@ public class Bootstrap {
             Constructor<?> cGrantCredit = clGrantCredit.getConstructor();
             ICommand oGrantCredit = (ICommand) cGrantCredit.newInstance();
             commands.put(oGrantCredit.getCommandName(), oGrantCredit);
-        } catch (Exception ignored) {
-            System.out.println(ignored);
+        } catch (Exception e) {
+
         }
 
         try {
@@ -33,8 +33,8 @@ public class Bootstrap {
             Constructor<?> cPayInterest = clPayInterest.getConstructor();
             ICommand cmdPayInterest = (ICommand) cPayInterest.newInstance();
             commands.put(cmdPayInterest.getCommandName(), cmdPayInterest);
-        } catch (Exception ignored) {
-            System.out.println(ignored);
+        } catch (Exception e) {
+
         }
 
         try {
@@ -42,8 +42,8 @@ public class Bootstrap {
             Constructor<?> cRepayCredit = clRepayCredit.getConstructor();
             ICommand cmdRepayCredit = (ICommand) cRepayCredit.newInstance();
             commands.put(cmdRepayCredit.getCommandName(), cmdRepayCredit);
-        } catch (Exception ignored) {
-            System.out.println(ignored);
+        } catch (Exception e) {
+
         }
 
         return commands;

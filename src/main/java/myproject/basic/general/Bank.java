@@ -1,9 +1,9 @@
 package myproject.basic.general;
 
+import myproject.database.DbBank;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -14,7 +14,7 @@ import java.util.Map;
 public class Bank {
 
     /**
-     * A variable that holds the next account number of a new created account.
+     * A variable that holds the bank id.
      */
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,14 +24,22 @@ public class Bank {
     /**
      * A map holding the created accounts. The key is the account number, the value is the account object.
      */
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bank", cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    private List<Bankaccount> accountList;
+    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "bank_bankaccount_mapping",
+            joinColumns = {@JoinColumn(name = "bank_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "bankaccount_id", referencedColumnName = "accountNumber")})
+    @MapKey(name = "accountNumber")
+    private Map<Integer, Bankaccount> accountMap = new HashMap<>();
 
     /**
      * The map holding the accounts with an open credit.
      */
-    @ElementCollection
-    private Map<Integer, Double> creditOverview = new HashMap<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "bank_credit_mapping",
+            joinColumns = {@JoinColumn(name = "bank_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "credit_id", referencedColumnName = "id")})
+    @MapKey(name = "id")
+    private Map<Integer, Credit> creditOverview = new HashMap<>();
 
     /**
      * A constant holding the interest rate (Zinssatz).
@@ -55,7 +63,7 @@ public class Bank {
     public Bankaccount createAccount(String forename, String lastname, int pin) {
 
         Bankaccount new_account = new Bankaccount(forename, lastname, pin);
-        accountList.add(new_account);
+        accountMap.put(new_account.getAccountNumber(), new_account);
 
         return new_account;
     }
@@ -69,8 +77,8 @@ public class Bank {
      */
     public boolean transfer(int sourceaccount, int targetaccount, double amount) {
 
-        Bankaccount sourceaccount_object = accountList.get(sourceaccount);
-        Bankaccount targetaccount_object = accountList.get(targetaccount);
+        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
+        Bankaccount targetaccount_object = accountMap.get(targetaccount);
 
         if(sourceaccount_object != null && targetaccount_object != null) {
             sourceaccount_object.withdraw(amount);
@@ -82,29 +90,32 @@ public class Bank {
 
     /**
      * Tests if a credit was successfully granted from the bank.
-     * @param sourceaccount account which request for a credit
+     * @param accountid account which request for a credit
      * @param amount the amount of the credit
      * @return true if the credit was granted false otherwise
      */
-    public boolean grantCredit(int sourceaccount, double amount) {
+    public boolean grantCredit(int accountid, double amount) {
 
-        //get Account
-//        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
-//
-//        if(sourceaccount_object != null) {
-//
-//            if(creditOverview.get(sourceaccount) == null) {
-//                sourceaccount_object.deposit(amount);
-//                List accountCreditList = new ArrayList<>();
-//                accountCreditList.add(amount);
-//                creditOverview.put(sourceaccount, accountCreditList);
-//            } else {
-//                sourceaccount_object.deposit(amount);
-//                creditOverview.get(sourceaccount).add(amount);
-//            }
-//
-//            return true;
-//        }
+        Bankaccount account = accountMap.get(accountid);
+
+        if(accountMap.get(accountid) != null) {
+
+            if(creditOverview.get(accountid) == null) {
+                Credit credit = new Credit(account.getAccountNumber());
+                credit.getCredits().add(amount);
+                creditOverview.put(account.getAccountNumber(), credit);
+                DbBank.saveCredit(credit);
+
+                account.deposit(amount);
+            } else {
+
+                creditOverview.get(accountid).getCredits().add(amount);
+                DbBank.saveCredit(creditOverview.get(accountid));
+
+                account.deposit(amount);
+            }
+            return true;
+        }
         return false;
     }
 
@@ -146,12 +157,15 @@ public class Bank {
 //        }
     }
 
+
     public void addAccount(Bankaccount account) {
-        if (account == null) {
-            accountList = new ArrayList<>();
-        }
-        accountList.add(account);
+        accountMap.put(account.getAccountNumber(), account);
         account.setBank(this);
+    }
+
+    public void addCredit(Credit credit) {
+        creditOverview.put(credit.getId(), credit);
+        credit.setBank(this);
     }
 
 
@@ -161,11 +175,17 @@ public class Bank {
      * Returns the map with the existing accounts from the bank.
      * @return a map with all the existing accounts
      */
-    public List<Bankaccount> getAccountList() {
-        return accountList;
+    public Map<Integer, Bankaccount> getAccountmap() {
+        return accountMap;
     }
 
-    public Map<Integer, Double> getCreditOverview() {
+
+    public Map<Integer, Credit> getCreditOverview() {
         return creditOverview;
     }
+
+
 }
+
+
+
