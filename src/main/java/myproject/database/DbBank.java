@@ -28,14 +28,10 @@ public class DbBank {
 
     public static Bank create() {
 
-        Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-
         SessionFactory factory = getFactory();
-
         Session session = factory.getCurrentSession();
 
         try {
-            // start a transaction
             session.beginTransaction();
 
             Bank readBank = session.get(Bank.class, 1);
@@ -48,7 +44,6 @@ public class DbBank {
             Bank bank = new Bank();
             session.save(bank);
 
-            // commit transaction
             session.getTransaction().commit();
 
             System.out.println("Done!");
@@ -64,10 +59,7 @@ public class DbBank {
 
     public static Bank read() {
 
-        Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-
         SessionFactory factory = getFactory();
-
         Session session = factory.getCurrentSession();
 
         try {
@@ -75,7 +67,6 @@ public class DbBank {
 
             Bank readBank = session.get(Bank.class, 1);
 
-            // commit transaction
             session.getTransaction().commit();
 
             return readBank;
@@ -88,7 +79,6 @@ public class DbBank {
 
     public static void saveCredit(Credit credit) {
 
-        Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         SessionFactory factory = getFactory();
         Session session = factory.getCurrentSession();
 
@@ -99,7 +89,6 @@ public class DbBank {
             bank.addCredit(credit);
 
             session.save(credit);
-
 
             session.getTransaction().commit();
 

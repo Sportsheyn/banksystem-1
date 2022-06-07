@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class DbAccount {
 
-    public static void create(Bankaccount account) {
+    public static SessionFactory getFactory() {
 
         Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 
@@ -28,21 +28,23 @@ public class DbAccount {
                 .addAnnotatedClass(Credit.class)
                 .buildSessionFactory();
 
-         //create session
+        return factory;
+    }
+
+
+    public static void create(Bankaccount account) {
+
+        SessionFactory factory = getFactory();
         Session session = factory.getCurrentSession();
 
         try {
 
-            // start a transaction
             session.beginTransaction();
 
             Bank bank = session.get(Bank.class, 1);
-
             bank.addAccount(account);
-
             session.save(account);
 
-            // commit transaction
             session.getTransaction().commit();
 
             System.out.println("Done!");
@@ -53,15 +55,28 @@ public class DbAccount {
         }
     }
 
+
+    public static void update(Bankaccount account) {
+
+        SessionFactory factory = getFactory();
+        Session session = factory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            session.update(account);
+            session.getTransaction().commit();
+
+        }
+        finally {
+            session.close();
+            factory.close();
+        }
+    }
+
+
     public static boolean delete(int accountnumber) {
 
-        Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Bankaccount.class)
-                .buildSessionFactory();
-
+        SessionFactory factory = getFactory();
         Session session = factory.getCurrentSession();
 
         try {
@@ -70,7 +85,6 @@ public class DbAccount {
             Bankaccount accountToDelete = session.get(Bankaccount.class, accountnumber);
             session.delete(accountToDelete);
 
-            // commit transaction
             session.getTransaction().commit();
             return true;
         }
@@ -82,13 +96,7 @@ public class DbAccount {
 
     public static Bankaccount read(int accountnumber) {
 
-        Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Bankaccount.class)
-                .buildSessionFactory();
-
+        SessionFactory factory = getFactory();
         Session session = factory.getCurrentSession();
 
         try {
@@ -96,7 +104,6 @@ public class DbAccount {
 
             Bankaccount readAccount = session.get(Bankaccount.class, accountnumber);
 
-            // commit transaction
             session.getTransaction().commit();
 
             return readAccount;
@@ -124,20 +131,6 @@ public class DbAccount {
         entityManagerFactory.close();
 
         return accountList;
-    }
-
-
-    public static void main(String[] args) {
-
-//        für Testzwecke
-//        Bankaccount account = new Bankaccount("Tom", "Bartel", 1234, 7778);
-//        Bankaccount account2 = new Bankaccount("Seven", "Guer", 960, 1234);
-//        DbAccount.create(account);
-//        DbAccount.create(account2);
-
-        Bankaccount account = DbAccount.read(1234);
-        System.out.println(account);
-
     }
 
 }
