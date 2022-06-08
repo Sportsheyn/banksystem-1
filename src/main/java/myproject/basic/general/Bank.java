@@ -1,6 +1,7 @@
 package myproject.basic.general;
 
 import myproject.database.DbBank;
+import myproject.database.DbCredit;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -94,29 +95,23 @@ public class Bank {
      * @param amount the amount of the credit
      * @return true if the credit was granted false otherwise
      */
-    public boolean grantCredit(int accountid, double amount) {
+    public Credit grantCredit(int accountid, double amount) {
 
         Bankaccount account = accountMap.get(accountid);
 
-        if(accountMap.get(accountid) != null) {
+        if(account != null) {
 
             if(creditOverview.get(accountid) == null) {
                 Credit credit = new Credit(account.getAccountNumber());
-                credit.getCredits().add(amount);
                 creditOverview.put(account.getAccountNumber(), credit);
-                DbBank.saveCredit(credit);
-
-                account.deposit(amount);
-            } else {
-
-                creditOverview.get(accountid).getCredits().add(amount);
-                DbBank.saveCredit(creditOverview.get(accountid));
-
-                account.deposit(amount);
             }
-            return true;
+            creditOverview.get(accountid).getCredits().add(amount);
+            account.deposit(amount);
+
+            return creditOverview.get(accountid);
         }
-        return false;
+
+        return null;
     }
 
     /**
@@ -163,12 +158,6 @@ public class Bank {
         account.setBank(this);
     }
 
-    public void addCredit(Credit credit) {
-        creditOverview.put(credit.getId(), credit);
-        credit.setBank(this);
-    }
-
-
     // ---------------------- Getter and Setter -----------------------------------------------------------------------
 
     /**
@@ -184,6 +173,19 @@ public class Bank {
         return creditOverview;
     }
 
+    public static void main(String[] args) {
+//        Credit credit = DbCredit.read(1241);
+//        System.out.println(credit);
+//        credit.getCredits().add(500.0);
+//        DbCredit.saveCredit(credit);
+
+        Bank bank = DbBank.read();
+        Credit credit = bank.getCreditOverview().get(1241);
+        System.out.println(credit);
+        credit.getCredits().add(500.0);
+        DbCredit.update(credit);
+
+    }
 
 }
 

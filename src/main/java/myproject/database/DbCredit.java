@@ -10,7 +10,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DbBank {
+public class DbCredit {
 
     public static SessionFactory getFactory() {
 
@@ -26,7 +26,26 @@ public class DbBank {
         return factory;
     }
 
-    public static Bank create() {
+    public static Credit read(int creditid) {
+        SessionFactory factory = getFactory();
+        Session session = factory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+
+            Credit readCredit = session.get(Credit.class, creditid);
+
+            session.getTransaction().commit();
+
+            return readCredit;
+        }
+        finally {
+            session.close();
+            factory.close();
+        }
+    }
+
+    public static void update(Credit credit) {
 
         SessionFactory factory = getFactory();
         Session session = factory.getCurrentSession();
@@ -34,46 +53,18 @@ public class DbBank {
         try {
             session.beginTransaction();
 
-            Bank readBank = session.get(Bank.class, 1);
-            if (readBank != null) {
-                session.getTransaction().commit();
-                System.out.println("Done!");
-                return readBank;
-            }
+            //Bank bank = session.get(Bank.class, 1);
+            //credit.setBank(bank);
 
-            Bank bank = new Bank();
-            session.save(bank);
+            session.update(credit);
 
             session.getTransaction().commit();
 
-            System.out.println("Done!");
-        }
-        finally {
-            session.close();
-            factory.close();
-        }
-
-        return null;
-    }
-
-
-    public static Bank read() {
-
-        SessionFactory factory = getFactory();
-        Session session = factory.getCurrentSession();
-
-        try {
-            session.beginTransaction();
-
-            Bank readBank = session.get(Bank.class, 1);
-
-            session.getTransaction().commit();
-
-            return readBank;
         }
         finally {
             session.close();
             factory.close();
         }
     }
+
 }

@@ -3,6 +3,10 @@ package myproject.basic.commands.professionell;
 
 import myproject.basic.commands.ICommand;
 import myproject.basic.general.Bank;
+import myproject.basic.general.Bankaccount;
+import myproject.basic.general.Credit;
+import myproject.database.DbAccount;
+import myproject.database.DbCredit;
 
 import java.util.Map;
 
@@ -28,9 +32,12 @@ public class GrantCredit implements ICommand {
         double amount = parseDouble((String) params.get("userparam0"));
         int accountnumber = parseInt((String) params.get("userparam1"));
 
-        boolean successfull = bank.grantCredit(accountnumber, amount);
+        Bankaccount account = bank.getAccountmap().get(accountnumber);
+        Credit credit = bank.grantCredit(accountnumber, amount);
 
-        if (successfull) {
+        if (credit != null && account != null) {
+            DbAccount.update(account);
+            DbCredit.update(credit);
             System.out.println("You successfully get granted a credit.");
         }
     }

@@ -46,4 +46,14 @@ public class Credit {
     public void setBank(Bank bank) {
         this.bank = bank;
     }
+
+    @Override
+    public String toString() {
+        return "Credit{" +
+                "id=" + id +
+                ", credits=" + credits.size() +
+                ", bank=" + bank +
+
+                '}';
+    }
 }

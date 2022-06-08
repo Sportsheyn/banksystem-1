@@ -65,7 +65,6 @@ public class DbAccount {
             session.beginTransaction();
             session.update(account);
             session.getTransaction().commit();
-
         }
         finally {
             session.close();
