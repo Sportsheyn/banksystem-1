@@ -43,7 +43,7 @@ public class CreateAccount implements ICommand {
 
         Bankaccount account = bank.createAccount(forename, lastname, pin);
 
-        // save account into database
+        // ---  db action ---
         DbAccount.create(account);
 
         System.out.println(successMessage(account));

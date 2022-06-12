@@ -1,10 +1,12 @@
 package myproject.basic.general;
 
 import myproject.database.DbBank;
-import myproject.database.DbCredit;
+import myproject.database.DbCredits;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -35,12 +37,12 @@ public class Bank {
     /**
      * The map holding the accounts with an open credit.
      */
-    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
     @JoinTable(name = "bank_credit_mapping",
             joinColumns = {@JoinColumn(name = "bank_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "credit_id", referencedColumnName = "id")})
-    @MapKey(name = "id")
-    private Map<Integer, Credit> creditOverview = new HashMap<>();
+            inverseJoinColumns = {@JoinColumn(name = "credits_id", referencedColumnName = "creditsId")})
+    @MapKey(name = "creditsId")
+    private Map<Integer, Credits> creditOverview = new HashMap<>();
 
     /**
      * A constant holding the interest rate (Zinssatz).
@@ -69,6 +71,14 @@ public class Bank {
         return new_account;
     }
 
+    public Credits createCredits(int accountNumber) {
+
+        Credits credits = new Credits(accountNumber);
+        creditOverview.put(credits.getCreditsId(), credits);
+
+        return credits;
+    }
+
     /**
      * Tests if a transaction between two accounts was successful.
      * @param sourceaccount account which will send the money
@@ -76,7 +86,7 @@ public class Bank {
      * @param amount the amount of the transaction
      * @return true if this transaction between the two accounts was successful false otherwise
      */
-    public boolean transfer(int sourceaccount, int targetaccount, double amount) {
+    public List<Bankaccount> transfer(int sourceaccount, int targetaccount, double amount) {
 
         Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
         Bankaccount targetaccount_object = accountMap.get(targetaccount);
@@ -84,9 +94,14 @@ public class Bank {
         if(sourceaccount_object != null && targetaccount_object != null) {
             sourceaccount_object.withdraw(amount);
             targetaccount_object.deposit(amount);
-            return true;
+
+            List<Bankaccount> accountList = new ArrayList<>();
+            accountList.add(sourceaccount_object);
+            accountList.add(targetaccount_object);
+
+            return accountList;
         }
-        return false;
+        return null;
     }
 
     /**
@@ -95,17 +110,24 @@ public class Bank {
      * @param amount the amount of the credit
      * @return true if the credit was granted false otherwise
      */
-    public Credit grantCredit(int accountid, double amount) {
+    public Credits grantCredit(int accountid, double amount) {
 
         Bankaccount account = accountMap.get(accountid);
 
         if(account != null) {
 
             if(creditOverview.get(accountid) == null) {
-                Credit credit = new Credit(account.getAccountNumber());
-                creditOverview.put(account.getAccountNumber(), credit);
+                Credits credits = new Credits(account.getAccountNumber());
+                DbCredits.create(credits);
             }
-            creditOverview.get(accountid).getCredits().add(amount);
+
+            Credits credits = DbCredits.read(accountid);
+            Credit credit = new Credit(amount);
+            credit.setCredits(credits);
+
+            credits.getCredits().add(credit);
+            DbCredits.update(credits);
+
             account.deposit(amount);
 
             return creditOverview.get(accountid);
@@ -158,6 +180,15 @@ public class Bank {
         account.setBank(this);
     }
 
+    public void addCredits(Credits credits) {
+        creditOverview.put(credits.getCreditsId(), credits);
+        credits.setBank(this);
+    }
+
+    public void removeCredits(Credits credits) {
+        creditOverview.remove(credits.getCreditsId(), credits);
+    }
+
     // ---------------------- Getter and Setter -----------------------------------------------------------------------
 
     /**
@@ -169,21 +200,35 @@ public class Bank {
     }
 
 
-    public Map<Integer, Credit> getCreditOverview() {
+    public Map<Integer, Credits> getCreditOverview() {
         return creditOverview;
     }
 
+
+
     public static void main(String[] args) {
-//        Credit credit = DbCredit.read(1241);
-//        System.out.println(credit);
-//        credit.getCredits().add(500.0);
-//        DbCredit.saveCredit(credit);
+
+//        Credits credits = new Credits(1241);
+//        DbCredits.create(credits);
+
+//        Credits credits = DbCredits.read(1241);
+//        Credit credit = new Credit(900);
+//        credit.setCredits(credits);
+
+//        credits.getCredits().add(credit);
+//        DbCredits.update(credits);
 
         Bank bank = DbBank.read();
-        Credit credit = bank.getCreditOverview().get(1241);
-        System.out.println(credit);
-        credit.getCredits().add(500.0);
-        DbCredit.update(credit);
+        Credits credits = DbCredits.read(1241);
+        bank.removeCredits(credits);
+
+
+//        Credits credits = DbCredits.read(1241);
+//        DbCredits.delete(credits);
+
+
+//        Credits read = DbCredits.read(1238);
+//        System.out.println(read);
 
     }
 

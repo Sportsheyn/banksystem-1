@@ -38,6 +38,7 @@ public class Withdraw implements ICommand {
         Bankaccount findAccount = bank.getAccountmap().get(accountnumber);
         findAccount.withdraw(amount);
 
+        // ---  db action ---
         DbAccount.update(findAccount);
     }
 

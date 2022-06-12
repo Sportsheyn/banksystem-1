@@ -3,6 +3,7 @@ package myproject.database;
 import myproject.basic.general.Bank;
 import myproject.basic.general.Bankaccount;
 import myproject.basic.general.Credit;
+import myproject.basic.general.Credits;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -20,6 +21,7 @@ public class DbBank {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Bank.class)
                 .addAnnotatedClass(Bankaccount.class)
+                .addAnnotatedClass(Credits.class)
                 .addAnnotatedClass(Credit.class)
                 .buildSessionFactory();
 

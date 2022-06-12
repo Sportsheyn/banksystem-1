@@ -1,7 +1,10 @@
 package myproject.basic.commands;
 
 import myproject.basic.general.Bank;
+import myproject.basic.general.Bankaccount;
+import myproject.database.DbAccount;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -34,7 +37,13 @@ public class Transfer implements ICommand {
         int targetaccount = parseInt((String) params.get("userparam1"));
         double amount = parseDouble((String) params.get("userparam2"));
 
-        bank.transfer(sourceaccount, targetaccount, amount);
+        List<Bankaccount> accountList = bank.transfer(sourceaccount, targetaccount, amount);
+
+        // ---  db action ---
+        for (Bankaccount account : accountList) {
+            DbAccount.update(account);
+        }
+
     }
 
     @Override

@@ -39,6 +39,7 @@ public class Deposit implements ICommand {
 
         findAccount.deposit(amount);
 
+        // ---  db action ---
         DbAccount.update(findAccount);
 
     }

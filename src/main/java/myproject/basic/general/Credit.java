@@ -1,34 +1,25 @@
 package myproject.basic.general;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Credit {
 
     @Id
-    @Column(name="id")
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Column(name = "Credits")
-    private List<Double> credits;
+    private double amount;
 
     @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="bank_id")
-    public Bank bank;
+    @JoinColumn(name="credits_id")
+    private Credits credits;
 
     public Credit() {
     }
 
-    public Credit(int id) {
-        credits = new ArrayList<>();
-        this.id = id;
-    }
-
-    public List<Double> getCredits() {
-        return credits;
+    public Credit(double amount) {
+        this.amount = amount;
     }
 
     public int getId() {
@@ -39,21 +30,19 @@ public class Credit {
         this.id = id;
     }
 
-    public Bank getBank() {
-        return bank;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    @Override
-    public String toString() {
-        return "Credit{" +
-                "id=" + id +
-                ", credits=" + credits.size() +
-                ", bank=" + bank +
+    public Credits getCredits() {
+        return credits;
+    }
 
-                '}';
+    public void setCredits(Credits credits) {
+        this.credits = credits;
     }
 }
