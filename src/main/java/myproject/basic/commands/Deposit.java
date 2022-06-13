@@ -2,7 +2,6 @@ package myproject.basic.commands;
 
 import myproject.basic.general.Bankaccount;
 import myproject.basic.general.Bank;
-import myproject.database.DbAccount;
 
 import java.util.Map;
 
@@ -34,13 +33,6 @@ public class Deposit implements ICommand {
         Bank bank = (Bank) params.get("bank");
         double amount = parseDouble((String) params.get("userparam0"));
         int accountnumber = parseInt((String)params.get("userparam1"));
-
-        Bankaccount findAccount = bank.getAccountmap().get(accountnumber);
-
-        findAccount.deposit(amount);
-
-        // ---  db action ---
-        DbAccount.update(findAccount);
 
     }
 

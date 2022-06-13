@@ -1,41 +1,28 @@
 package myproject.basic.general;
 
-import javax.persistence.*;
-
 /**
  * Representation of an account
  * @author Christopher
  * @version 05.06.2022
  */
-@Entity
+
 public class Bankaccount {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="accountNumber")
-    private int accountNumber;
-
+    private int id;
     private String forename;
     private String lastname;
     private double amount;
     private int pin;
 
-    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="bank_id")
-    private Bank bank;
 
-    public Bankaccount() {
-
-    }
-
-    public Bankaccount(String forename, String lastname, int pin) {
+    public Bankaccount(int id, String forename, String lastname, int pin) {
         this.forename = forename;
         this.lastname = lastname;
         this.pin = pin;
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public int getId() {
+        return id;
     }
 
     public void deposit(double amount) {
@@ -54,14 +41,11 @@ public class Bankaccount {
         this.amount = amount;
     }
 
-    public Bank getBank() { return bank; }
-
-    public void setBank(Bank bank) { this.bank = bank; }
 
     @Override
     public String toString() {
         return "Bankaccount{" +
-                "accountNumber=" + accountNumber +
+                "accountNumber=" + id +
                 ", forename='" + forename + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", amount=" + amount +

@@ -5,10 +5,8 @@ import myproject.basic.commands.*;
 import myproject.basic.general.Bank;
 import myproject.basic.helper.Bootstrap;
 import myproject.basic.helper.Helper;
-import myproject.database.DbBank;
 
 import java.util.Map;
-import java.util.Scanner;
 
 public class Main {
 
@@ -17,7 +15,7 @@ public class Main {
 
 
     public Main() {
-        this.bank = DbBank.create();
+        this.bank = new Bank();
         Bootstrap bootstrap = new Bootstrap();
         this.commands = bootstrap.createCommandMap();
     }

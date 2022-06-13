@@ -2,7 +2,6 @@ package myproject.basic.commands;
 
 import myproject.basic.general.Bankaccount;
 import myproject.basic.general.Bank;
-import myproject.database.DbAccount;
 
 import java.util.Map;
 
@@ -43,11 +42,6 @@ public class CreateAccount implements ICommand {
 
         Bankaccount account = bank.createAccount(forename, lastname, pin);
 
-        // ---  db action ---
-        DbAccount.create(account);
-
-        System.out.println(successMessage(account));
-
     }
 
 
@@ -56,7 +50,7 @@ public class CreateAccount implements ICommand {
 
     public String successMessage(Bankaccount account) {
 
-        return "You have created a new bank account. Your accountnummber is " + account.getAccountNumber() + ".";
+        return "You have created a new bank account. Your accountnummber is " + account.getId() + ".";
     }
 
 
