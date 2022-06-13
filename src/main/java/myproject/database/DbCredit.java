@@ -48,4 +48,23 @@ public class DbCredit {
         }
     }
 
+    public static void delete(Credit credit) {
+
+        SessionFactory factory = getFactory();
+        Session session = factory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+
+            session.delete(credit);
+
+            session.getTransaction().commit();
+
+        }
+        finally {
+            session.close();
+            factory.close();
+        }
+    }
+
 }

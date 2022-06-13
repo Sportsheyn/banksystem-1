@@ -1,6 +1,7 @@
 package myproject.basic.general;
 
 import myproject.database.DbBank;
+import myproject.database.DbCredit;
 import myproject.database.DbCredits;
 
 import javax.persistence.*;
@@ -37,7 +38,7 @@ public class Bank {
     /**
      * The map holding the accounts with an open credit.
      */
-    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, cascade= {CascadeType.ALL}, orphanRemoval=true)
     @JoinTable(name = "bank_credit_mapping",
             joinColumns = {@JoinColumn(name = "bank_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "credits_id", referencedColumnName = "creditsId")})
@@ -69,14 +70,6 @@ public class Bank {
         accountMap.put(new_account.getAccountNumber(), new_account);
 
         return new_account;
-    }
-
-    public Credits createCredits(int accountNumber) {
-
-        Credits credits = new Credits(accountNumber);
-        creditOverview.put(credits.getCreditsId(), credits);
-
-        return credits;
     }
 
     /**
@@ -185,8 +178,17 @@ public class Bank {
         credits.setBank(this);
     }
 
-    public void removeCredits(Credits credits) {
-        creditOverview.remove(credits.getCreditsId(), credits);
+    public void removeCredits(int credits) {
+
+        System.out.println("Size " + creditOverview.size());
+        Credits c = creditOverview.remove(credits);
+
+        c.setBank(null);
+        c.getCredits().clear();
+
+        DbCredits.delete(c);
+
+        System.out.println("Size " + creditOverview.size());
     }
 
     // ---------------------- Getter and Setter -----------------------------------------------------------------------
@@ -208,27 +210,15 @@ public class Bank {
 
     public static void main(String[] args) {
 
-//        Credits credits = new Credits(1241);
-//        DbCredits.create(credits);
-
-//        Credits credits = DbCredits.read(1241);
-//        Credit credit = new Credit(900);
-//        credit.setCredits(credits);
-
-//        credits.getCredits().add(credit);
-//        DbCredits.update(credits);
-
-        Bank bank = DbBank.read();
+//        Bank bank = DbBank.read();
+//        bank.removeCredits(1240);
         Credits credits = DbCredits.read(1241);
-        bank.removeCredits(credits);
+        List<Credit> credits1 = credits.getCredits();
+        System.out.println(credits1.size());
+        credits1.stream().forEach(System.out::println);
+        //credits1.stream().forEach(c -> DbCredit.delete(c));
 
 
-//        Credits credits = DbCredits.read(1241);
-//        DbCredits.delete(credits);
-
-
-//        Credits read = DbCredits.read(1238);
-//        System.out.println(read);
 
     }
 

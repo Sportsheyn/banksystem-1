@@ -12,7 +12,7 @@ public class Credits {
     @Column(name="creditsId")
     private int creditsId;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="credits", cascade= {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="credits",  cascade= {CascadeType.ALL})
     private List<Credit> credits;
 
     @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
@@ -33,10 +33,6 @@ public class Credits {
 
     public int getCreditsId() {
         return creditsId;
-    }
-
-    public void setCreditsId(int id) {
-        this.creditsId = id;
     }
 
     public Bank getBank() {

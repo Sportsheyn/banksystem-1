@@ -46,7 +46,7 @@ public class Main {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        System.out.println("The command could not be executed successfully");
+                        System.out.println("The command could not be executed successfully.");
                     }
 
                 } else {

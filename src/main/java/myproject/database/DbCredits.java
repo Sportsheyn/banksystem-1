@@ -87,7 +87,11 @@ public class DbCredits {
 
         try {
             session.beginTransaction();
-            session.delete(credits);
+            Object load = session.load(Credits.class, credits.getCreditsId());
+            if (load != null) {
+                session.delete(credits);
+            }
+
             session.getTransaction().commit();
         }
         finally {
