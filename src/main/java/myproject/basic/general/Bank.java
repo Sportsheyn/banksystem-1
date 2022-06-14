@@ -1,5 +1,7 @@
 package myproject.basic.general;
 
+import myproject.database.DaoBankaccount;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,12 +14,6 @@ import java.util.Map;
 public class Bank {
 
     private int nextAccountNumber;
-
-    /**
-     * A map holding the created accounts. The key is the account number, the value is the account object.
-     */
-    private Map<Integer, Bankaccount> accountMap = new HashMap<>();
-
 
     /**
      * A constant holding the interest rate (Zinssatz).
@@ -39,36 +35,32 @@ public class Bank {
      * @return the new generated account
      */
     public Bankaccount createAccount(String forename, String lastname, int pin) {
-        int accountNumber = 0;
-        Bankaccount newAccount = new Bankaccount(accountNumber, forename, lastname, pin);
-        accountMap.put(newAccount.getId(), newAccount);
-
+        Bankaccount newAccount = new Bankaccount(forename, lastname, pin);
         return newAccount;
     }
 
     /**
      * Tests if a transaction between two accounts was successful.
-     * @param sourceaccount account which will send the money
-     * @param targetaccount account which will receive the money
+     * @param sourceaccountId account which will send the money
+     * @param targetaccountId account which will receive the money
      * @param amount the amount of the transaction
      * @return true if this transaction between the two accounts was successful false otherwise
      */
-    public List<Bankaccount> transfer(int sourceaccount, int targetaccount, double amount) {
+    public void transfer(int sourceaccountId, int targetaccountId, double amount) {
 
-        Bankaccount sourceaccount_object = accountMap.get(sourceaccount);
-        Bankaccount targetaccount_object = accountMap.get(targetaccount);
+        DaoBankaccount daoBankaccount = new DaoBankaccount();
+        Bankaccount bankaccountSource = daoBankaccount.get(sourceaccountId);
+        Bankaccount bankaccountTarget = daoBankaccount.get(targetaccountId);
 
-        if(sourceaccount_object != null && targetaccount_object != null) {
-            sourceaccount_object.withdraw(amount);
-            targetaccount_object.deposit(amount);
+        if ( bankaccountSource != null && bankaccountTarget != null) {
+            bankaccountSource.withdraw(amount);
+            bankaccountTarget.deposit(amount);
 
-            List<Bankaccount> accountList = new ArrayList<>();
-            accountList.add(sourceaccount_object);
-            accountList.add(targetaccount_object);
-
-            return accountList;
+            // Db action
+            daoBankaccount.update(bankaccountSource);
+            daoBankaccount.update(bankaccountTarget);
         }
-        return null;
+
     }
 
     /**
@@ -95,8 +87,6 @@ public class Bank {
     public void payinterest() {
 
     }
-
-
 
 
 

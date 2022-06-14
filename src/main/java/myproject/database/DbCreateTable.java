@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 public class DbCreateTable {
 
+
     public static Connection setUpConn() throws SQLException {
         String user = "user";
         String pass = "password";
@@ -22,16 +23,17 @@ public class DbCreateTable {
 
         try(Connection conn = setUpConn()) {
             String sqlCreate = "CREATE TABLE IF NOT EXISTS " + "bankaccount"
-                    + "  (id            INTEGER,"
+                    + "  (id            INTEGER NOT NULL AUTO_INCREMENT,"
                     + "   forename      VARCHAR(200),"
                     + "   lastname      VARCHAR(200),"
-                    + "   amount        INTEGER,"
-                    + "   pin INTEGER)";
+                    + "   amount        DOUBLE,"
+                    + "   pin INTEGER, "
+                    + "PRIMARY KEY (id))";
 
             Statement stmt = conn.createStatement();
             stmt.execute(sqlCreate);
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 

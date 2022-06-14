@@ -35,7 +35,7 @@ public class Transfer implements ICommand {
         int targetaccount = parseInt((String) params.get("userparam1"));
         double amount = parseDouble((String) params.get("userparam2"));
 
-        List<Bankaccount> accountList = bank.transfer(sourceaccount, targetaccount, amount);
+        bank.transfer(sourceaccount, targetaccount, amount);
 
     }
 

@@ -2,16 +2,15 @@ package myproject.database;
 
 import myproject.basic.general.Bankaccount;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
 public class DaoBankaccount implements Dao<Bankaccount> {
 
-    private static final String SQL_INSERT = "INSERT INTO BANKACCOUNT (ID, FORENAME, LASTNAME, AMOUNT, PIN) VALUES (?,?,?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO BANKACCOUNT (FORENAME, LASTNAME, AMOUNT, PIN) VALUES (?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE BANKACCOUNT SET AMOUNT = ? WHERE ID = ?";
+    private static final String SQL_READ = "SELECT * from BANKACCOUNT WHERE ID = ?";
 
     public DaoBankaccount() {
         DbCreateTable.Bankaccount();
@@ -28,9 +27,31 @@ public class DaoBankaccount implements Dao<Bankaccount> {
     }
 
     @Override
-    public Optional<Bankaccount> get(long id) {
-        return Optional.empty();
+    public Bankaccount get(int id) {
+
+        try (Connection conn = setUpCon();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ))
+        {
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Bankaccount account = new Bankaccount();
+                account.setId(resultSet.getInt("id"));
+                account.setForename(resultSet.getString("forename"));
+                account.setLastname(resultSet.getString("lastname"));
+                account.setAmount(resultSet.getInt("amount"));
+                account.setPin(resultSet.getInt("pin"));
+
+                return account;
+            }
+        } catch ( Exception e) {
+            return null;
+        }
+
+        return null;
     }
+
 
     @Override
     public List<Bankaccount> getAll() {
@@ -39,16 +60,18 @@ public class DaoBankaccount implements Dao<Bankaccount> {
 
     @Override
     public void save(Bankaccount bankaccount) {
+
         try (Connection conn = setUpCon();
              PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT))
         {
-            preparedStatement.setInt(1, 1000);
-            preparedStatement.setString(2, "Christopher");
-            preparedStatement.setString(3, "Heyn");
-            preparedStatement.setInt(4, 0);
-            preparedStatement.setInt(5, 1234);
+            preparedStatement.setString(1, bankaccount.getForename());
+            preparedStatement.setString(2, bankaccount.getLastname());
+            preparedStatement.setDouble(3, bankaccount.getAmount());
+            preparedStatement.setInt(4, bankaccount.getPin());
 
             preparedStatement.executeUpdate();
+
+
 
         } catch ( Exception e) {
 
@@ -56,7 +79,18 @@ public class DaoBankaccount implements Dao<Bankaccount> {
     }
 
     @Override
-    public void update(Bankaccount bankaccount, String[] params) {
+    public void update(Bankaccount bankaccount) {
+
+        try (Connection conn = setUpCon();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE))
+        {
+            preparedStatement.setDouble(1, bankaccount.getAmount());
+            preparedStatement.setInt(2, bankaccount.getId());
+            preparedStatement.executeUpdate();
+
+        } catch ( Exception e) {
+            System.out.println("Error in Class " + DaoBankaccount.class.getName() + " " + e);
+        }
 
     }
 
@@ -66,9 +100,9 @@ public class DaoBankaccount implements Dao<Bankaccount> {
     }
 
     public static void main(String[] args) {
-        Bankaccount bankaccount = new Bankaccount(1000, "Christopher", "Heyn", 1234);
         DaoBankaccount daoBankaccount = new DaoBankaccount();
-        daoBankaccount.save(bankaccount);
+        Bankaccount bankaccount = daoBankaccount.get(2);
+        System.out.println(bankaccount.toString());
     }
 
 }
