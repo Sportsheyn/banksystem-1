@@ -19,6 +19,7 @@ public class GetBalance implements ICommand {
     public void execute(Map<String, Object> params) {
         int bankaccountId = parseInt((String) params.get("userparam1"));
 
+        // ----- Db action -----
         DaoBankaccount daoBankaccount = new DaoBankaccount();
         Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
 

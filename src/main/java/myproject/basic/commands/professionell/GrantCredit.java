@@ -4,6 +4,9 @@ package myproject.basic.commands.professionell;
 import myproject.basic.commands.ICommand;
 import myproject.basic.general.Bank;
 import myproject.basic.general.Bankaccount;
+import myproject.basic.general.Credit;
+import myproject.database.DaoBankaccount;
+import myproject.database.DaoCredit;
 
 import java.util.Map;
 
@@ -26,13 +29,18 @@ public class GrantCredit implements ICommand {
     public void execute(Map<String, Object> params) {
 
         Bank bank = (Bank) params.get("bank");
-        double amount = parseDouble((String) params.get("userparam0"));
-        int accountnumber = parseInt((String) params.get("userparam1"));
+        int bankaccountId = parseInt((String) params.get("userparam0"));
+        double amount = parseDouble((String) params.get("userparam1"));
 
+        Credit credit = bank.grantCredit(bankaccountId, amount);
+
+        // ----- Db action -----
+        DaoCredit daoCredit = new DaoCredit();
+        daoCredit.save(credit);
     }
 
     @Override
     public String info() {
-        return "Please enter the amount and the accountnumber.";
+        return "Please enter the accountnumber and the amount.";
     }
 }

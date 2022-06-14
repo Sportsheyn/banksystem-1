@@ -13,8 +13,6 @@ import java.util.Map;
  */
 public class Bank {
 
-    private int nextAccountNumber;
-
     /**
      * A constant holding the interest rate (Zinssatz).
      */
@@ -60,16 +58,17 @@ public class Bank {
             daoBankaccount.update(bankaccountSource);
             daoBankaccount.update(bankaccountTarget);
         }
-
     }
 
     /**
      * Tests if a credit was successfully granted from the bank.
-     * @param accountid account which request for a credit
+     * @param bankaccountId account which request for a credit
      * @param amount the amount of the credit
      * @return true if the credit was granted false otherwise
      */
-    public void grantCredit(int accountid, double amount) {
+    public Credit grantCredit(int bankaccountId, double amount) {
+        Credit credit = new Credit(bankaccountId, amount);
+        return credit;
     }
 
     /**

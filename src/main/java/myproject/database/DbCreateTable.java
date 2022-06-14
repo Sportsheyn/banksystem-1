@@ -37,5 +37,22 @@ public class DbCreateTable {
         }
     }
 
+    public static void Credit() {
+
+        try(Connection conn = setUpConn()) {
+            String sqlCreate = "CREATE TABLE IF NOT EXISTS " + "credit"
+                    + "  (id            INTEGER NOT NULL AUTO_INCREMENT,"
+                    + "   amount      DOUBLE,"
+                    + "   debtor      INTEGER,"
+                    + "PRIMARY KEY (id))";
+
+            Statement stmt = conn.createStatement();
+            stmt.execute(sqlCreate);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
 
 }

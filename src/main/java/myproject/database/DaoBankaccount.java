@@ -4,13 +4,13 @@ import myproject.basic.general.Bankaccount;
 
 import java.sql.*;
 import java.util.List;
-import java.util.Optional;
 
 public class DaoBankaccount implements Dao<Bankaccount> {
 
     private static final String SQL_INSERT = "INSERT INTO BANKACCOUNT (FORENAME, LASTNAME, AMOUNT, PIN) VALUES (?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE BANKACCOUNT SET AMOUNT = ? WHERE ID = ?";
     private static final String SQL_READ = "SELECT * from BANKACCOUNT WHERE ID = ?";
+
 
     public DaoBankaccount() {
         DbCreateTable.Bankaccount();
@@ -52,7 +52,6 @@ public class DaoBankaccount implements Dao<Bankaccount> {
         return null;
     }
 
-
     @Override
     public List<Bankaccount> getAll() {
         return null;
@@ -91,7 +90,6 @@ public class DaoBankaccount implements Dao<Bankaccount> {
         } catch ( Exception e) {
             System.out.println("Error in Class " + DaoBankaccount.class.getName() + " " + e);
         }
-
     }
 
     @Override
@@ -104,5 +102,4 @@ public class DaoBankaccount implements Dao<Bankaccount> {
         Bankaccount bankaccount = daoBankaccount.get(2);
         System.out.println(bankaccount.toString());
     }
-
 }
