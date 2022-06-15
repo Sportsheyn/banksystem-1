@@ -5,7 +5,6 @@ import myproject.basic.general.Bank;
 
 import java.util.Map;
 
-import static java.lang.Integer.parseInt;
 
 public class PayInterest implements ICommand {
 
@@ -23,6 +22,6 @@ public class PayInterest implements ICommand {
 
     @Override
     public String info() {
-        return null;
+        return "Confirm command with enter";
     }
 }

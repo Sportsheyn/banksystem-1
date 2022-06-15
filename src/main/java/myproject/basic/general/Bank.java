@@ -17,7 +17,7 @@ public class Bank {
     /**
      * A constant holding the interest rate (Zinssatz).
      */
-    private final int INTEREST_RATE = 4;
+    private final double INTEREST_RATE = 0.04;
 
 
     /**
@@ -98,11 +98,13 @@ public class Bank {
      */
     public void payinterest() {
 
+        DaoCredit daoCredit = new DaoCredit();
+        List<Credit> creditList = daoCredit.getAll();
+
+        creditList.forEach(credit -> credit.setAmount(credit.getAmount() * (1 + INTEREST_RATE )));
+        creditList.forEach(credit -> daoCredit.update(credit));
+
     }
-
-
-
-    // ---------------------- Getter and Setter -----------------------------------------------------------------------
 
 
 }

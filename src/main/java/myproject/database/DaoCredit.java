@@ -12,8 +12,9 @@ public class DaoCredit implements Dao<Credit> {
     private static final String SQL_INSERT = "INSERT INTO CREDIT (AMOUNT, DEBTOR) VALUES (?,?)";
     private static final String SQL_READ_BY_ID = "SELECT * FROM CREDIT WHERE ID = ?";
     private static final String SQL_READ_ALL_BY_Debtor = "SELECT * FROM CREDIT WHERE DEBTOR = ?";
-    private static final String SQL_DELETE = "DELETE FROM CREDIT WHERE ID = ?";
     private static final String SQL_READ_ALL = "SELECT * FROM CREDIT";
+    private static final String SQL_UPDATE = "UPDATE CREDIT SET AMOUNT = ? WHERE ID = ?";
+    private static final String SQL_DELETE = "DELETE FROM CREDIT WHERE ID = ?";
 
 
     public DaoCredit() {
@@ -58,6 +59,28 @@ public class DaoCredit implements Dao<Credit> {
 
     @Override
     public List<Credit> getAll() {
+        try (Connection conn = setUpCon();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL))
+        {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Credit> creditList = new ArrayList<>();
+
+            while (resultSet.next()) {
+
+                Credit credit = new Credit();
+                credit.setId(resultSet.getInt("id"));
+                credit.setAmount(resultSet.getDouble("amount"));
+                credit.setDebtor(resultSet.getInt("debtor"));
+
+                creditList.add(credit);
+            }
+
+            return creditList;
+
+        } catch ( Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -110,6 +133,18 @@ public class DaoCredit implements Dao<Credit> {
 
     @Override
     public void update(Credit credit) {
+
+        try (Connection conn = setUpCon();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE))
+        {
+            preparedStatement.setDouble(1, credit.getAmount());
+            preparedStatement.setInt(2, credit.getId());
+
+            preparedStatement.executeUpdate();
+
+        } catch ( Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
