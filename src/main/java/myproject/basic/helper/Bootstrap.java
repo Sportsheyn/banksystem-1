@@ -46,6 +46,15 @@ public class Bootstrap {
 
         }
 
+        try {
+            Class<?> clShowCredit = Class.forName("myproject.basic.commands.professionell.ShowCredit");
+            Constructor<?> cShowCredit = clShowCredit.getConstructor();
+            ICommand cmdShowCredit = (ICommand) cShowCredit.newInstance();
+            commands.put(cmdShowCredit.getCommandName(), cmdShowCredit);
+        } catch (Exception e) {
+
+        }
+
         return commands;
 
     }

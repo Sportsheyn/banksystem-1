@@ -1,6 +1,7 @@
 package myproject.basic.general;
 
 import myproject.database.DaoBankaccount;
+import myproject.database.DaoCredit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,11 +74,23 @@ public class Bank {
 
     /**
      * Tests if a credit was successfully repaid from debitor
-     * @param sourceaccount account who has to repay the credit
+     * @param bankaccountId account who has to repay the credit
      * @return true if the credit repayment was successful false otherwise
      */
-    public boolean repayCredit(int sourceaccount) {
-        return false;
+    public boolean repayCredit(int bankaccountId, int creditId) {
+
+        DaoBankaccount daoBankaccount = new DaoBankaccount();
+        Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
+
+        DaoCredit daoCredit = new DaoCredit();
+        Credit credit = daoCredit.get(creditId);
+
+        bankaccount.withdraw(credit.getAmount());
+
+        daoBankaccount.save(bankaccount);
+        daoCredit.delete(credit);
+
+        return true;
     }
 
     /**

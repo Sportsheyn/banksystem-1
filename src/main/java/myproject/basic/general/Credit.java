@@ -41,4 +41,13 @@ public class Credit {
     public void setDebtor(int debtor) {
         this.debtor = debtor;
     }
+
+    @Override
+    public String toString() {
+        return "Credit{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", debtor=" + debtor +
+                '}';
+    }
 }

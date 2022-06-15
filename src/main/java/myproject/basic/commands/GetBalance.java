@@ -1,7 +1,6 @@
 package myproject.basic.commands;
 
 import myproject.basic.general.Bankaccount;
-import myproject.basic.general.Bank;
 import myproject.database.DaoBankaccount;
 
 import java.util.Map;
