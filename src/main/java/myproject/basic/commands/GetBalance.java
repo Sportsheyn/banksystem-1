@@ -1,6 +1,7 @@
 package myproject.basic.commands;
 
 import myproject.basic.general.Bankaccount;
+import myproject.basic.helper.Helper;
 import myproject.database.DaoBankaccount;
 
 import java.util.Map;
@@ -16,17 +17,22 @@ public class GetBalance implements ICommand {
 
     @Override
     public void execute(Map<String, Object> params) {
-        int bankaccountId = parseInt((String) params.get("userparam1"));
+        int bankaccountId = parseInt((String) params.get("userparam0"));
+        int bankaccountPin = parseInt((String) params.get("userparam1"));
 
-        // ----- Db action -----
-        DaoBankaccount daoBankaccount = new DaoBankaccount();
-        Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
+        if(Helper.checkPin(bankaccountId, bankaccountPin)) {
+            // ----- Db action -----
+            DaoBankaccount daoBankaccount = new DaoBankaccount();
+            Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
+            System.out.println(bankaccount);
+        } else {
+            System.out.println("Sorry, wrong pin.");
+        }
 
-        System.out.println(bankaccount);
     }
 
     @Override
     public String info() {
-        return "Please enter your accountnumber and your pin.";
+        return "Please enter your bankaccountId and your pin.";
     }
 }

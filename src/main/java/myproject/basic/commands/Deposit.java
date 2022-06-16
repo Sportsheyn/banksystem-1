@@ -1,7 +1,7 @@
 package myproject.basic.commands;
 
 import myproject.basic.general.Bankaccount;
-import myproject.basic.general.Bank;
+import myproject.basic.helper.Helper;
 import myproject.database.DaoBankaccount;
 
 import java.util.Map;
@@ -31,21 +31,22 @@ public class Deposit implements ICommand {
     @Override
     public void execute(Map<String, Object> params) {
 
-        Bank bank = (Bank) params.get("bank");
         double amount = parseDouble((String) params.get("userparam0"));
-        int accountnumber = parseInt((String)params.get("userparam1"));
+        int bankaccountId = parseInt((String)params.get("userparam1"));
+        int bankaccountPin = parseInt((String) params.get("userparam2"));
 
-        // ----- Db action -----
-        DaoBankaccount daoBankaccount = new DaoBankaccount();
-        Bankaccount bankaccount = daoBankaccount.get(accountnumber);
-        bankaccount.deposit(amount);
-        daoBankaccount.update(bankaccount);
-
+        if(Helper.checkPin(bankaccountId, bankaccountPin)) {
+            // ----- Db action -----
+            DaoBankaccount daoBankaccount = new DaoBankaccount();
+            Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
+            bankaccount.deposit(amount);
+            daoBankaccount.update(bankaccount);
+        }
     }
 
     @Override
     public String info() {
-        return "Please enter the amount and your accountnumber.";
+        return "Please enter in the following order: amount, bankaccountId, pin";
     }
 
 }

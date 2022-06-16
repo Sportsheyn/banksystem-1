@@ -102,7 +102,7 @@ public class Bank {
         List<Credit> creditList = daoCredit.getAll();
 
         creditList.forEach(credit -> credit.setAmount(credit.getAmount() * (1 + INTEREST_RATE )));
-        creditList.forEach(credit -> daoCredit.update(credit));
+        creditList.forEach(daoCredit::update);
 
     }
 

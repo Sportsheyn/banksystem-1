@@ -1,6 +1,8 @@
 package myproject.basic.helper;
 
 import myproject.basic.general.Bank;
+import myproject.basic.general.Bankaccount;
+import myproject.database.DaoBankaccount;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +27,31 @@ public class Helper {
         return params;
     }
 
+
     public static String requestCommand() {
         return scanner.nextLine().trim();
     }
+
+
+    public static boolean checkPin(int bankaccountId, int inputPin) {
+
+        // ----- Db action -----
+        DaoBankaccount daoBankaccount = new DaoBankaccount();
+        Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
+
+        if (bankaccount == null) {
+            return false;
+        }
+
+        if (inputPin == bankaccount.getPin()) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+
 }

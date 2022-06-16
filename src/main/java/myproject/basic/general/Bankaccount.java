@@ -24,9 +24,6 @@ public class Bankaccount {
         this.pin = pin;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public void deposit(double amount) {
         this.amount += amount;
@@ -37,6 +34,10 @@ public class Bankaccount {
     }
 
     // ---------------------- Getter and Setter -----------------------------------------------------------------------
+
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;

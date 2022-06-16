@@ -14,7 +14,6 @@ repositories {
 dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.29'
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.25.Final'
 
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
