@@ -8,11 +8,11 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
-public class GetBalance implements ICommand {
+public class ShowBalance implements ICommand {
 
     @Override
     public String getCommandName() {
-        return "getbalance";
+        return "showbalance";
     }
 
     @Override
@@ -33,6 +33,6 @@ public class GetBalance implements ICommand {
 
     @Override
     public String info() {
-        return "Please enter your bankaccountId and your pin.";
+        return "Please enter in the following order: bankaccountId, pin.";
     }
 }

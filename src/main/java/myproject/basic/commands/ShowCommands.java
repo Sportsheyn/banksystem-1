@@ -27,6 +27,6 @@ public class ShowCommands implements ICommand {
 
     @Override
     public String info() {
-        return "Confirm command with enter";
+        return "";
     }
 }

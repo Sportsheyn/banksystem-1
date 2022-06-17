@@ -22,6 +22,6 @@ public class PayInterest implements ICommand {
 
     @Override
     public String info() {
-        return "Confirm command with enter";
+        return "";
     }
 }

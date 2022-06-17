@@ -33,6 +33,12 @@ public class Helper {
     }
 
 
+    public static String welcomeText() {
+        String text = "Welcome to theBank.\n" + "To see all commands, please type 'showcommands'.\n" + "Wiht 'q' you can leave the programm.\n";
+        return text;
+    }
+
+
     public static boolean checkPin(int bankaccountId, int inputPin) {
 
         // ----- Db action -----
@@ -43,11 +49,7 @@ public class Helper {
             return false;
         }
 
-        if (inputPin == bankaccount.getPin()) {
-            return true;
-        }
-
-        return false;
+        return inputPin == bankaccount.getPin();
     }
 
 

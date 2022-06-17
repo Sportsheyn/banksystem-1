@@ -67,9 +67,21 @@ public class Bank {
      * @param amount the amount of the credit
      * @return true if the credit was granted false otherwise
      */
-    public Credit grantCredit(int bankaccountId, double amount) {
+    public boolean grantCredit(int bankaccountId, double amount) {
+
+        DaoBankaccount daoBankaccount = new DaoBankaccount();
+        Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
+
+        bankaccount.deposit(amount);
+        daoBankaccount.update(bankaccount);
+
         Credit credit = new Credit(bankaccountId, amount);
-        return credit;
+
+        DaoCredit daoCredit = new DaoCredit();
+        daoCredit.save(credit);
+
+
+        return true;
     }
 
     /**
@@ -101,7 +113,7 @@ public class Bank {
         DaoCredit daoCredit = new DaoCredit();
         List<Credit> creditList = daoCredit.getAll();
 
-        creditList.forEach(credit -> credit.setAmount(credit.getAmount() * (1 + INTEREST_RATE )));
+        creditList.forEach(credit -> credit.setAmount(credit.getAmount() - (credit.getAmount() * INTEREST_RATE )));
         creditList.forEach(daoCredit::update);
 
     }

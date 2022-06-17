@@ -49,6 +49,6 @@ public class Withdraw implements ICommand {
 
     @Override
     public String info() {
-        return "Please enter in the following order: amount, bankaccountId, pin";
+        return "Please enter in the following order: amount, bankaccountId, pin.";
     }
 }

@@ -41,6 +41,8 @@ public class Transfer implements ICommand {
 
     @Override
     public String info() {
-        return "Please enter the sourceaccont, targetaccount and amount.";
+        return "Please enter in the following order: sourceaccontId, targetaccountId, amount.";
     }
+
+
 }

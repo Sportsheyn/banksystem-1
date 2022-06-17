@@ -6,6 +6,7 @@ import myproject.basic.general.Bank;
 import myproject.basic.helper.Bootstrap;
 import myproject.basic.helper.Helper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
@@ -23,6 +24,8 @@ public class Main {
 
     public void start() {
 
+        System.out.println(Helper.welcomeText());
+
         while (true) {
 
             System.out.println("Please enter a command.");
@@ -36,8 +39,16 @@ public class Main {
 
                 if (cmd != null) {
 
-                    System.out.println(cmd.info());
-                    Map<String, Object> params = Helper.requestParams(bank);
+                    // Check wheater the cmd need a input
+                    Map<String, Object> params = null;
+                    if (cmd.info() != "") {
+                        System.out.println(cmd.info());
+                        params = Helper.requestParams(bank);
+                    } else {
+                        params = new HashMap<>();
+                        params.put("bank", bank);
+                    }
+
 
                     try {
                         cmd.execute(params);
