@@ -2,6 +2,7 @@ package myproject.basic.helper;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class EchoClient {
 
@@ -41,8 +42,20 @@ public class EchoClient {
     public static void main(String[] args) {
         EchoClient client;
         client = new EchoClient();
-        client.startConnection("35.240.67.38", 4444); //127.0.0.1
-        client.sendMessage("Hallo google");
+        client.startConnection("104.155.127.193", 4444); //127.0.0.1
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equals("out")) {
+                break;
+            } else {
+                String response = client.sendMessage(input);
+                System.out.println(response);
+            }
+        }
+
+        client.stopConnection();
 
     }
 

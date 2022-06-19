@@ -37,6 +37,13 @@ public class Transfer implements ICommand {
 
         bank.transfer(sourceaccount, targetaccount, amount);
 
+        System.out.println(feedbackMessage());
+
+    }
+
+    public String feedbackMessage() {
+
+        return "Your transfer was successfull\n";
     }
 
     @Override
