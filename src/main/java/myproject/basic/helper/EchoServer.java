@@ -14,7 +14,9 @@ public class EchoServer {
     public void start(int port) {
         try {
             serverSocket = new ServerSocket(port);
+            System.out.println("Server: " + serverSocket);
             clientSocket = serverSocket.accept();
+            System.out.println("Client: " + clientSocket);
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             String inputLine;
@@ -27,8 +29,9 @@ public class EchoServer {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            stop();
         }
-
     }
 
     public void stop() {
@@ -40,12 +43,11 @@ public class EchoServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
 
     public static void main(String[] args) {
         EchoServer server = new EchoServer();
         server.start(4444);
     }
-
 }

@@ -34,7 +34,13 @@ public class GrantCredit implements ICommand {
 
         bank.grantCredit(bankaccountId, amount);
 
+        System.out.println(feedbackMessage());
 
+    }
+
+    private String feedbackMessage() {
+
+        return "Your credit request was granted.";
     }
 
     @Override

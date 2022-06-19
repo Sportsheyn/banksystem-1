@@ -23,7 +23,12 @@ public class ShowCredit implements ICommand {
         // ----- Db action -----
         DaoCredit daoCredit = new DaoCredit();
         List<Credit> creditList = daoCredit.getAllByDebtor(bankaccountId);
-        creditList.forEach(System.out::println);
+
+        if (creditList.size() > 0) {
+            creditList.forEach(System.out::println);
+        } else {
+            System.out.println("No open credits to bankaccountId: " + bankaccountId);
+        }
     }
 
     @Override

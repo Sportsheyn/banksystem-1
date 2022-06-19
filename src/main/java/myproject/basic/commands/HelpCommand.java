@@ -5,11 +5,11 @@ import myproject.basic.helper.Bootstrap;
 
 import java.util.Map;
 
-public class ShowCommands implements ICommand {
+public class HelpCommand implements ICommand {
 
     @Override
     public String getCommandName() {
-        return "showcommands";
+        return "help";
     }
 
     @Override

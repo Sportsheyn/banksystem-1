@@ -34,7 +34,7 @@ public class Helper {
 
 
     public static String welcomeText() {
-        String text = "Welcome to theBank.\n" + "To see all commands, please type 'showcommands'.\n" + "Wiht 'q' you can leave the programm.\n";
+        String text = "Welcome to theBank.\n" + "To see all commands, please type 'help'.\n" + "Wiht 'q' you can leave the programm.\n";
         return text;
     }
 

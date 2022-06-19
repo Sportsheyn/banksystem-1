@@ -1,8 +1,10 @@
 package myproject.database;
 
 import myproject.basic.general.Bankaccount;
+import myproject.basic.general.Credit;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoBankaccount implements Dao<Bankaccount> {
@@ -10,6 +12,7 @@ public class DaoBankaccount implements Dao<Bankaccount> {
     private static final String SQL_INSERT = "INSERT INTO BANKACCOUNT (FORENAME, LASTNAME, AMOUNT, PIN) VALUES (?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE BANKACCOUNT SET AMOUNT = ? WHERE ID = ?";
     private static final String SQL_READ = "SELECT * from BANKACCOUNT WHERE ID = ?";
+    private static final String SQL_READ_ALL = "SELECT * from BANKACCOUNT";
 
 
     public DaoBankaccount() {
@@ -54,6 +57,31 @@ public class DaoBankaccount implements Dao<Bankaccount> {
 
     @Override
     public List<Bankaccount> getAll() {
+        try (Connection conn = setUpCon();
+             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL))
+        {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Bankaccount> bankaccountList = new ArrayList<>();
+
+            while (resultSet.next()) {
+
+                Bankaccount bankaccount = new Bankaccount();
+                bankaccount.setId(resultSet.getInt("id"));
+                bankaccount.setForename(resultSet.getString("forename"));
+                bankaccount.setLastname(resultSet.getString("lastname"));
+                bankaccount.setAmount(resultSet.getDouble("amount"));
+                bankaccount.setPin(resultSet.getInt("pin"));
+
+                bankaccountList.add(bankaccount);
+            }
+
+            return bankaccountList;
+
+        } catch ( Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -99,7 +127,7 @@ public class DaoBankaccount implements Dao<Bankaccount> {
 
     public static void main(String[] args) {
         DaoBankaccount daoBankaccount = new DaoBankaccount();
-        Bankaccount bankaccount = daoBankaccount.get(2);
-        System.out.println(bankaccount.toString());
+        List<Bankaccount> all = daoBankaccount.getAll();
+        System.out.println(all.size());
     }
 }

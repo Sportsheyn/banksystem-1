@@ -41,7 +41,9 @@ public class EchoClient {
     public static void main(String[] args) {
         EchoClient client;
         client = new EchoClient();
-        client.startConnection("172.17.128.1", 4444); //127.0.0.1
+        client.startConnection("35.240.67.38", 4444); //127.0.0.1
         client.sendMessage("Hallo google");
+
     }
+
 }

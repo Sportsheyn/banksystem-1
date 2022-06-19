@@ -9,7 +9,7 @@ import java.util.Map;
 import static java.lang.Integer.parseInt;
 
 /**
- * The CreateAccount class is a command. It creates new Accounts based on the user input.
+ * The CreateAccount class is a command. It creates new bankaccount configured from the user input.
  */
 public class CreateAccount implements ICommand {
 
@@ -23,9 +23,8 @@ public class CreateAccount implements ICommand {
     }
 
     /**
-     * Creates a new account
-
-     * @param params
+     * Creates a new bankaccount
+     * @param params map with the requested/needed parameters.
      */
     @Override
     public void execute(Map<String, Object> params) {
@@ -41,20 +40,24 @@ public class CreateAccount implements ICommand {
         String lastname = (String) params.get("userparam1");
         int pin = parseInt((String) params.get("userparam2"));
 
-        Bankaccount account = bank.createAccount(forename, lastname, pin);
+        Bankaccount bankaccount = bank.createAccount(forename, lastname, pin);
 
-        // ----- Db action -----
-        DaoBankaccount daoBankaccount = new DaoBankaccount();
-        daoBankaccount.save(account);
+        System.out.println(feedbackMessage(bankaccount));
+
+
     }
 
 
     @Override
     public String info() { return "Please enter your forename, lastname and pin."; }
 
-    public String successMessage(Bankaccount account) {
+    public String feedbackMessage(Bankaccount bankaccount) {
 
-        return "You have created a new bank account. Your accountnummber is " + account.getId() + ".";
+        return "You have created a new bankaccount. Here the details:\n" +
+                "  BankaccountId: " + bankaccount.getId() + "\n" +
+                "  Forename: " + bankaccount.getForename() + "\n" +
+                "  Lastname: " + bankaccount.getLastname() + "\n" +
+                "  Pin: " + bankaccount.getPin();
     }
 
 
@@ -68,7 +71,7 @@ public class CreateAccount implements ICommand {
         } catch (Exception e) {
             return false;
         }
-
         return true;
     }
+
 }

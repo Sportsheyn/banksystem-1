@@ -35,7 +35,23 @@ public class Bank {
      */
     public Bankaccount createAccount(String forename, String lastname, int pin) {
         Bankaccount newAccount = new Bankaccount(forename, lastname, pin);
-        return newAccount;
+
+        // ----- Db action -----
+        DaoBankaccount daoBankaccount = new DaoBankaccount();
+        daoBankaccount.save(newAccount);
+
+        List<Bankaccount> bankaccountList = daoBankaccount.getAll();
+        Bankaccount dbBankaccount = null;
+        for (int i = 0; i < bankaccountList.size(); i++) {
+            Bankaccount bankaccount = bankaccountList.get(i);
+            if (bankaccount.getForename().equals(newAccount.getForename()) &&
+                bankaccount.getLastname().equals(newAccount.getLastname()) &&
+                    bankaccount.getPin() == newAccount.getPin())   {
+                dbBankaccount = bankaccount;
+            }
+        }
+
+        return dbBankaccount;
     }
 
     /**
@@ -79,7 +95,6 @@ public class Bank {
 
         DaoCredit daoCredit = new DaoCredit();
         daoCredit.save(credit);
-
 
         return true;
     }
