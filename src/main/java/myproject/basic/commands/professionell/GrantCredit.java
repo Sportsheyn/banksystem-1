@@ -45,6 +45,6 @@ public class GrantCredit implements ICommand {
 
     @Override
     public String info() {
-        return "Please enter the accountnumber and the amount.";
+        return "Please enter in the following order: bankaccountId, amount.";
     }
 }

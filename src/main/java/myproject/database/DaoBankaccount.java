@@ -20,10 +20,10 @@ public class DaoBankaccount implements Dao<Bankaccount> {
     }
 
     private Connection setUpCon() throws SQLException {
-        String user = "user";
-        String pass = "password";
+        String user = "bank";
+        String pass = "1234";
 
-        String jdbcUrl = "jdbc:mysql://localhost:3306/myDb";
+        String jdbcUrl = "jdbc:mysql://localhost:3306/myDB";
         String driver = "com.mysql.cj.jdbc.Driver";
 
         return DriverManager.getConnection(jdbcUrl, user, pass);

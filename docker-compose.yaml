@@ -6,9 +6,13 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=bank
+      - MYSQL_PASSWORD=1234
+      - MYSQL_DATABASE=myDB
     volumes:
-      - D:\DockerVolumes:/var/lib/mysql
+      - D:\DockerVolumes2:/var/lib/mysql
+
+
 
 
 

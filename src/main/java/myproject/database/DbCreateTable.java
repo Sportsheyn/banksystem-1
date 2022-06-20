@@ -9,8 +9,8 @@ public class DbCreateTable {
 
 
     public static Connection setUpConn() throws SQLException {
-        String user = "user";
-        String pass = "password";
+        String user = "bank";
+        String pass = "1234";
 
         String jdbcUrl = "jdbc:mysql://localhost:3306/myDb";
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -32,6 +32,7 @@ public class DbCreateTable {
 
             Statement stmt = conn.createStatement();
             stmt.execute(sqlCreate);
+            System.out.println("Created bankaccount table");
         } catch (Exception e) {
             System.out.println(e);
         }
