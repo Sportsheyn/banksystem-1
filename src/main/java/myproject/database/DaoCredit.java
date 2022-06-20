@@ -1,6 +1,5 @@
 package myproject.database;
 
-import myproject.basic.general.Bankaccount;
 import myproject.basic.general.Credit;
 
 import java.sql.*;
@@ -8,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaoCredit implements Dao<Credit> {
+
+    private static Connection conn = DbsetUp.getConn();
 
     private static final String SQL_INSERT = "INSERT INTO CREDIT (AMOUNT, DEBTOR) VALUES (?,?)";
     private static final String SQL_READ_BY_ID = "SELECT * FROM CREDIT WHERE ID = ?";
@@ -21,21 +22,10 @@ public class DaoCredit implements Dao<Credit> {
         DbCreateTable.Credit();
     }
 
-    private Connection setUpCon() throws SQLException {
-        String user = "user";
-        String pass = "password";
-
-        String jdbcUrl = "jdbc:mysql://localhost:3306/myDb";
-        String driver = "com.mysql.cj.jdbc.Driver";
-
-        return DriverManager.getConnection(jdbcUrl, user, pass);
-    }
-
     @Override
     public Credit get(int creditId) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_BY_ID))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_BY_ID))
         {
             preparedStatement.setInt(1, creditId);
 
@@ -59,8 +49,7 @@ public class DaoCredit implements Dao<Credit> {
 
     @Override
     public List<Credit> getAll() {
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL))
         {
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Credit> creditList = new ArrayList<>();
@@ -87,8 +76,7 @@ public class DaoCredit implements Dao<Credit> {
 
     public List<Credit> getAllByDebtor(int debtor) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL_BY_Debtor))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL_BY_Debtor))
         {
             preparedStatement.setInt(1, debtor);
 
@@ -117,8 +105,7 @@ public class DaoCredit implements Dao<Credit> {
     @Override
     public void save(Credit credit) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT))
         {
             preparedStatement.setDouble(1, credit.getAmount());
             preparedStatement.setInt(2, credit.getDebtor());
@@ -134,8 +121,7 @@ public class DaoCredit implements Dao<Credit> {
     @Override
     public void update(Credit credit) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE))
         {
             preparedStatement.setDouble(1, credit.getAmount());
             preparedStatement.setInt(2, credit.getId());
@@ -151,8 +137,7 @@ public class DaoCredit implements Dao<Credit> {
     @Override
     public void delete(Credit credit) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_DELETE))
         {
             preparedStatement.setInt(1, credit.getId());
 

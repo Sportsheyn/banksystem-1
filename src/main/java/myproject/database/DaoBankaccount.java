@@ -1,13 +1,14 @@
 package myproject.database;
 
 import myproject.basic.general.Bankaccount;
-import myproject.basic.general.Credit;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DaoBankaccount implements Dao<Bankaccount> {
+
+    private static Connection conn = DbsetUp.getConn();
 
     private static final String SQL_INSERT = "INSERT INTO BANKACCOUNT (FORENAME, LASTNAME, AMOUNT, PIN) VALUES (?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE BANKACCOUNT SET AMOUNT = ? WHERE ID = ?";
@@ -19,21 +20,10 @@ public class DaoBankaccount implements Dao<Bankaccount> {
         DbCreateTable.Bankaccount();
     }
 
-    private Connection setUpCon() throws SQLException {
-        String user = "bank";
-        String pass = "1234";
-
-        String jdbcUrl = "jdbc:mysql://localhost:3306/myDB";
-        String driver = "com.mysql.cj.jdbc.Driver";
-
-        return DriverManager.getConnection(jdbcUrl, user, pass);
-    }
-
     @Override
     public Bankaccount get(int id) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ))
         {
             preparedStatement.setInt(1, id);
 
@@ -57,8 +47,8 @@ public class DaoBankaccount implements Dao<Bankaccount> {
 
     @Override
     public List<Bankaccount> getAll() {
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL))
+
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_READ_ALL))
         {
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -88,8 +78,7 @@ public class DaoBankaccount implements Dao<Bankaccount> {
     @Override
     public void save(Bankaccount bankaccount) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_INSERT))
         {
             preparedStatement.setString(1, bankaccount.getForename());
             preparedStatement.setString(2, bankaccount.getLastname());
@@ -108,8 +97,7 @@ public class DaoBankaccount implements Dao<Bankaccount> {
     @Override
     public void update(Bankaccount bankaccount) {
 
-        try (Connection conn = setUpCon();
-             PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE))
+        try (PreparedStatement preparedStatement = conn.prepareStatement(SQL_UPDATE))
         {
             preparedStatement.setDouble(1, bankaccount.getAmount());
             preparedStatement.setInt(2, bankaccount.getId());
@@ -125,9 +113,4 @@ public class DaoBankaccount implements Dao<Bankaccount> {
 
     }
 
-    public static void main(String[] args) {
-        DaoBankaccount daoBankaccount = new DaoBankaccount();
-        List<Bankaccount> all = daoBankaccount.getAll();
-        System.out.println(all.size());
-    }
 }
