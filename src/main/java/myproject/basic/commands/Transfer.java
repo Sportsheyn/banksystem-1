@@ -30,6 +30,12 @@ public class Transfer implements ICommand {
      */
     public void execute(Map<String, Object> params) {
 
+        boolean paramsOk = checkInput(params);
+        if (!paramsOk) {
+            System.out.println("The input was not valid for the command.");
+            return;
+        }
+
         Bank bank = (Bank) params.get("bank");
         int sourceaccount = parseInt((String) params.get("userparam0"));
         int targetaccount = parseInt((String) params.get("userparam1"));
@@ -42,8 +48,7 @@ public class Transfer implements ICommand {
     }
 
     public String feedbackMessage() {
-
-        return "Your transfer was successfull\n";
+        return "Your transfer was successfull.\n";
     }
 
     @Override
@@ -51,5 +56,17 @@ public class Transfer implements ICommand {
         return "Please enter in the following order: sourceaccontId, targetaccountId, amount.";
     }
 
+    public boolean checkInput(Map<String, Object> params) {
+
+        try {
+            int sourceaccount = parseInt((String) params.get("userparam0"));
+            int targetaccount = parseInt((String) params.get("userparam1"));
+            double amount = parseDouble((String) params.get("userparam2"));
+
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 
 }

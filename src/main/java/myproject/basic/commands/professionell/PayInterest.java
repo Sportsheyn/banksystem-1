@@ -18,6 +18,11 @@ public class PayInterest implements ICommand {
     public void execute(Map<String, Object> params) {
         Bank bank = (Bank) params.get("bank");
         bank.payinterest();
+        feedbackMessage();
+    }
+
+    private String feedbackMessage() {
+        return "The interest was successfully deducted from the accounts.";
     }
 
     @Override

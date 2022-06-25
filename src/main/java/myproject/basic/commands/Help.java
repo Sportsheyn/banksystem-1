@@ -5,7 +5,7 @@ import myproject.basic.helper.Bootstrap;
 
 import java.util.Map;
 
-public class HelpCommand implements ICommand {
+public class Help implements ICommand {
 
     @Override
     public String getCommandName() {
@@ -20,8 +20,9 @@ public class HelpCommand implements ICommand {
 
         System.out.println("Available commands:");
         for (Map.Entry<String, ICommand> e: commandMap.entrySet()) {
-            System.out.println(e.getKey());
+            System.out.print(e.getKey() + ", ");
         }
+        System.out.println();
 
     }
 

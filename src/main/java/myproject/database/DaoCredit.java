@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DaoCredit implements Dao<Credit> {
 
-    private static Connection conn = DbsetUp.getConn();
+    private static Connection conn = SetUpConn.getConn();
 
     private static final String SQL_INSERT = "INSERT INTO CREDIT (AMOUNT, DEBTOR) VALUES (?,?)";
     private static final String SQL_READ_BY_ID = "SELECT * FROM CREDIT WHERE ID = ?";

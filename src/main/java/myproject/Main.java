@@ -5,7 +5,7 @@ import myproject.basic.commands.*;
 import myproject.basic.general.Bank;
 import myproject.basic.helper.Bootstrap;
 import myproject.basic.helper.Helper;
-import myproject.database.DbsetUp;
+import myproject.database.SetUpConn;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +66,7 @@ public class Main {
         }
 
         System.out.println("Bye...");
-        DbsetUp.close();
+        SetUpConn.close();
 
     }
 

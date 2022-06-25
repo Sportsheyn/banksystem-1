@@ -5,7 +5,7 @@ import java.sql.Statement;
 
 public class DbCreateTable {
 
-    private static Connection conn = DbsetUp.getConn();
+    private static Connection conn = SetUpConn.getConn();
 
     public static void Bankaccount() {
 

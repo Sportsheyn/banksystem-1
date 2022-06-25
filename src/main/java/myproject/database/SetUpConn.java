@@ -3,13 +3,13 @@ package myproject.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DbsetUp {
+public class SetUpConn {
 
     // Singelton Pattern
     private static Connection conn;
 
 
-    public DbsetUp() {
+    public SetUpConn() {
     }
 
     public static Connection getConn() {

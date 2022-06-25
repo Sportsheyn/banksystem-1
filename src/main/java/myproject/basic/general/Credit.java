@@ -1,5 +1,6 @@
 package myproject.basic.general;
 
+
 public class Credit {
 
     private int id;

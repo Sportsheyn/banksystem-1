@@ -39,7 +39,6 @@ public class GrantCredit implements ICommand {
     }
 
     private String feedbackMessage() {
-
         return "Your credit request was granted.";
     }
 

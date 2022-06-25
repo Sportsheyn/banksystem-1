@@ -31,6 +31,12 @@ public class Deposit implements ICommand {
     @Override
     public void execute(Map<String, Object> params) {
 
+        boolean paramsOk = checkInput(params);
+        if (!paramsOk) {
+            System.out.println("The input was not valid for the command.");
+            return;
+        }
+
         double amount = parseDouble((String) params.get("userparam0"));
         int bankaccountId = parseInt((String)params.get("userparam1"));
         int bankaccountPin = parseInt((String) params.get("userparam2"));
@@ -44,9 +50,26 @@ public class Deposit implements ICommand {
         }
     }
 
+    public String feedbackMessage() {
+        return "Your deposit was successful.\n";
+    }
+
     @Override
     public String info() {
         return "Please enter in the following order: amount, bankaccountId, pin";
+    }
+
+    public boolean checkInput(Map<String, Object> params) {
+
+        try {
+            double amount = parseDouble((String) params.get("userparam0"));
+            int bankaccountId = parseInt((String)params.get("userparam1"));
+            int bankaccountPin = parseInt((String) params.get("userparam2"));
+
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DaoBankaccount implements Dao<Bankaccount> {
 
-    private static Connection conn = DbsetUp.getConn();
+    private static Connection conn = SetUpConn.getConn();
 
     private static final String SQL_INSERT = "INSERT INTO BANKACCOUNT (FORENAME, LASTNAME, AMOUNT, PIN) VALUES (?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE BANKACCOUNT SET AMOUNT = ? WHERE ID = ?";

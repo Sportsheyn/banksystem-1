@@ -16,8 +16,8 @@ public class Bootstrap {
         commands.put("withdraw", new Withdraw());
         commands.put("deposit", new Deposit());
         commands.put("transfer", new Transfer());
-        commands.put("getbalance", new ShowBalance());
-        commands.put("help", new HelpCommand());
+        commands.put("showbalance", new ShowBalance());
+        commands.put("help", new Help());
 
         //Pro commands
         try {

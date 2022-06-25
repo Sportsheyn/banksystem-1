@@ -33,11 +33,10 @@ public class Bank {
      * @param lastname the lastname of the account owner
      * @return the new generated account
      */
-    public Bankaccount createAccount(String forename, String lastname, int pin) {
+    public Bankaccount createAccount(String forename, String lastname, int pin, DaoBankaccount daoBankaccount) {
         Bankaccount newAccount = new Bankaccount(forename, lastname, pin);
 
         // ----- Db action -----
-        DaoBankaccount daoBankaccount = new DaoBankaccount();
         daoBankaccount.save(newAccount);
 
         List<Bankaccount> bankaccountList = daoBankaccount.getAll();

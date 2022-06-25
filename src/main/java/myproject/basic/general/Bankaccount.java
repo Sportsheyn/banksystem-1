@@ -1,11 +1,14 @@
 package myproject.basic.general;
 
+import lombok.Getter;
+
 /**
  * Representation of an account
  * @author Christopher
  * @version 05.06.2022
  */
 
+@Getter
 public class Bankaccount {
 
     private int id;
@@ -35,40 +38,21 @@ public class Bankaccount {
 
     // ---------------------- Getter and Setter -----------------------------------------------------------------------
 
-    public int getId() {
-        return id;
-    }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getForename() {
-        return forename;
     }
 
     public void setForename(String forename) {
         this.forename = forename;
     }
 
-    public String getLastname() {
-        return lastname;
-    }
-
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public int getPin() {
-        return pin;
     }
 
     public void setPin(int pin) {
@@ -116,7 +100,5 @@ public class Bankaccount {
                 ", pin=" + pin +
                 '}';
     }
-
-
 
 }

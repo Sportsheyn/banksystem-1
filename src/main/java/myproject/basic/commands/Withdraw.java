@@ -11,7 +11,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 /**
- * The Withdraw class is a command. It withdraws money from an account.
+ * The withdraw class is a command. It withdraws money from an account.
  */
 public class Withdraw implements ICommand {
 
@@ -32,10 +32,16 @@ public class Withdraw implements ICommand {
     @Override
     public void execute(Map<String, Object> params) {
 
-        Bank bank = (Bank) params.get("bank");
+        boolean paramsOk = checkInput(params);
+        if (!paramsOk) {
+            System.out.println("The input was not valid for the command.");
+            return;
+        }
+
         double amount = parseDouble((String) params.get("userparam0"));
         int bankaccountId = parseInt((String) params.get("userparam1"));
         int bankaccountPin = parseInt((String) params.get("userparam2"));
+
 
         if(Helper.checkPin(bankaccountId, bankaccountPin)) {
             // ----- Db action -----
@@ -43,12 +49,33 @@ public class Withdraw implements ICommand {
             Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
             bankaccount.withdraw(amount);
             daoBankaccount.update(bankaccount);
-        }
 
+            System.out.println(feedbackMessage(amount));
+
+        } else {
+            System.out.println("Sorry, wrong pin.");
+        }
+    }
+
+    public String feedbackMessage(double amount) {
+        return String.format("Your withdrawal over %f EUR was successful.\n", amount);
     }
 
     @Override
     public String info() {
         return "Please enter in the following order: amount, bankaccountId, pin.";
+    }
+
+    public boolean checkInput(Map<String, Object> params) {
+
+        try {
+            double amount = parseDouble((String) params.get("userparam0"));
+            int bankaccountId = parseInt((String)params.get("userparam1"));
+            int bankaccountPin = parseInt((String) params.get("userparam2"));
+
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

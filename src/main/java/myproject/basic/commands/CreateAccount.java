@@ -40,7 +40,7 @@ public class CreateAccount implements ICommand {
         String lastname = (String) params.get("userparam1");
         int pin = parseInt((String) params.get("userparam2"));
 
-        Bankaccount bankaccount = bank.createAccount(forename, lastname, pin);
+        Bankaccount bankaccount = bank.createAccount(forename, lastname, pin, new DaoBankaccount());
 
         System.out.println(feedbackMessage(bankaccount));
 
