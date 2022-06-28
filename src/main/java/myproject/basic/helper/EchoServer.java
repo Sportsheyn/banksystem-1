@@ -23,6 +23,7 @@ public class EchoServer {
             while ((inputLine = in.readLine()) != null) {
                 if (".".equals(inputLine)) {
                     out.println("good bye");
+                    System.out.println("Test");
                     break;
                 }
                 System.out.println(inputLine);
