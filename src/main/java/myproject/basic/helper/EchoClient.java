@@ -42,7 +42,7 @@ public class EchoClient {
     public static void main(String[] args) {
         EchoClient client;
         client = new EchoClient();
-        client.startConnection("104.155.127.193", 4444); //127.0.0.1
+        client.startConnection("127.0.0.1", 4444); //127.0.0.1 //104.155.127.193
 
         Scanner scanner = new Scanner(System.in);
         while (true) {

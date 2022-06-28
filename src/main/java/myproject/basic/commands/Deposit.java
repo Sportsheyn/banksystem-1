@@ -4,6 +4,7 @@ import myproject.basic.general.Bankaccount;
 import myproject.basic.helper.Helper;
 import myproject.database.DaoBankaccount;
 
+import java.io.PrintWriter;
 import java.util.Map;
 
 import static java.lang.Double.parseDouble;
@@ -48,7 +49,13 @@ public class Deposit implements ICommand {
             bankaccount.deposit(amount);
             daoBankaccount.update(bankaccount);
         }
+
+        PrintWriter out = (PrintWriter) params.get("out");
+        out.println(feedbackMessage());
+
     }
+
+
 
     public String feedbackMessage() {
         return "Your deposit was successful.\n";

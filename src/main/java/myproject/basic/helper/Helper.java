@@ -4,6 +4,10 @@ import myproject.basic.general.Bank;
 import myproject.basic.general.Bankaccount;
 import myproject.database.DaoBankaccount;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.Buffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -25,6 +29,26 @@ public class Helper {
             }
         }
         return params;
+    }
+
+    public static Map<String, Object> requestParamsServerEdition(Bank bank, PrintWriter out, BufferedReader in) throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("bank", bank);
+        params.put("out", out);
+
+        String input = in.readLine();
+        String[] inputSplit = input.split(" ");
+
+        if (inputSplit.length > 0) {
+            for (int i = 0; i < inputSplit.length; i++) {
+                params.put("userparam" + i, inputSplit[i].toLowerCase());
+            }
+        }
+        return params;
+    }
+
+    public static String requestCommandServerEdition(BufferedReader in) throws IOException {
+        return in.readLine().trim();
     }
 
 
