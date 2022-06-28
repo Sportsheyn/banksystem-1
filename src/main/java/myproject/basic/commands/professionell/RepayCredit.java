@@ -7,6 +7,9 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Unpack user arguments and calls the bank method repayCredit()
+ */
 public class RepayCredit implements ICommand {
 
 

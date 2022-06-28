@@ -5,7 +5,9 @@ import myproject.basic.general.Bank;
 
 import java.util.Map;
 
-
+/**
+ * Unpack user arguments and calls the bank method payInterest()
+ */
 public class PayInterest implements ICommand {
 
 

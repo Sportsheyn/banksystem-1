@@ -1,14 +1,17 @@
 package myproject.basic.general;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * Representation of an account
+ * Representation of a bankaccount
  * @author Christopher
  * @version 05.06.2022
  */
-
+@Setter
 @Getter
+@NoArgsConstructor
 public class Bankaccount {
 
     private int id;
@@ -17,47 +20,28 @@ public class Bankaccount {
     private double amount;
     private int pin;
 
-
-    public Bankaccount() {
-    }
-
     public Bankaccount(String forename, String lastname, int pin) {
         this.forename = forename;
         this.lastname = lastname;
         this.pin = pin;
     }
 
-
+    /**
+     * deposit the amount to the account
+     * @param amount which is used for the transaction
+     */
     public void deposit(double amount) {
         this.amount += amount;
     }
 
+    /**
+     * withdraws the amount from the account
+     * @param amount which is used for the transaction
+     */
     public void withdraw(double amount) {
         this.amount -= amount;
     }
 
-    // ---------------------- Getter and Setter -----------------------------------------------------------------------
-
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setForename(String forename) {
-        this.forename = forename;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
 
 
     // ---------------------- equals and hashCode ---------------------------------------------------------------------

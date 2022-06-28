@@ -9,6 +9,9 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * User arguments are unpacked and open credits are displayed
+ */
 public class ShowCredit implements ICommand {
 
     @Override

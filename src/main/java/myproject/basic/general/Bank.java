@@ -60,9 +60,8 @@ public class Bank {
      * @param amount the amount of the transaction
      * @return true if this transaction between the two accounts was successful false otherwise
      */
-    public void transfer(int sourceaccountId, int targetaccountId, double amount) {
+    public void transfer(int sourceaccountId, int targetaccountId, double amount, DaoBankaccount daoBankaccount) {
 
-        DaoBankaccount daoBankaccount = new DaoBankaccount();
         Bankaccount bankaccountSource = daoBankaccount.get(sourceaccountId);
         Bankaccount bankaccountTarget = daoBankaccount.get(targetaccountId);
 

@@ -14,9 +14,7 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 /**
- * Middleman between grantCredit() from Bank.class and user input.
- * Grant a credit. Amount and accountnumber hands over the user.
- * The open credit will be saved in the Bank.class. The credit amount will credit to the corresponding account.
+ * Unpack user arguments and calls the bank method grantcredit()
  */
 public class GrantCredit implements ICommand {
 

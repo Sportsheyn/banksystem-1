@@ -2,6 +2,7 @@ package myproject.basic.commands;
 
 import myproject.basic.general.Bank;
 import myproject.basic.general.Bankaccount;
+import myproject.database.DaoBankaccount;
 
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class Transfer implements ICommand {
         int targetaccount = parseInt((String) params.get("userparam1"));
         double amount = parseDouble((String) params.get("userparam2"));
 
-        bank.transfer(sourceaccount, targetaccount, amount);
+        bank.transfer(sourceaccount, targetaccount, amount, new DaoBankaccount());
 
         System.out.println(feedbackMessage());
 
