@@ -31,15 +31,18 @@ public class EchoServer {
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server: " + serverSocket);
+
             clientSocket = serverSocket.accept();
             System.out.println("Client: " + clientSocket);
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
+
             while (true) {
 
                 out.println("Please enter a command.");
                 String input = Helper.requestCommandServerEdition(in);
+                System.out.println(input);
 
                 if (input != null) {
 
@@ -49,14 +52,15 @@ public class EchoServer {
 
                     if (cmd != null) {
 
-                        // Check wheater the cmd need a input
                         Map<String, Object> params = null;
                         if (cmd.info() != "") {
                             out.println(cmd.info());
                             params = Helper.requestParamsServerEdition(bank, out, in);
+                            System.out.println("Tset");
                         } else {
                             params = new HashMap<>();
                             params.put("bank", bank);
+                            params.put("out", out);
                         }
 
 
@@ -69,7 +73,7 @@ public class EchoServer {
                         }
 
                     } else {
-                        System.out.println("Bad command: " + input);
+                        out.println("Bad command: " + input);
                     }
                 }
             }

@@ -32,11 +32,14 @@ public class Helper {
     }
 
     public static Map<String, Object> requestParamsServerEdition(Bank bank, PrintWriter out, BufferedReader in) throws IOException {
+
         Map<String, Object> params = new HashMap<>();
         params.put("bank", bank);
         params.put("out", out);
 
+        System.out.println("Warten");
         String input = in.readLine();
+
         String[] inputSplit = input.split(" ");
 
         if (inputSplit.length > 0) {
@@ -44,6 +47,8 @@ public class Helper {
                 params.put("userparam" + i, inputSplit[i].toLowerCase());
             }
         }
+        System.out.println(input);
+
         return params;
     }
 
