@@ -47,7 +47,7 @@ public class Transfer implements ICommand {
 
         bank.transfer(sourceaccount, targetaccount, amount, new DaoBankaccount());
 
-        //out.println(feedbackMessage());
+        out.println(feedbackMessage());
 
     }
 

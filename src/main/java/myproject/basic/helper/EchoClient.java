@@ -50,6 +50,11 @@ public class EchoClient {
 
         while (true) {
 
+            String line;
+            while(client.in.ready() && (line = client.in.readLine()) != null) {
+                System.out.println(line);
+            }
+
             String input = scanner.nextLine();
 
             if (input.equals("out")) {

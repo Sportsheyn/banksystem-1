@@ -52,7 +52,7 @@ public class Deposit implements ICommand {
             daoBankaccount.update(bankaccount);
         }
 
-        // out.println(feedbackMessage());
+        out.println(feedbackMessage());
     }
 
 

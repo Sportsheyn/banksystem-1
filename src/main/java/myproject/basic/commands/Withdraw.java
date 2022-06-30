@@ -53,7 +53,7 @@ public class Withdraw implements ICommand {
             bankaccount.withdraw(amount);
             daoBankaccount.update(bankaccount);
 
-            //out.println(feedbackMessage(amount));
+            out.println(feedbackMessage(amount));
 
         } else {
             out.println("Sorry, wrong pin.");
