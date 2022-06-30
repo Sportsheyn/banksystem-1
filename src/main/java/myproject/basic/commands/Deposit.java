@@ -31,8 +31,8 @@ public class Deposit implements ICommand {
      */
     @Override
     public void execute(Map<String, Object> params) {
-        PrintWriter out = (PrintWriter) params.get("out");
 
+        PrintWriter out = (PrintWriter) params.get("out");
 
         boolean paramsOk = checkInput(params);
         if (!paramsOk) {
@@ -52,9 +52,7 @@ public class Deposit implements ICommand {
             daoBankaccount.update(bankaccount);
         }
 
-
-        out.println(feedbackMessage());
-
+        // out.println(feedbackMessage());
     }
 
 

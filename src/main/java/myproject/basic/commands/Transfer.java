@@ -4,6 +4,7 @@ import myproject.basic.general.Bank;
 import myproject.basic.general.Bankaccount;
 import myproject.database.DaoBankaccount;
 
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +32,11 @@ public class Transfer implements ICommand {
      */
     public void execute(Map<String, Object> params) {
 
+        PrintWriter out = (PrintWriter) params.get("out");
+
         boolean paramsOk = checkInput(params);
         if (!paramsOk) {
-            System.out.println("The input was not valid for the command.");
+            out.println("The input was not valid for the command.");
             return;
         }
 
@@ -44,7 +47,7 @@ public class Transfer implements ICommand {
 
         bank.transfer(sourceaccount, targetaccount, amount, new DaoBankaccount());
 
-        System.out.println(feedbackMessage());
+        //out.println(feedbackMessage());
 
     }
 

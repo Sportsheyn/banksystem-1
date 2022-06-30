@@ -45,10 +45,13 @@ public class EchoClient {
         client.startConnection("127.0.0.1", 4444); //127.0.0.1 //104.155.127.193
 
         Scanner scanner = new Scanner(System.in);
+
         System.out.println(client.in.readLine());
+
         while (true) {
 
             String input = scanner.nextLine();
+
             if (input.equals("out")) {
                 break;
             } else {

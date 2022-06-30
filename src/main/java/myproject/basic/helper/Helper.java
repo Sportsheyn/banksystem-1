@@ -37,7 +37,6 @@ public class Helper {
         params.put("bank", bank);
         params.put("out", out);
 
-        System.out.println("Warten");
         String input = in.readLine();
 
         String[] inputSplit = input.split(" ");

@@ -35,7 +35,7 @@ jar {
     }
 }
 
-// Doesnt work
+
 task myJar(type: Jar) {
     duplicatesStrategy = 'exclude'
     manifest {
@@ -86,5 +86,6 @@ tasks.withType(Javadoc) {
 task javadocAndZip {
     dependsOn 'javadoc'
     dependsOn 'myZip'
-    tasks.findByName('javadoc').mustRunAfter 'myZip'
+    //tasks.findByName('javadoc').mustRunAfter 'myZip' //Vorher, richtig so?
+    tasks.findByName('myZip').mustRunAfter 'javadoc'
 }

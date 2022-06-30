@@ -1,15 +1,17 @@
-package myproject.basic.helper;
+package myproject;
 
 
 import myproject.basic.commands.ICommand;
 import myproject.basic.general.Bank;
+import myproject.basic.helper.Bootstrap;
+import myproject.basic.helper.Helper;
 
 import java.net.*;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EchoServer {
+public class MainServer {
 
     Bank bank;
     Map<String, ICommand> commands;
@@ -19,7 +21,7 @@ public class EchoServer {
     private PrintWriter out;
     private BufferedReader in;
 
-    public EchoServer() {
+    public MainServer() {
         this.bank = new Bank();
         Bootstrap bootstrap = new Bootstrap();
         this.commands = bootstrap.createCommandMap();
@@ -97,7 +99,7 @@ public class EchoServer {
     }
 
     public static void main(String[] args) {
-        EchoServer server = new EchoServer();
+        MainServer server = new MainServer();
         server.start(4444);
     }
 }
