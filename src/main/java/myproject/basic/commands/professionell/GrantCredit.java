@@ -30,7 +30,7 @@ public class GrantCredit implements ICommand {
         int bankaccountId = parseInt((String) params.get("userparam0"));
         double amount = parseDouble((String) params.get("userparam1"));
 
-        bank.grantCredit(bankaccountId, amount);
+        bank.grantCredit(bankaccountId, amount, new DaoBankaccount(), new DaoCredit());
 
         System.out.println(feedbackMessage());
 

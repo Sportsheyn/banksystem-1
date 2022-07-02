@@ -81,17 +81,14 @@ public class Bank {
      * @param amount the amount of the credit
      * @return true if the credit was granted false otherwise
      */
-    public boolean grantCredit(int bankaccountId, double amount) {
+    public boolean grantCredit(int bankaccountId, double amount, DaoBankaccount daoBankaccount, DaoCredit daoCredit) {
 
-        DaoBankaccount daoBankaccount = new DaoBankaccount();
         Bankaccount bankaccount = daoBankaccount.get(bankaccountId);
 
         bankaccount.deposit(amount);
         daoBankaccount.update(bankaccount);
 
         Credit credit = new Credit(bankaccountId, amount);
-
-        DaoCredit daoCredit = new DaoCredit();
         daoCredit.save(credit);
 
         return true;

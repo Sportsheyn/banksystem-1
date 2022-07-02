@@ -1,6 +1,7 @@
 package myproject.basic.general;
 
 import myproject.database.DaoBankaccount;
+import myproject.database.DaoCredit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -18,6 +19,9 @@ public class BankTest {
 
     @Mock
     DaoBankaccount daoBankaccountMock;
+
+    @Mock
+    DaoCredit daoCreditMock;
 
     @Test
     public void createAccount() {
@@ -69,12 +73,25 @@ public class BankTest {
     @Test
     public void grantCredit() {
 
+        String forename1 = "Tom";
+        String lastname1 = "Cruise";
+        int pin1 = 1234;
+        Bankaccount newAccount = new Bankaccount(forename1, lastname1, pin1);
 
+        assertNotNull(daoBankaccountMock);
+        when(daoBankaccountMock.get(1)).thenReturn(newAccount);
 
+        Bank bank = new Bank();
+        bank.grantCredit(1, 500, daoBankaccountMock, daoCreditMock);
+
+        //einziger test, der für diese klasse möglich ist
+        assertEquals(500.0, newAccount.getAmount(), 0.0001);
     }
 
     @Test
     public void repayCredit() {
+
+
     }
 
     @Test
