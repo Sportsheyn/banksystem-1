@@ -64,7 +64,6 @@ public class MainServer {
                             params.put("out", out);
                         }
 
-
                         try {
                             cmd.execute(params);
 
@@ -82,6 +81,9 @@ public class MainServer {
 
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("The session was ended by the user");
+            stop();
+            this.start(4444);
         } finally {
             stop();
         }

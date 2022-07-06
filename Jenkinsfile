@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        //scheitert
+
         stage('Upload') {
              steps {
                 sh '''
@@ -46,9 +46,6 @@ pipeline {
                     def result = jsonslurper.parseText(content)
                     currentBuild.description = "Download:" + result.link
                 }
-
-
-
 
              }
         }

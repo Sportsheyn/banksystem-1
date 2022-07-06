@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="myproject.basic.general.BankTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-06-30T18:04:37" hostname="LAPTOP-5GD1CPL8" time="0.616">
+<testsuite name="myproject.basic.general.BankTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-07-02T18:55:09" hostname="LAPTOP-5GD1CPL8" time="0.584">
   <properties/>
-  <testcase name="grantCredit" classname="myproject.basic.general.BankTest" time="0.616"/>
+  <testcase name="payinterest" classname="myproject.basic.general.BankTest" time="0.547"/>
+  <testcase name="grantCredit" classname="myproject.basic.general.BankTest" time="0.029"/>
+  <testcase name="createAccount" classname="myproject.basic.general.BankTest" time="0.002"/>
+  <testcase name="transfer" classname="myproject.basic.general.BankTest" time="0.002"/>
+  <testcase name="repayCredit" classname="myproject.basic.general.BankTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
