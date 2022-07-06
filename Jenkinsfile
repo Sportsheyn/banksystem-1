@@ -25,6 +25,22 @@ pipeline {
             }
         }
 
+        stage('Jar1') {
+                    steps {
+                        sh 'echo "Javadocs.."'
+                        sh './gradlew jar'
+                    }
+                }
+
+                stage('Jar2') {
+                            steps {
+                                sh 'echo "Javadocs.."'
+                                sh './gradlew myJar'
+                            }
+                        }
+
+
+
         stage('Zip') {
             steps {
                 sh 'echo "myZip.."'
